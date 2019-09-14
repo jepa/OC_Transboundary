@@ -1,0 +1,1200 @@
+---
+title: "Econ Analysis"
+author: "Juliano Palacios-Abrantes"
+date: 
+output:
+  word_document: default
+---
+
+
+This document presents the methods and results for the paper Sumaila *et al* (NA) *Climate change, shifting threat points and the management of transboundary fish stocks* published as part of the special issue *Transboundary fish-stocks of North America under Climate Change* in the journal *Ecology and Society*. 
+  
+```{r setup, eval=T, echo=F, warning=F,message=F, results='hide'}
+
+#### READ ME !!! ####
+# Run this chunk before knit so you make sure you have all pkgs installed in R
+
+ipak <- function(pkg){
+  new.pkg <- pkg[!(pkg %in% installed.packages()[, "Package"])]
+  if (length(new.pkg)) 
+    install.packages(new.pkg, dependencies = TRUE,repos = "http://cran.us.r-project.org")
+  sapply(pkg, require, character.only = TRUE)
+}
+
+
+#### Library ####
+packages <- c(
+  "readxl", # Read dataframe
+  "dplyr", # Data manipulation
+  "tidyr", # Data manipulation
+  "magrittr", # For roll mean
+  "ggplot2", #Nice grpahs and spatial analysis
+  "cowplot",
+  "rgdal",
+  "RColorBrewer",
+  "wesanderson",
+  "zoo", # for rollmean
+  "knitr",
+  "kableExtra",
+  "stringr",
+  "data.table",
+  "ggrepel",
+  "gridExtra",
+  "ggmap",
+  "rgeos",
+  "sf",
+  "sp",
+  "rgdal", #Spatial analysis 
+  "tools", #Spatial analysis 
+  "png", # For reading plots in chunk codes
+  "grid", # For reading plots in chunk codes
+  "rphylopic" #Get silhouettes of organisms from Phylopic.
+)
+
+ipak(packages)
+
+##________________________________________________##
+
+# source("/Users/jpalacios/Documents/UBC/Oceans_Project/Distribution/Functions/DBEM_imp_F.R") #Imports a single species
+
+
+ggtheme_plot <- function() {
+  theme(
+    plot.title = element_text(size = rel(1), hjust = 0, face = "bold"),
+    panel.background = element_blank(),
+    strip.background = element_blank(),
+    # strip.text       = element_text(size = base_size, face = "italic"),
+    panel.border     = element_blank(),
+    panel.grid.minor = element_blank(),
+    panel.grid.major = element_blank(),
+    axis.ticks = element_blank(),
+    axis.text.x = element_text(size = 10,
+                               angle = 0,
+                               face = "plain"),
+    axis.text.y = element_text(size = 12),
+    axis.title = element_text(size = 14),
+    legend.key = element_rect(colour = NA, fill = NA),
+    legend.position  = "top",
+    legend.title = element_text(size = 16),
+    legend.text = element_text(size = 14),
+    strip.text.x = element_text(size = 18, colour = "darkgrey"),
+    strip.text = element_text(size = 18)
+  )
+}
+
+ggtheme_map <- function(base_size = 9, Region = "NA") {
+  
+  theme(text             = element_text(#family = "Helvetica",
+    color = "gray30", size = base_size),
+    plot.title       = element_text(size = rel(1.25), hjust = 0, face = "bold"),
+    panel.background = element_blank(),
+    panel.border     = element_blank(),
+    panel.grid.minor = element_blank(),
+    panel.grid.major = element_line(color = "transparent"),
+    strip.background =element_rect(fill = "transparent"),
+    strip.text.x = element_text(size = 18, colour = "black",face= "bold.italic", angle = 0),
+    axis.line        = element_blank(), # element_line(colour = "grey30", size = .5))
+    axis.ticks       = element_blank(),
+    axis.text        = element_blank(),
+    axis.title       = element_blank(),
+    # legend.key       = element_rect(colour = NA, fill = NA, size = 4),
+    legend.position = "bottom"#,
+    # legend.key.width =unit(6,"line")
+  )
+}
+
+### Determine years of analysis
+
+# Current time
+Beg_In <- 2005
+Beg_End <- 2014
+
+# Mid century
+Mid_In <- 2041 # 2046
+Mid_End <- 2060
+
+# End Century
+End_In <- 2080 # 2090
+End_End <- 2099
+
+```
+
+# Methods
+
+## Study Area and Fisheries
+
+The current study focuses on five transboundary fisheries jointly managed by Canada and the US for both the Atlantic and the Pacific coasts (**Table X**). The analysis was carried out within the 200 nautical miles of both nation's EEZ from the Gulf of Mexico to The Labrador Sea in the Atlantic, and from California to Chukchi Sea, in the Pacific coast. Subsets of the total area were carried for the Gulf of Maine agreement according to NAFO's divisions 5Y, 5Ze, and 4X within latitudes 46.2°N and 41.5°S, and longitudes -72°W and -64°E. For the IPHC, we considered Alaska as a separate entity, the US contiguous states as a second one (Washington, Oregon and California), and lastly British Columbia (Canada).
+
+<!-- Methods notes -->
+- Right now we are subsetting the GoM-NAFO areas in a square-shape polygon according to the coordinates set (46.2°N and 41.5°S, and longitudes -72°W and -64°E). This method inclues all the way to the easter sinde of Georges Bank, however, it also inclueds waters > 200m (because is a square). We could filter those areas out using the data of [The Gulf of Maine Counsil](http://www.gulfofmaine.org/2/committees-and-programs/gulf-of-maine-mapping-initiative/image-library/).
+
+
+## Data
+
+### DBEM MCP Data
+
+This chunk loads the DBEM data (previouslly obtained with function `dbem_import()`) and filters out the 4 species analyzed and the IPHC and GoM regions.
+
+```{r Load_DBEM_Data, echo = F, eval = T, results='hide', warning=F,message=F}
+
+
+###____________ Load Spatial Data____________#
+# List of DBEM INDEX within the EEZ
+#Data provided by Vicki Lam
+
+EEZIDs_List <- read_excel("~/Documents/UBC/Oceans_Project/Distribution/By Cell/Cell_Data/Updated_EEZList_17June2016.xlsx")
+
+EEZ_CellID <- read_excel("~/Documents/UBC/Oceans_Project/Distribution/By Cell/Cell_Data/EEZ_CellID.xlsx")
+
+colnames(EEZ_CellID) <- c("EEZID","INDEX")
+
+# DBEM Coordinate system
+Coor <- fread("~/Documents/UBC/Oceans_Project/Distribution/DBEM/Data/Lon_Lat_DBEM.txt",header = FALSE)
+colnames(Coor) <- c("INDEX","Longitude","Latitude")
+
+###____________ Load DBEM Data____________#
+
+# From (/Users/jpalacios/Documents/UBC/Oceans_Project/Distribution/By Cell/By_Cell_Analysis.Rmd)
+Raw_DBEM_Results <- data.table::fread("~/Documents/UBC/Oceans_Project/Manuscript/Data/Raw_Data.csv") %>% 
+  filter(Species != "Anoplopoma fimbria") #Remove
+
+###____________Subset DBEM Data for specific region and Spp.____________#
+
+#### All North America ####
+
+EEZs <- c(
+  "Canada (Arctic)",
+  "Canada (East Coast)",
+  "Canada (Pacific)",
+  "USA (East Coast)",
+  "USA (West Coast)",
+  "USA (Alaska, Arctic)",
+  "USA (Alaska, Subarctic)"
+)
+
+All_EEZs <- EEZIDs_List %>% 
+  filter(Name %in% EEZs) %>% 
+  left_join(EEZ_CellID,
+            by = "EEZID")
+
+names(All_EEZs)[3] <- "INDEX"
+
+
+# LAT LONG Corrections for Alaska (IPHC)
+
+DBEM_Corrected <- Raw_DBEM_Results %>% 
+  filter(INDEX %in% All_EEZs$INDEX) %>% 
+  filter(Longitude > 0) %>% 
+  mutate(Longitude = Longitude - 360)
+
+DBEM_Corrected <- Raw_DBEM_Results %>% 
+  filter(INDEX %in% All_EEZs$INDEX) %>% 
+  filter(Longitude < 0) %>% 
+  bind_rows(DBEM_Corrected)
+
+### Get ridd of Pacific Species in NAFO (P.Halibut model ghost)
+
+NAFO_E <- DBEM_Corrected %>% 
+  filter(Longitude >= -100)
+
+Pacific <- DBEM_Corrected %>% 
+  filter(Treaty != "NAFO")
+
+DBEM_Corrected <- NAFO_E %>% 
+  bind_rows(Pacific)
+
+### Get ridd of Atlantic Species in the Pacific (Just in case)
+
+Pacific_Spp <- DBEM_Corrected %>% 
+  filter(Longitude <= -100)
+
+Atlantic <- DBEM_Corrected %>% 
+  filter(Treaty == "NAFO")
+
+### Final DBEM data corrected for species overlapping
+
+DBEM_Corrected <- Pacific_Spp %>% 
+  bind_rows(Atlantic)
+
+#### Filter results within IPHC region and Gulf of Maine
+
+# GoM Limits
+N_Lim <- 46.2
+S_Lim <- 41.5
+W_Lim <- -72
+E_Lim <- -64
+
+EEZsID <- EEZIDs_List %>%
+  filter(Name %in%EEZs) %>%
+  left_join(EEZ_CellID,
+            by = "EEZID")
+
+# # GoM Region
+GB_Coor <- Coor %>%
+  filter(INDEX %in% EEZsID$INDEX) %>%
+  # mutate(one = 1) %>%
+  filter( # Limit the area to George's bank
+    Latitude < N_Lim, # North
+    Latitude > S_Lim, # South
+    Longitude > W_Lim, # West
+    Longitude < E_Lim
+  )
+
+
+## IPHC Region
+ 
+Study_Region <- DBEM_Corrected %>%
+  filter(Species == "Hippoglossus stenolepis") %>%  #Inlcude all of the INDEXEs from the IPHC
+  group_by(INDEX) %>%
+  summarise(n()) %>%
+  bind_rows(GB_Coor) # Include those within the GOM
+
+
+### Final DBEM data corrected for species overlapping and Regions
+DBEM_Corrected <- DBEM_Corrected %>%
+  filter(INDEX %in% Study_Region$INDEX)
+
+# Filter treaties that we want to analyze 
+
+Selected_Species <- c("Hippoglossus stenolepis", # Pacific Halibut
+                      "Merluccius productus", # Whiting
+                      "Gadus morhua",  # Cod
+                      "Limanda ferruginea", # Yellowtail flounder
+                      "Melanogrammus aeglefinus" # Haddock
+                      )
+
+
+###_____Checkpoint Charly _____ #
+# Double check distributions are limited to management areas 
+
+# DBEM_Corrected %>%
+#   filter(Species %in% Selected_Species) %>%
+#   left_join(Coor,
+#             by = "INDEX") %>%
+#   ggplot(.,
+#          aes(
+#            x = Longitude.y,
+#            y = Latitude.y,
+#            fill = log(INDEX)
+#          )
+#          ) +
+#   geom_tile() +
+#   facet_wrap(~Species)
+
+# All good
+###_____ End Checkpoint Charly _____#
+
+```
+
+```{r Clean_DBEM, eval = T, echo=F}
+
+# This table provides the percentage change in MCP for each species, EEZ and RCP as well as the percentage change in Stock-share ratio.
+
+###________ Variables needed_________#
+
+# To separate RCPs 2.6 and 8.5
+RCP <- c("GFDL26F1","IPSL26F1","MPI26F1")
+
+# The Regions we need for the data
+Selected_Areas <- EEZIDs_List %>% 
+  filter(Name %in% EEZs)
+
+### _______ Estimate MCP data _______ #
+
+### Including each GCM in the analysis
+
+MCP_Data <- DBEM_Corrected %>%
+  left_join(EEZ_CellID,
+            by = "INDEX") %>% # Link each INDEX with the EEZ
+  # head() %>%
+  filter(EEZID %in% Selected_Areas$EEZID,
+         Species %in% Selected_Species) %>% #Filter out other species and areas
+  mutate( # determine what nation is wach region, what result is fr each RCP and Basin
+    Nation = ifelse(EEZID >= 958, "USA W", # Alaska
+                    ifelse(EEZID == 925,"Can W",
+                           ifelse(EEZID == 851, "USA E",
+                                  ifelse( EEZID== 848, "USA W",
+                                          "Can E"))
+                    )),
+    RCP = ifelse(Model %in% RCP,"Low Emission","High Emission"), # determine which model is what RCP
+    Basin = ifelse(Nation %in% c("USA E","Can E"),"Atlantic","Pacific")
+  ) %>% 
+  group_by(Species,Nation,Basin,RCP,Model) %>% # Adds each species' MCP of all INDEX-cells within each EEZ
+  summarise_if(is.numeric,sum,na.rm=T) %>% # sum of values 
+  gather("Year","MCP",`2005`:`2099`) %>% #Tiddy version
+  select(-INDEX:-EEZID )
+
+
+###__________ Checkpoint charly __________#
+# unique(MCP_Data$Model)
+# unique(MCP_Data$Species)
+# unique(MCP_Data$Nation)
+
+#  Looks good to me 
+###__________ END Checkpoint charly __________#
+```
+
+### Fisheries landings data
+
+For the present study we used reported landings (i.e. excluding discards) from the industrial fishing sector by fishing country (i.e. Canada, USA contiguous states or Alaska), fishing gear (i.e. hook and line or trawling) and species. Data for North Pacific hake (*Merluccius productus*), Atlantic cod (*Gadus morhua*), Yellowtail flounder (*Limanda ferruginea*), and Haddock (*Melanogrammus aeglefinus*) were provided by the Sea Around Us [@Zeller2016]. For the Pacific Halibut (*Hippoglossus stenolepis*), landing data was provided by the IPHC. All landing data was average between 2004 and 2014 for modelling consistency.
+
+
+```{r Landings_Data, eval = T, echo=F}
+
+#### Landings data ###
+
+####_____ IPHC Data ####
+# Data from IPHC https://iphc.int/data/commercialresearch-landing-weights-datasets
+# Data in metric tonne
+IPHC_Landings <- read_excel("~/Documents/UBC/Oceans_Project/Econ/Data/IPHC/iphc-19912017-commres.xlsx", 
+                                    col_types = c("numeric", "text", "text", 
+                                                  "numeric", "numeric", "numeric", 
+                                                  "text"), skip = 2)
+# Clean  landings
+
+Clean_IPHC_Landings <- IPHC_Landings %>% 
+  filter(Sector == "Commercial") %>% #Including only commercial fishing (excluding research)
+  mutate(EEZ = ifelse(Regulatory_Area == "2B","Canada","USA"))%>% 
+  group_by(Year,
+           EEZ) %>% 
+  summarise(
+    Total_Landings = sum(`Net wt (metric tonne)`)
+  ) %>% 
+  filter(Year >= Beg_In & Year <= Beg_End) %>%
+  group_by(EEZ) %>% 
+  summarise(Avrg_Landings = mean(Total_Landings)) %>% # Average 10 years of landings data
+  mutate(scientific_name = "Hippoglossus stenolepis", # Include information to match with econ data
+         gear_type = "hook and line")
+
+# head(Clean_IPHC_Landings)
+
+####_____ GoM Data ####
+# Data provided by the Sea Around us for the Gulf of Maine Marine Ecosystem (http://www.seaaroundus.org/data/#/meow/55?chart=catch-chart&dimension=taxon&measure=tonnage&limit=10). DATA IN TONNES
+
+# 
+GoM_Landings <- read.csv("~/Documents/UBC/Oceans_Project/Econ/Data/SAU_Landings/GoM/SAU MEOW 55 v47-1.csv")
+
+Clean_GoM_Landings <- GoM_Landings %>% 
+  filter(
+    scientific_name %in% Selected_Species,
+    fishing_sector == "Industrial", # Remove other sectors
+    reporting_status == "Reported", # Only reported data
+    catch_type == "Landings", # Only landings
+    fishing_entity != "Russian Federation" # some very small landings by Russians
+    ) %>% 
+  group_by(year,scientific_name,fishing_entity,gear_type) %>% 
+  summarise(Total_Landings = sum(tonnes)) %>% 
+  filter(year >= Beg_In & year <= Beg_End) %>% 
+  group_by(EEZ=fishing_entity,scientific_name,gear_type) %>% 
+  summarise(Avrg_Landings = mean(Total_Landings)) %>% 
+  filter(EEZ %in% c("Canada","USA"))
+
+# head(Clean_GoM_Landings)
+  
+##### _____ Whiting  ####
+# Not using it for now
+
+# Whiting_Landings <- read.csv("~/Documents/UBC/Oceans_Project/Econ/Data/SAU_Landings/Hake/SAU Taxa 600326 v47-1.csv")
+# 
+# Clean_Whiting_Landings <- Whiting_Landings %>% 
+#   filter(
+#     scientific_name %in% Selected_Species,
+#     fishing_sector == "Industrial", # Remove other sectors
+#     # reporting_status == "Reported", # Only reported data
+#     catch_type == "Landings" # Only landings
+#     ) %>% 
+#   group_by(year,scientific_name,fishing_entity,gear_type) %>% 
+#   summarise(Total_Landings = sum(tonnes)) %>% 
+#   filter(year >= 2005 & year <= 2014) %>% 
+#   group_by(EEZ=fishing_entity,scientific_name,gear_type) %>% 
+#   summarise(Avrg_Landings = mean(Total_Landings))
+
+
+####_____ Joind Landings Data ####
+# Join all data and projecting according to DBEM changes 
+
+Landings_Data <- Clean_GoM_Landings %>% 
+  bind_rows(
+    # Clean_Whiting_Landings,
+    Clean_IPHC_Landings
+  ) %>% 
+  rename(Species = scientific_name)
+
+
+###___ Checkpoint Charly __________ #
+
+# Checking data
+# SSR_Change %>%
+#   left_join(Landings_Data,
+#             by = c("Species","EEZ")) %>%
+#   View(.)
+
+
+###_____END Checkpoint Charly _____ #
+
+```
+
+### Fisheries economics data
+
+Two main fisheries economics databases were used to estimate landings profit between `r Beg_In` and `r Beg_End`. For fish selling price (ex-vessel) we used data provided by Travis Tai published on Tai *et al.* (2017); for fishing cost we used data provided by Vicky Lam published as Lam *et al.* (2011) and converted it to 2010 real USD. 
+
+
+```{r Economics_Data, eval = T, echo=F}
+
+# Fishing cost Data ####
+# Data provided by Vicky Lam in Real 2005 USD
+
+Fishing_Cost <- read_excel("~/Documents/UBC/Oceans_Project/Econ/Data/Economic/FishingCost_USA_Canada_20Feb2017.xlsx", 
+                           col_types = c("text", "text", "text", 
+                                         "numeric", "numeric", "numeric", 
+                                         "numeric", "numeric", "numeric", 
+                                         "numeric", "numeric", "numeric", 
+                                         "numeric", "numeric", "numeric", 
+                                         "numeric", "numeric"), 
+                           skip = 1)
+
+# Fishing costs are in 2005 so we need to convert them to 2010
+
+# http://www.in2013dollars.com/2005-dollars-in-2010
+
+# According to the Bureau of Labor Statistics consumer price index, prices in 2010 are 11.65% higher than average prices throughout 2005. The dollar experienced an average inflation rate of 2.23% per year during this period.
+
+Clean_Fishing_Cost <- Fishing_Cost %>% 
+  select(EEZ = Country,
+         gear_type = SuperGear,
+         Cost_perTon_2005 = `TotCost (US$ per tonne of catch in 2005 real dollar)`) %>% 
+  # bind_rows(Alaska_Cost) %>% 
+  mutate(Cost_perTon_2010 = Cost_perTon_2005*1.1165) # Convert to 2010 real USD
+  
+# Including mixed gear info as the mean cost af all other gears for each EEZ
+mix_gear_dat <- Clean_Fishing_Cost %>% 
+  group_by(EEZ) %>% 
+  summarise(Cost_perTon_2010 = mean(Cost_perTon_2010),
+            Cost_perTon_2005 = mean(Cost_perTon_2005)) %>% 
+  mutate(gear_type = "mixed gear")
+
+# Change in names for matching data
+
+Clean_Fishing_Cost$gear_type <- gsub("hand","hand lines",Clean_Fishing_Cost$gear_type)
+Clean_Fishing_Cost$gear_type <- gsub("midwater trawl","pelagic trawl",Clean_Fishing_Cost$gear_type)
+
+
+####_____ Final Fishing Cost dataset ####
+Clean_Fishing_Cost <- Clean_Fishing_Cost %>% 
+  bind_rows(mix_gear_dat)
+
+####_____ Ex-vessel price ####
+
+# Data provided by Travis 
+# Here are the price data (in 2010 real dollars) for the 5 species caught by US (187) and Canada (26) from 1950 to 2014
+
+Ex_Vessel <- read.delim("~/Documents/UBC/Oceans_Project/Econ/Data/Economic/Price_US_Canada_5spp.csv")
+
+# Create a dummy database for data
+Species <- data.table(
+  "Species"= c(
+    "Hippoglossus stenolepis", # Pacific Halibut (600514)
+    "Merluccius productus", # Whiting (600326)
+    "Gadus morhua",  # Cod (600069)
+    "Limanda ferruginea", # Yellowtail flounder (600521)
+    "Melanogrammus aeglefinus" # Haddock (601381)
+  ),
+  "taxon_key" = c(
+    600514,
+  600326,
+  600069,
+  600521,
+  601381
+  )
+  )
+
+####_____ Final Ex-Vessel dataset ####
+Clean_Ex_Vessel <- Ex_Vessel %>% 
+  mutate(EEZ = ifelse(fishing_entity_id == 26,"Canada","USA")) %>% 
+  left_join(Species,
+            by = "taxon_key") %>% 
+  filter(year >= Beg_In & year <= Beg_End) %>% 
+  group_by(EEZ,Species) %>% 
+  summarise(Price_perTon = mean(price,na.rm = T)) # Average ex-vessel price for study yrs
+
+
+####_____ Estimated Profits ####
+# Profits = ex-vessel - cost
+
+# Final dataset combining all data needed for estimating economics of transboundary fisheries.
+
+# Mean method (NOT USED)
+# Profit_Data_Mean <- Landings_Data %>%
+#   left_join(Clean_Fishing_Cost,
+#             by = c("gear_type","EEZ")) %>% # Joins Fishing cost Data
+#   left_join(Clean_Ex_Vessel,
+#             by = c("Species","EEZ")) %>%  # Joins Fishing price data
+#   mutate(
+#     Profit_perTon = Price_perTon-Cost_perTon_2010
+#     ) %>%
+#   group_by(EEZ,Species) %>%
+#   summarise_if(is.numeric,mean) %>%
+#   select(EEZ,Species,Profit_perTon)
+
+# Weighted method (USED)
+Profit_Data_Weight <- Landings_Data %>% 
+  left_join(Clean_Fishing_Cost,
+            by = c("gear_type","EEZ")) %>% # Joins Fishing cost Data
+  left_join(Clean_Ex_Vessel,
+            by = c("Species","EEZ")) %>%  # Joins Fishing price data
+  mutate(
+    Profit_perTon = Price_perTon-Cost_perTon_2010
+    )
+
+####___ Landings Data for Paper ####
+# Table 1
+
+Profit_Data_Paper <- Profit_Data_Weight %>% 
+  mutate_at(vars(Cost_perTon_2010,Price_perTon,Profit_perTon),
+            funs(round((.*Avrg_Landings)/1000000,2)) # million USD
+            ) %>% 
+  group_by(EEZ,Species) %>% 
+  summarise_if(is.numeric,sum,na.rm=T)
+
+# Average fishing cost for Notes in Table 1
+Avg_Clean_Fishing_Cost <- Profit_Data_Weight %>% 
+  group_by(EEZ,Species) %>% 
+  summarise(
+    Mean = mean(Cost_perTon_2010,na.rm=T),
+    sd = sd(Cost_perTon_2010,na.rm=T)
+  )
+
+```
+
+
+To estimate profits we can follow two methods; Average and weighted.
+
+- The Average method. This method uses the average profit of each species and region by fishing gear which gives you an average for each species based on landings, cost and ex-vessel per gear. This method is skewed since some species like Cod have very few landings in some gears that are higlhy profitable (e.g. *Gadus morhua* in the US).
+
+`r Profit_Data_Mean`
+
+- Weighted methodd. This methods estimates a proportion of each species' total landings per gear. It then estimates profits per gear and country and uses that initial proportion to proyect landings into the future assuming that it will mantain constant.
+
+## Projecting results into the future
+
+In this section we combanie present landings and fisheries economics data with the results of the DBEM MCP to proyect fish profits into the future. 
+
+### Estimating changes in MCP
+
+We adopted the methodology presented by Palacios-Abrantes et al. previously used in the present volume (see previous article) to estimate projected changes in stock share ratio (SSH) and maximum catch potential (MCP) of the five transboundary stocks previously selected. Thus, for each species we estimated the stock-share ratio ($\alpha$) that each EEZ will have during each time period:
+
+$$\alpha_{ts} = \frac{\theta_{rt}}{\delta_{ts}}$$
+
+where $\theta_{r}$ is the aggregated $\hat{MCP}$ of each region, and *t* is period. Three time periods (*t*) were considered to reduce temporal model sensitivity; $t_1$, present (`r Beg_In`-`r Beg_End`), $t_2$, mid 21^st^ century (`r Mid_In`-`r Mid_End`), and $t_3$, end of 21^st^ century (`r End_In`-`r End_End`). Similarly to the previous paper in this volume, we estimated the change in $\alpha_{ts}$ by dividing $t_2$ and $t_3$ by $t_1$.
+
+For the present analysis, we used the projected change in MCP and the current landings to estimate the changes in revenue at both future time periods as fallows.
+
+$$ X_{yr} = \sum_{s = 1}^n \hat{MCP_s}$$
+
+where *y* is year, *r* is EEZ, *s* is species, *n* is total number of species, and $\hat{MCP}$ is the MCP averaged by the three GCMs. The same time periods than before were averaged. Thus, we computed the regional percentage change in MCP ($\Delta MCP_r$) as follows:
+
+$$\Delta MCP_r = -(1-\frac{X_{t_{2,3}}}{X_{t_1}})*100 $$
+
+where $X_{f}$ if the future aggregated MCP ($t_1$ mid and $t_2$ end of 21^st^ century) and $X_{t_1}$ is the present aggregated MCP ($\mu$ (`r Beg_In`-`r Beg_End`).
+
+
+```{r Change_per_Period, eval = T, echo = F}
+
+#### Estimate today's MCP proportion of each country per stock
+Today_MCP <- MCP_Data %>% 
+  filter(Year >= Beg_In & Year <= Beg_End) %>% 
+  group_by(Species,
+           Basin,
+           RCP,
+           Nation,
+           Model) %>%
+  summarise(MCP_Today = mean(MCP)) %>%   #average of 2005 to 2014
+  mutate(Period = "Today")
+
+#### Estimate change in MCP
+MCP_Change <- MCP_Data %>% 
+  left_join(Today_MCP) %>% 
+  mutate( # Devides the different timeframes by the present and estimates percentage change
+    Prop_Change = MCP/MCP_Today,
+    Percentage_Ch = round(-(1-Prop_Change),2)
+  ) %>% 
+  mutate(  # Indicate the three period times
+    Period = ifelse(Year >= Beg_In & Year <= Beg_End,"Begining",
+                    ifelse(Year >= Mid_In & Year <= Mid_End,"Mid Century",
+                           ifelse(Year >= End_In & Year <= End_End,"End Century",
+                                  "Other_Years"))
+                    ),
+    EEZ = ifelse(str_detect(Nation, "Can "),"Canada","USA")
+  ) %>% 
+  ungroup() %>% 
+  select(Species,EEZ,Model,RCP,Year,Period,Prop_Change)
+
+```
+
+## Fisheries economics 
+
+We then multiply $\Delta MCP_r$ by the average landings (2004-2014 for modeling consistency) to simulate a potential volume of MCP for each species and EEZ. Finally, revenue per fished tonne was computed in 2010 real US dollars by subtracting fishing cost from fishing price, and the multiplied by the total MCP of each time period.
+
+```{r Projected_profits, eval = T, echo = F}
+
+#_____ Estimate Projected Profits ####
+
+# Estimate the future profit of each fishery based on current economic variables and landings multiplied by the change in MCP
+
+# Using weighted method of Landings `Economics_Data` chunk
+
+# Mean Profits method (NOT USED FOR NOW)
+# Profit_Projection <- Landings_Data %>%
+#   group_by(EEZ, Species) %>%
+#   summarise(Avrg_Landings = sum(Avrg_Landings)) %>%
+#   left_join(Profit_Data_Mean,
+#             by = c("Species","EEZ")) %>%
+#   left_join(MCP_Change,
+#             by = c("Species","EEZ")) %>%
+#   arrange(Species,EEZ,RCP,Model) %>%
+#   mutate(
+#     Future_Landings = Avrg_Landings*Prop_Change,
+#     Profit = Future_Landings*Profit_perTon
+#   ) %>%
+#   select(Species,EEZ,Model,RCP,Year,Period,Profit)
+
+# Mean Profits method (USED IN PAPER) ####
+
+### For Discounting
+# Discounted at 0.05 (5%)
+dr <- 0.05
+# Min and max years
+Max_Y <- max(MCP_Change$Year)
+Min_Y <- min(MCP_Change$Year)
+
+# Get the number of years proyected times species and models
+Years <- data.frame(Years_Dis = rep(seq(0,94,1), each = 102)) # each = number of species
+
+#### Estimating Future Profits non and discounted
+
+Projected_Profits <- Profit_Data_Weight %>%
+  left_join(MCP_Change,
+            by = c("Species","EEZ")) %>%
+  arrange(Year) %>% # so the bumber of years match the actual year
+  bind_cols(Years) %>% 
+  mutate(
+    Future_Landings = Avrg_Landings*Prop_Change,
+    Profit = Future_Landings*Profit_perTon,
+    Discounted_Profit = Profit/(1*(1 +dr)^Years_Dis)
+  ) %>%
+  group_by(Species,EEZ,Model,RCP,Year,Period) %>% # Summ all profits per gear
+  summarise(
+    Non_Discounted_Profits = sum(Profit),
+    Discounted_Profits = sum(Discounted_Profit)
+  ) %>%
+  filter(Period != "Other_Years") %>%
+  ungroup() %>%
+  group_by(Species,Model,Period,EEZ,RCP) %>%
+  summarise_if(is.numeric,mean,na.rm=T)
+
+```
+
+```{r Projected_profits_Proportion, eval = T, echo = F}
+
+#_____ Estimate Profit Proportions ####
+# First we estimate the projected profits totals for both nations according to the species, period and CC model
+
+Projected_Profits_Totals <- Projected_Profits %>% 
+  group_by(Species,Period,Model,RCP) %>%
+  summarise(
+    NonD_Total_Profit= sum(Non_Discounted_Profits,na.rm = T),
+    Dis_Total_Profit= sum(Discounted_Profits,na.rm = T)
+    )
+
+# Then we estimate actual proportion of profits
+Projected_Profits_Proportions <- Projected_Profits %>% 
+  left_join(Projected_Profits_Totals,
+            by = c("Model","Species","RCP","Period","Model")
+  ) %>% 
+  mutate(
+    NonD_Proportion = Non_Discounted_Profits/NonD_Total_Profit,
+    Dis_Proportion = Discounted_Profits/Dis_Total_Profit,
+    Time_Sector = ifelse(Period == "Begining",1,
+                         ifelse(Period == "Mid Century",2,
+                                3)
+    )
+  ) %>% 
+  filter(Species != "Melanogrammus aeglefinus")
+
+```
+
+# Results
+
+```{r Paper_Plot, eval = T, echo=TRUE, message=FALSE, warning=FALSE}
+
+# New facet label names for Species names
+Common_Names <- c("Atlantic Cod","Pacific Halibut", "Y. Flounder")
+names(Common_Names) <- c("Gadus morhua","Hippoglossus stenolepis", "Limanda ferruginea")
+
+# Create data with average values for numbers in plot and tables in manuscript
+Average_Prop_Plot <- Projected_Profits_Proportions %>% 
+  group_by(Species,Period,Time_Sector,EEZ,RCP) %>% 
+  summarise_at(vars(Non_Discounted_Profits,Discounted_Profits,
+                    Dis_Proportion,NonD_Proportion),funs(mean,sd)
+  ) %>% 
+   mutate_at(vars(Non_Discounted_Profits_mean,Discounted_Profits_mean,
+                  Non_Discounted_Profits_sd,Discounted_Profits_sd),
+               funs(round(./1000000,2))
+             )
+
+# Plot for now (see next chunk for more options)
+pd<-position_dodge(0.05)
+
+ggplot() +
+  geom_line(data = Average_Prop_Plot,
+            aes(
+              x=Time_Sector,
+              y=NonD_Proportion_mean*100, # Percentage
+              colour=EEZ
+            )
+  ) +
+  geom_errorbar(data = Average_Prop_Plot,
+                aes(
+                  x=Time_Sector,
+                  ymin=(NonD_Proportion_mean-(2*NonD_Proportion_sd))*100, # mean +- 2*sd
+                  ymax=(NonD_Proportion_mean+(2*NonD_Proportion_sd))*100,
+                  # ymin=(NonD_Proportion_mean-NonD_Proportion_sd)*100, # mean +- sd
+                  # ymax=(NonD_Proportion_mean+NonD_Proportion_sd)*100,
+                  colour=EEZ
+                ),
+                # alpha=0.5,
+                width=.2,
+                position=position_dodge(0.05),
+                size = 0.6
+  ) +
+  geom_label_repel(data = subset(Average_Prop_Plot, Time_Sector == 2),
+                   aes(
+                     x = Time_Sector,
+                     y = NonD_Proportion_mean*100, # Percentage
+                     label = round(NonD_Proportion_mean*100),
+                     fill = EEZ
+                   ),
+                   colour = "white",
+                   size = 3,
+                   show.legend = FALSE, # Don't display "a" in legend
+                   point.padding = 0,
+                   position=position_dodge(0.5)
+  ) +
+  geom_label_repel(data = subset(Average_Prop_Plot, Time_Sector != 2),
+                   aes(
+                     x = Time_Sector,
+                     y = NonD_Proportion_mean*100, # Percentage
+                     label = round(NonD_Proportion_mean*100),
+                     fill = EEZ
+                   ),
+                   colour = "white",
+                   size = 3,
+                   show.legend = FALSE, # Don't display "a" in legend
+                   point.padding = 0
+  ) +
+  scale_fill_manual(values = wes_palette("IsleofDogs1")) +
+  scale_colour_manual(values = wes_palette("IsleofDogs1")) +
+  scale_x_continuous(breaks=c(1, 2, 3),
+                     labels=c("Present-day", "Mid-century", "End-century")) +
+  # ylim(0,100)+
+  facet_grid(Species ~ RCP,
+             labeller = labeller(Species = Common_Names)
+  ) +
+  labs(
+    x = "",
+    y = "Proportion of total profits (%)"
+  ) +
+  theme(
+    axis.text.x = element_text(size = 12),
+    axis.text.y = element_text(size = 12),
+    axis.title = element_text(size = 18),
+    legend.title = element_text(size = 18),
+    legend.text = element_text(size = 12),
+    # strip.text = element_text(size = 18),
+    strip.text = element_text(size = 16),
+    panel.spacing.x = unit(3.5, "lines")
+  )
+
+
+
+# Save plot 
+ggsave("Econ_Plot.tiff",
+       plot = last_plot(),
+       width = 10,
+       height = 8,
+       units = "in",
+       path = "./Results")
+```
+
+# Others
+
+```{r Plots_Examples, eval = F, echo=TRUE, message=FALSE, warning=FALSE}
+
+# New facet label names for Species names
+Common_Names <- c("Atlantic Cod","Pacific Halibut", "Y. Flounder")
+names(Common_Names) <- c("Gadus morhua","Hippoglossus stenolepis", "Limanda ferruginea")
+
+# Create data with average values for numbers in plot and tables in manuscript
+Average_Prop_Plot <- Projected_Profits_Proportions %>% 
+  group_by(Species,Period,Time_Sector,EEZ,RCP) %>% 
+  summarise_at(vars(Non_Discounted_Profits,Discounted_Profits,
+                    Dis_Proportion,NonD_Proportion),funs(mean,sd)
+  ) %>% 
+   mutate_at(vars(Non_Discounted_Profits_mean,Discounted_Profits_mean,
+                  Non_Discounted_Profits_sd,Discounted_Profits_sd),
+               funs(round(./1000000,2))
+             )
+
+# Plot of lines per model
+ggplot() +
+  geom_line(data = Projected_Profits_Proportions,
+              aes(
+                x=Time_Sector,
+                y=NonD_Proportion*100, # Percentage
+                colour=Model,
+                shape=EEZ
+              )
+  ) +
+  facet_grid(Species ~ RCP,
+             labeller = labeller(Species = Common_Names)
+             )
+
+
+# Plot of average +- sd
+ggplot() +
+  geom_line(data = Average_Prop_Plot,
+              aes(
+                x=Time_Sector,
+                y=NonD_Proportion_mean*100, # Percentage
+                colour=EEZ
+              )
+  ) +
+  geom_point(data = Average_Prop_Plot,
+              aes(
+                x=Time_Sector,
+                y=(NonD_Proportion_mean+NonD_Proportion_sd)*100, # Percentage
+                colour=EEZ
+              )
+  ) +
+  geom_point(data = Average_Prop_Plot,
+              aes(
+                x=Time_Sector,
+                y=(NonD_Proportion_mean-NonD_Proportion_sd)*100, # Percentage
+                colour=EEZ
+              )
+  ) +
+  facet_grid(Species ~ RCP,
+             labeller = labeller(Species = Common_Names)
+             )
+
+
+
+# Plot geom_ribbon(aes(ymin=menlelb, ymax=menleub), alpha=0.2)
+ggplot() +
+  geom_line(data = Average_Prop_Plot,
+            aes(
+              x=Time_Sector,
+              y=NonD_Proportion_mean*100, # Percentage
+              colour=EEZ
+            )
+  ) +
+  geom_ribbon(data = Average_Prop_Plot,
+              aes(
+                x=Time_Sector,
+                ymin=(NonD_Proportion_mean-NonD_Proportion_sd)*100,
+                ymax=(NonD_Proportion_mean+NonD_Proportion_sd)*100,
+                fill=EEZ
+              ),
+              alpha=0.2
+  ) +
+  facet_grid(Species ~ RCP,
+             labeller = labeller(Species = Common_Names)
+  ) +
+  geom_label_repel(data = Average_Prop_Plot,
+                   aes(
+                     x = Time_Sector,
+                     y = NonD_Proportion_mean*100, # Percentage
+                     label = round(NonD_Proportion_mean*100),
+                     fill = EEZ
+                   ),
+                   size = 3,
+                   show.legend = FALSE, # Don't display "a" in legend
+                   point.padding = 0
+  ) +
+  facet_grid(Species ~ RCP,
+             labeller = labeller(Species = Common_Names)
+  )
+
+# geom_smoth using (Locally Weighted Scatterplot Smoothing), sometimes called LOESS
+ggplot() +
+  geom_smooth(data = Projected_Profits_Proportions,
+              aes(
+                x=Time_Sector,
+                y=NonD_Proportion*100, # Percentage
+                colour=EEZ,
+                fill=EEZ
+              ),
+              se = TRUE,
+              alpha = 0.5
+  ) +
+  geom_label_repel(data = Average_Prop_Plot,
+                   aes(
+                     x = Time_Sector,
+                     y = NonD_Proportion_mean*100, # Percentage
+                     label = round(NonD_Proportion_mean*100),
+                     fill = EEZ
+                   ),
+                   size = 3,
+                   show.legend = FALSE, # Don't display "a" in legend
+                   point.padding = 0
+  ) +
+  facet_grid(Species ~ RCP,
+             labeller = labeller(Species = Common_Names)
+  )
+ 
+
+
+# geom_errorbar
+ggplot() +
+  geom_line(data = Average_Prop_Plot,
+            aes(
+              x=Time_Sector,
+              y=NonD_Proportion_mean*100, # Percentage
+              colour=EEZ
+            )
+  ) +
+  geom_errorbar(data = Average_Prop_Plot,
+                aes(
+                  x=Time_Sector,
+                  ymin=(NonD_Proportion_mean-NonD_Proportion_sd)*100,
+                  ymax=(NonD_Proportion_mean+NonD_Proportion_sd)*100,
+                  colour=EEZ
+                ),
+                alpha=0.5,
+                width=.1
+  )  +
+  facet_grid(Species ~ RCP,
+             labeller = labeller(Species = Common_Names)
+  )
+
+```
+
+```{r}
+###______________________ EXPLORING DATA RESULTS ______________________#
+
+Phalibut <- Profit_Data %>% 
+  filter(Species =="Hippoglossus stenolepis")
+
+ggplot(subset(Phalibut, Model == "Average")) +
+  geom_line(aes(
+    x = as.numeric(Year),
+    # y = Profit_Disc/1000000,
+    y = Profit/1000000,
+    color = RCP
+  ),
+  alpha = 1,
+  size = 2
+  ) +
+  geom_line(data =subset(Phalibut, Model != "Average"),
+            aes(
+    x = as.numeric(Year),
+    # y = Profit_Disc/1000000,
+    y = Profit/1000000,
+    color = RCP,
+    size = Model
+  ),
+  alpha = 0.1
+  ) +
+  facet_wrap(~EEZ, scales = "free") +
+  labs(x = "Year",
+       y = "Not-Discounted Profits (Million 2010 USD)") +
+  scale_color_manual(values = c("red", "royalblue2")) +
+  theme(legend.position = "")
+  # scale_color_brewer(palette="Dark2")
+
+
+ggsave("Non-Dis_Profits.png",
+         plot = last_plot(),
+         width = 10,
+         height = 5,
+         units = "in"#,
+         # path = Fig_path_out
+         )
+
+
+# ______________________ END EXPLORING ______________________#
+
+```
+
+
+```{r Tradeoff_plots, eval = F}
+#### Trdeoffs
+
+Today <- Profit_Data %>% 
+  filter(Period == "Begining") %>% 
+  group_by(Species,EEZ) %>% 
+  summarise(Mean_Profit= mean(Mean_Profit)) %>% 
+  spread("EEZ","Mean_Profit") %>% 
+  mutate(Period = "Begining")
+
+### Explore tradeoff graphs
+
+unique(Prop_Change$Species)
+RCP_List <- c("GFDL26F1","IPSL26F1","MPI26F1")
+
+Selected_Species <- c(
+"Gadus morhua",
+"Hippoglossus stenolepis",
+"Limanda ferruginea",
+"Melanogrammus aeglefinus",
+"Merluccius productus"
+)
+
+s = 1
+for (s in 1:5){
+  
+Spp <- Selected_Species[s]
+
+Pd <- Profit_Data %>% 
+  filter(Species %in% Spp,
+         !Period %in% c("Other_Years","Begining")
+         ) %>%
+  select(EEZ,RCP,Period,Mean_Profit,Model)
+
+## Canada data
+
+TodayCad <- Today %>% 
+  filter(Species %in% Spp) %>% 
+  select(-USA) %>% 
+  slice(rep(1:n(), each = 8)) %>% 
+  mutate(Model = c(unique(Pd$Model),"Average"),
+         RCP = c("High","High","High","High","Low","Low","Low","Low") # determine which model is what RCP
+  )
+
+Canada <- Pd %>% 
+  filter(EEZ == "Canada") %>% 
+  spread("EEZ","Mean_Profit") %>% 
+  bind_rows(TodayCad) # We add today twice so the both start at the same point
+
+## USA Data
+
+TodayUSA <- Today %>% 
+  filter(Species %in% Spp) %>% 
+  select(-Canada) %>% 
+  slice(rep(1:n(), each = 8)) %>% 
+  mutate(Model = c(unique(Pd$Model),"Average"),
+         RCP = c("High","High","High","High","Low","Low","Low","Low") # determine which model is what RCP
+  )
+
+USA <- Pd %>% 
+  filter(EEZ == "USA") %>% 
+  spread("EEZ","Mean_Profit") %>% 
+  bind_rows(TodayUSA) # We add today twice so the both start at the same point
+
+
+## Bind them
+
+Plot_Data <- left_join(Canada,USA)
+
+  ggplot() +
+    # geom_line(data = subset(Plot_Data, Model != "Average"),
+    #      aes(
+    #        y = Canada/1000000,
+    #        x = USA/1000000,
+    #        colour = RCP,
+    #        fill = Model
+    #      ),
+    #      alpha = 0.3
+    #      ) +
+    #     geom_line(data = subset(Plot_Data, Model == "Average"),
+    #      aes(
+    #        y = Canada/1000000,
+    #        x = USA/1000000,
+    #        colour = RCP
+    # ),
+    # linetype = "solid",
+    # size = 2
+    # ) +
+  geom_point(data = subset(Plot_Data, Model == "Average"),
+             aes(
+               y = Canada/1000000,
+               x = USA/1000000,
+               colour = RCP
+             ),
+             size = 3
+             ) +
+  geom_text_repel(data = subset(Plot_Data, Model == "Average"),
+             aes(
+               y = Canada/1000000,
+               x = USA/1000000,
+               label = Period#,
+               # colour = RCP
+             ),
+             size = 3
+             ) +
+  labs(title=paste("Profit tradeoff plot for",Spp, "(Million $US - 2010 real dollars)"),
+       y = "USA",
+       x = "Canada") +
+    scale_color_manual(values = c("red", "blue")
+                       )
+  
+
+Fig_name <- paste("Proffit_",Spp,".png",sep ="")
+
+ggsave(Fig_name,
+         plot = last_plot(),
+         width = 6,
+         height = 5,
+         units = "in",
+         path = Fig_path_out
+         )
+
+}
+
+
+```
+
+```{plots_for_IMBeR, eval = F}
+
+Halibut <- Profit_Data %>% 
+  filter(Species == "Hippoglossus stenolepis") %>% 
+  mutate(Facet_Order = ifelse(RCP == "High","B","A"))
+
+ggplot(subset(Halibut, Model == "Average")) +
+  geom_line(aes(
+    x = as.numeric(Year),
+    # y = Profit_Disc/1000000,
+    y = Profit/1000000,
+    color = RCP
+  ),
+  alpha = 1,
+  size = 2
+  ) +
+  geom_line(data =subset(Halibut, Model != "Average"),
+            aes(
+    x = as.numeric(Year),
+    # y = Profit_Disc/1000000,
+    y = Profit/1000000,
+    color = RCP,
+    size = Model
+  ),
+  alpha = 0.1
+  ) +
+  facet_wrap(~EEZ,
+             scales = "free") +
+  labs(x = "Year",
+       y = "Not-Discounted Profits (Million 2010 USD)")
+
+
+ggsave("Non-Dis_Profits.png",
+         plot = last_plot(),
+         width = 12,
+         height = 5,
+         units = "in",
+         path = Fig_path_out
+         )
+
+
+```
+
+
