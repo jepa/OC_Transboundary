@@ -6,10 +6,10 @@ date: "^1^ Institute for the Oceans and Fisheries, University of British Columbi
 output:
   word_document: default
   pdf_document: default
-bibliography: Oceans_Canada_Biblio.bib
+bibliography: Ecol_Analysis/Oceans_Canada_Biblio.bib
 editor_options: 
   chunk_output_type: console
-csl: harvard.csl
+csl: Ecol_Analysis/harvard.csl
 ---
   
 ```{r setup, eval=T, echo=F, warning=F,message=F, results='hide'}
@@ -31,22 +31,15 @@ packages <- c(
   "dplyr", # Data manipulation
   "tidyr", # Data manipulation
   "ggplot2", #Nice grpahs and spatial analysis
-  "cowplot",
-  "rgdal",
   "RColorBrewer",
-  "knitr",
-  "kableExtra",
   "data.table",
   "ggrepel",
-  "gridExtra",
-  "ggmap",
-  "rgeos",
   "sf",
-  "sp",
-  "rgdal", #Spatial analysis 
-  "tools", #Spatial analysis 
-  "png", # For reading plots in chunk codes
-  "grid" # For reading plots in chunk codes
+  # "sp",
+  # "rgdal", #Spatial analysis 
+  "tools"#, #Spatial analysis 
+  # "png", # For reading plots in chunk codes
+  # "grid" # For reading plots in chunk codes
 )
 
 ipak(packages)
@@ -95,9 +88,9 @@ ggtheme_map <- function(base_size = 9, Region = "NA") {
     axis.ticks       = element_blank(),
     axis.text        = element_blank(),
     axis.title       = element_blank(),
-    # legend.key       = element_rect(colour = NA, fill = NA, size = 4),
-    legend.position = "bottom"#,
-    # legend.key.width =unit(6,"line")
+    legend.key       = element_rect(colour = NA, fill = NA, size = 4),
+    legend.position = "bottom",
+    legend.key.width =unit(7,"line")
   )
 }
 
@@ -112,7 +105,7 @@ Mid_In <- paste(2041);Mid_In # 2046
 Mid_End <- paste(2060);Mid_End
 
 # End Century
-End_In <- paste(2080);End_In # 2090
+End_In <- paste(2081);End_In # 2090
 End_End <- paste(2099);End_End
 ```
 
@@ -422,13 +415,12 @@ The current study focuses on transboundary fisheries jointly managed by Canada a
 
 # List of DBEM INDEX within the EEZ
 #Data provided by Vicki Lam
-EEZIDs_List <- read_excel("~/Documents/UBC/Oceans_Project/Distribution/By Cell/Cell_Data/Updated_EEZList_17June2016.xlsx")
-EEZ_CellID <- read_excel("~/Documents/UBC/Oceans_Project/Distribution/By Cell/Cell_Data/EEZ_CellID.xlsx")
-
+EEZIDs_List <- read_excel("./Data/Spatial/Updated_EEZList_17June2016.xlsx")
+EEZ_CellID <- read_excel("./Data/Spatial/EEZ_CellID.xlsx")
 colnames(EEZ_CellID) <- c("EEZID","INDEX")
 
 # DBEM Coordinate system
-Coor <- fread("~/Documents/UBC/Oceans_Project/Distribution/DBEM/Data/Lon_Lat_DBEM.txt",header = FALSE)
+Coor <- fread("./Data/Spatial/Lon_Lat_DBEM.txt",header = FALSE)
 colnames(Coor) <- c("INDEX","Longitude","Latitude")
 
 ### Select EEZs
@@ -445,7 +437,7 @@ EEZs <- c(
 
 ### North America Initial Map ####
 
-path_world <- "~/Documents/UBC/Oceans_Project/Manuscript/Data/Spatial_Data/TM_WORLD_BORDERS"
+path_world <- "./Data/Spatial/TM_WORLD_BORDERS"
 file_name <- "TM_WORLD_BORDERS"
 
 World_Land_sf <- st_read(dsn = path_world, 
@@ -471,14 +463,14 @@ North_America_Land <- World_Land_sf %>%
 
 ### North America EEZs Map ####
 
-path_eez <- ("~/Documents/UBC/Oceans_Project/Manuscript/Data/Spatial_Data/World_EEZ_v10_2018")
+path_eez <- "./Data/Spatial/World_EEZ_v10_2018"
 #The File
 fnam_eez <- "eez_v10.shp"
 
 eez_world_sf <- st_read(dsn = path_eez, 
-layer = file_path_sans_ext(fnam_eez)
-) %>% 
-st_transform(crs = 4326)# 4326 use this to merge with DBEM data
+                        layer = file_path_sans_ext(fnam_eez)
+                        ) %>% 
+  st_transform(crs = 4326)# 4326 use this to merge with DBEM data
 # 3832 use this to center the map and plot
 
 
@@ -534,7 +526,7 @@ IPHC_Coor_Corrected_Clean <- IPHC_Coor_Corrected %>%
 
 
 # Now we load IPHC shapefiles ####
-path_IPHC <- ("~/Documents/UBC/Oceans_Project/Distribution/Data/IPHC/IPHC_RegulatoryAreas/")
+path_IPHC <- "./Data/Spatial/IPHC_RegulatoryAreas"
 
 # The Canada file
 fnam_IPHC_C <- "IPHC_RegulatoryAreas_CAN"
@@ -626,12 +618,13 @@ IPHC_Reg_DBEM_df <- as.data.frame(IPHC_Reg_DBEM) %>%
 #### NAFO data ####
 
 
-path_NAFO <- ("~/Documents/UBC/Oceans_Project/Distribution/Data/Spatial/NAFO/")
+path_NAFO <- "./Data/Spatial/NAFO/"
 #The File
 fnam_NAFO <- "Divisions"
 
 NAFO_Area <- st_read(dsn = path_NAFO,
-layer =file_path_sans_ext(fnam_NAFO))
+                     layer =file_path_sans_ext(fnam_NAFO)
+                     )
 
 
 Zones <- c(
@@ -642,7 +635,7 @@ Zones <- c(
 )
 
 NAFO_5z <- NAFO_Area %>% 
-filter(ZONE %in% Zones)
+  filter(ZONE %in% Zones)
 
 #### _____________________TEST _____________________ #
 # head(NAFO_5z)
@@ -743,6 +736,10 @@ The DBEM was projected using three earth system models (ESM), the Geophysical Fl
 
 ```{r Data_Loading_For_DBEM, eval = F, echo = F, warning = F ,message = F}
 
+###------------------------------- ###
+#### Chunk to be ran with Drobo ###
+###------------------------------- ###
+
 # Species data (Names, treaties, etc)
 # DBEM exploited species list 
 exploited_species_list <- fread("/Volumes/DATA/PROJECTION exploited species ENM/exploited_species_list.csv")
@@ -760,6 +757,10 @@ NAFO_Species <- read.csv("~/Documents/UBC/Oceans_Project/Distribution/DBEM/Data/
 ```
 
 ```{r DBEM_Data_For_All, eval = F, echo = F, warning = F, message = F}
+
+###------------------------------- ###
+#### Chunk to be ran with Drobo ###
+###------------------------------- ###
 
 All_Species <- exploited_species_list %>% 
   # filter(TaxonName  %in% c("Hippoglossus stenolepis","Anoplopoma fimbria")) %>% 
@@ -1007,18 +1008,17 @@ where $\theta_{r}$ is the aggregated $\hat{MCP}$ of each region, and *t* is peri
 # List of DBEM INDEX within the EEZ
 #Data provided by Vicki Lam
 
-EEZIDs_List <- read_excel("~/Documents/UBC/Oceans_Project/Distribution/By Cell/Cell_Data/Updated_EEZList_17June2016.xlsx")
-
-EEZ_CellID <- read_excel("~/Documents/UBC/Oceans_Project/Distribution/By Cell/Cell_Data/EEZ_CellID.xlsx")
-
+#Data provided by Vicki Lam
+EEZIDs_List <- read_excel("./Data/Spatial/Updated_EEZList_17June2016.xlsx")
+EEZ_CellID <- read_excel("./Data/Spatial/EEZ_CellID.xlsx")
 colnames(EEZ_CellID) <- c("EEZID","INDEX")
 
 # DBEM Coordinate system
-Coor <- fread("~/Documents/UBC/Oceans_Project/Distribution/DBEM/Data/Lon_Lat_DBEM.txt",header = FALSE)
+Coor <- fread("./Data/Spatial/Lon_Lat_DBEM.txt",header = FALSE)
 colnames(Coor) <- c("INDEX","Longitude","Latitude")
 
 # From (/Users/jpalacios/Documents/UBC/Oceans_Project/Distribution/By Cell/By_Cell_Analysis.Rmd)
-Raw_DBEM_Results <- data.table::fread("~/Documents/UBC/Oceans_Project/Manuscript/Data/Raw_Data.csv") %>% 
+Raw_DBEM_Results <- data.table::fread("./Data/Distribution/Raw_Data.csv") %>% 
   filter(Species != "Anoplopoma fimbria") #Remove
 
 ### Number of stocks per treaty##
@@ -1160,7 +1160,7 @@ North_America_Land <- North_America_Land %>%
 ### Load shapefile the old way ###
 
 # Path to save the plots
-Path <- "~/Documents/UBC/Oceans_Project/Manuscript/Results/North_America"
+Path <- "./Results/Ecol/North_America"
 RCP = c("GFDL26F1","IPSL26F1","MPI26F1") #Low RCP
 
 #### New Future Method to account for mean +- sd of models #
@@ -1175,7 +1175,7 @@ MCP_Data <- DBEM_Corrected %>%
   mutate(  # Indicate the three period times
     Period = ifelse(Year >= Beg_In & Year <= Beg_End,"Begining",
                     ifelse(Year >= Mid_In & Year <= Mid_End,"Mid_Century",
-                           ifelse(Year >= End_In & Year <= End_End,"The_End_Century",
+                           ifelse(Year >= End_In & Year <= End_End,"End_Century",
                                   "Other_Years"))
     )
   ) %>% 
@@ -1184,11 +1184,11 @@ MCP_Data <- DBEM_Corrected %>%
   filter(Period != "Other_Years") %>% 
   spread(Period,Mean_T_MCP) %>% #Spread to estimate MCP_Change
   mutate_at(vars(Mid_Century, # Devide future values by present
-                 The_End_Century),
+                 End_Century),
             funs(ifelse(Begining > 0, ./Begining,.)) #if no species today value is the future
   ) %>% 
   mutate_at(vars(Mid_Century, # Estimate percentage change
-                 The_End_Century),
+                 End_Century),
             funs(ifelse(Begining == 0 & . == 0, 0, # If for no change than 0
                         ifelse(Begining == 0 & . > 0, 100, # If changes from 0 to anything then 100
                                round(-(1-.)*100) # Estimate percentage change
@@ -1196,7 +1196,7 @@ MCP_Data <- DBEM_Corrected %>%
             )
             )
   ) %>% 
-  gather("Period","MCP_Change",Mid_Century,The_End_Century) %>% 
+  gather("Period","MCP_Change",Mid_Century,End_Century) %>% 
   mutate(Direction = ifelse(MCP_Change >= 0, "Positive","Negative")) %>% 
   group_by(INDEX,Period,RCP) %>% # Average results per ESMs
   summarise_at(vars(MCP_Change),
@@ -1231,22 +1231,6 @@ MCP_Data <- DBEM_Corrected %>%
 #   ) +
 #   facet_grid(RCP~Period)
 
-### Explore mAtlantic unde 40
-
-
-# Under40 <- MCP_Data %>% 
-#   filter(latitude < 40, longitude > -90)
-# 
-# ggplot(Under40) +
-#   geom_tile(
-#     aes(
-#       x = longitude,
-#       y = latitude,
-#       color = Model_Agreement,
-#       fill = Model_Agreement
-#     )
-#   ) +
-#   facet_grid(RCP~Period)
 
 Seq <- seq(-100,100,by=5) #Axis
 
@@ -1283,12 +1267,61 @@ p <- ggplot(MCP_Data) +
   ggtheme_map() 
   
   
-  ggsave("New_plot.tiff",
+  ggsave("NA_25_20_Mid.jpg",
          plot = p,
          width = 16,
          height = 10,
          units = "in",
          path = Path)
+  
+  ####------------- ###
+  # End of century For Appendix 
+  #### ------------- ###
+  
+  # Plot it
+  ggplot(MCP_Data) +
+    geom_tile(data = subset(MCP_Data, Period == "End_Century"),
+              aes(
+                x = longitude,
+                y = latitude,
+                color = Mean_ESM_MCP_Chng,
+                fill = Mean_ESM_MCP_Chng
+              )
+    ) +
+    geom_point(data = subset(MCP_Data, Period == "End_Century" & Model_Agreement == "Disagree"),
+               aes(
+                 x = longitude,
+                 y = latitude
+               ),
+               size = 0.01,
+               alpha = 0.1,
+               shape = 4,
+               color = "grey20"
+    ) +
+    geom_sf(data = North_America_Land, fill = "grey90") +
+    facet_wrap(~RCP) +
+    coord_sf(xlim = c(-190,-50)) +
+    scale_color_gradient2("MCP Percentage Change",
+      limits=c(-100,
+               100),
+      breaks = Seq) +
+    scale_fill_gradient2("MCP Percentage Change",
+      limits=c(-100,
+               100),
+      breaks = Seq) +
+    ggtheme_map() +
+    theme(
+    legend.key = element_rect(size = 3),
+    legend.key.width =unit(8,"line"),
+    legend.title = element_text(size = 20),
+    legend.text = element_text(size = 18)
+    ) +
+    # And save it
+    ggsave("NA_85_26_End.jpg",
+           width = 16,
+           height = 10,
+           units = "in",
+           path = Path)
   
 ```
 
@@ -1303,15 +1336,13 @@ Shifts in the distribution of 33 jointly managed transboundary stocks of North A
 
 # List of DBEM INDEX within the EEZ
 #Data provided by Vicki Lam
-EEZIDs_List <- read_excel("~/Documents/UBC/Oceans_Project/Distribution/By Cell/Cell_Data/Updated_EEZList_17June2016.xlsx")
-EEZ_CellID <- read_excel("~/Documents/UBC/Oceans_Project/Distribution/By Cell/Cell_Data/EEZ_CellID.xlsx")
-
+EEZIDs_List <- read_excel("./Data/Spatial/Updated_EEZList_17June2016.xlsx")
+EEZ_CellID <- read_excel("./Data/Spatial/EEZ_CellID.xlsx")
 colnames(EEZ_CellID) <- c("EEZID","INDEX")
 
 # DBEM Coordinate system
-Coor <- fread("~/Documents/UBC/Oceans_Project/Distribution/DBEM/Data/Lon_Lat_DBEM.txt",header = FALSE)
+Coor <- fread("./Data/Spatial/Lon_Lat_DBEM.txt",header = FALSE)
 colnames(Coor) <- c("INDEX","Longitude","Latitude")
-
 #### Mid Century result Table ####
 Areas <- c(
   "Canada (Arctic)",
@@ -1330,8 +1361,6 @@ Selected_Areas <- EEZIDs_List %>%
 
 #### NEW ESTIMATES 
 
-# Path to save the plots
-Path <- "~/Documents/UBC/Oceans_Project/Manuscript/Results/North_America"
 RCP = c("GFDL26F1","IPSL26F1","MPI26F1") #Low RCP
 
 # Common data between both
@@ -1447,7 +1476,7 @@ Even under a low emission scenario, most transboundary fish stocks sharing ratio
 Selected_Species <- c("Hippoglossus stenolepis") # Halibut
 
 # Path for saving plots
-Path <- "~/Documents/UBC/Oceans_Project/Manuscript/Results/IPHC/Region"
+Path <- "./Results/Ecol/IPHC/"
 RCP = c("GFDL26F1","IPSL26F1","MPI26F1") #Low RCP
 #### New version
 
@@ -1462,7 +1491,7 @@ IPHC_MCP_Change <- DBEM_Corrected %>%
   mutate(  # Indicate the three period times
     Period = ifelse(Year >= Beg_In & Year <= Beg_End,"Begining",
                     ifelse(Year >= Mid_In & Year <= Mid_End,"Mid_Century",
-                           ifelse(Year >= End_In & Year <= End_End,"The_End_Century",
+                           ifelse(Year >= End_In & Year <= End_End,"End_Century",
                                   "Other_Years"))
     )
   ) %>% 
@@ -1473,11 +1502,11 @@ IPHC_MCP_Change <- DBEM_Corrected %>%
   filter(Period != "Other_Years") %>% 
   spread(Period,Mean_T_MCP) %>% #Spread to estimate MCP_Change
   mutate_at(vars(Mid_Century, # Devide future values by present
-                 The_End_Century),
+                 End_Century),
             funs(ifelse(Begining > 0, ./Begining,.)) #if no species today value is the future
   ) %>% 
   mutate_at(vars(Mid_Century, # Estimate percentage change
-                 The_End_Century),
+                 End_Century),
             funs(ifelse(Begining == 0 & . == 0, 0, # If for no change than 0
                         ifelse(Begining == 0 & . > 0, 100, # If changes from 0 to anything then 100
                                round(-(1-.)*100) # Estimate percentage change
@@ -1485,7 +1514,7 @@ IPHC_MCP_Change <- DBEM_Corrected %>%
             )
             )
   ) %>% 
-  gather("Period","MCP_Change",Mid_Century,The_End_Century) %>% 
+  gather("Period","MCP_Change",Mid_Century,End_Century) %>% 
   mutate(Direction = ifelse(MCP_Change >= 0, "Positive","Negative")) %>% 
   group_by(RegArea,Period,RCP) %>% # Average results per ESMs
   summarise_at(vars(MCP_Change),
@@ -1572,7 +1601,7 @@ P1 <- ggplot() +
   annotate("text", label = "US Contiguous\n States", x =10000000, y = 5151701, size = 6, colour = "black", angle = -90)
 
 # Save plot 
-Name = paste("New_IPHC_Reg_26_85_2050.png")
+Name = paste("IPHC_85_26_2050.png")
 
 ggsave(Name,
        plot = P1,
@@ -1582,58 +1611,75 @@ ggsave(Name,
        path = Path)
 
 
-### now we average the results from the models for END century ###
 
-# Seq <- seq(-50,50,by=5) #Axis
+####------------- ###
+  # End of century For Appendix 
+#### ------------- ###
 
-# P2 <- ggplot() +
-#   geom_sf(data = North_America_Land, colour = "lightgrey") + # Land Map of North America
-#   geom_sf(data = subset(IPHC_DBEM_sf, Country == "United States"), # DBEM Of the US
-#           aes(fill = Percentage_End)
-#   ) +
-#   geom_sf(data = subset(IPHC_DBEM_sf, RegArea == "2B"), # DBEM of Canada
-#           aes(fill = Percentage_End)
-#   ) +
-#   geom_sf_label(data = IPHC_DBEM_sf, # RegAreas labels
-#                 aes(
-#                   label = RegArea,
-#                   fill = Percentage_End
-#                 ),
-#                 colour = "black"
-#   ) +
-#   geom_label(data=IPHC_DBEM_sf, aes(label = RCP, x =4080637 , y = 4551701, colour = RCP), #RCP labels for grid plot
-#              show.legend = FALSE,
-#              size = 10
-#   ) +
-#   facet_wrap(~RCP,  # For grid plot, comment in one plot each
-#              ncol = 2) +
-#   scale_colour_manual(values=c("blue", "red")) + #Labels colors for grid plot
-#   scale_fill_gradient2("",
-#                        limits=c(-30,30),
-#                        breaks = Seq) +
-#   ggtheme_map() +
-#   theme(
-#     legend.key = element_rect(size = 4),
-#     legend.key.width =unit(8,"line"),
-#     legend.text = element_text(size = 16),
-#     strip.text.x = element_blank()
-#   ) +
-#   coord_sf(xlim = c(1963800, 10041910), # Subsets north america
-#            ylim = c(3651701,9728813)
-#   ) +
-#   annotate("text", label = "Alaska", x = 6280637, y = 9228813, size = 6, colour = "black") +
-#   annotate("text", label = "Canada", x = 9629910, y = 9228813, size = 6, colour = "black") +
-#   annotate("text", label = "US Contiguous\n States", x =10000000, y = 5151701, size = 6, colour = "black", angle = -90)
-# 
-# # Save plot 
-# Name_End = paste("IPHC_Reg_26_85_2100.png")
-# 
-# ggsave(Name_End,
-#        plot = P2,
-#        width = 15,
-#        height = 10,
-#        units = "in",
-#        path = Path)
+
+Seq <- seq(-50,50,by=10) #Axis
+
+IPHC_DBEM_sf <- IPHC_Reg %>% 
+  left_join(IPHC_MCP_Change,
+            by = "RegArea") %>% 
+  st_transform(3832)
+
+IPHC_DBEM_sf$RegArea <- gsub("Closed Area","CA",IPHC_DBEM_sf$RegArea)
+
+IPHC_DBEM_sf <- IPHC_DBEM_sf %>% 
+  filter(Period == "End_Century")
+
+# max(IPHC_DBEM_sf$Mean_ESM_MCP_Chng)
+
+# Save plot
+Name_End = paste("IPHC_85_26_2100.png")
+
+p_end <- ggplot() +
+  geom_sf(data = North_America_Land, colour = "lightgrey") + # Land Map of North America
+  geom_sf(data = subset(IPHC_DBEM_sf, Country == "United States"), # DBEM Of the US
+          aes(fill = Mean_ESM_MCP_Chng)
+  ) +
+  geom_sf(data = subset(IPHC_DBEM_sf, RegArea == "2B"), # DBEM of Canada
+          aes(fill = Mean_ESM_MCP_Chng)
+  ) +
+  geom_sf_label(data = IPHC_DBEM_sf, # RegAreas labels
+                aes(
+                  label = RegArea,
+                  fill = Mean_ESM_MCP_Chng
+                ),
+                colour = "black"
+  ) +
+  geom_label(data=IPHC_DBEM_sf, aes(label = RCP, x =4080637 , y = 4551701, colour = RCP), #RCP labels for grid plot
+             show.legend = FALSE,
+             size = 10
+  ) +
+  facet_wrap(~RCP,  # For grid plot, comment in one plot each
+             ncol = 2) +
+  scale_fill_gradient2("",
+                       limits=c(-50,50),
+                       breaks = Seq) +
+  ggtheme_map() +
+  theme(
+    legend.key = element_rect(size = 4),
+    legend.key.width =unit(8,"line"),
+    legend.text = element_text(size = 16),
+    strip.text.x = element_blank()
+  ) +
+  coord_sf(xlim = c(1963800, 10041910), # Subsets North America map
+           ylim = c(3651701,9728813)
+  ) +
+  annotate("text", label = "Alaska", x = 6280637, y = 9228813, size = 6, colour = "black") +
+  annotate("text", label = "Canada", x = 9629910, y = 9228813, size = 6, colour = "black") +
+  annotate("text", label = "US Contiguous\n States", x =10000000, y = 5151701, size = 6, colour = "black", angle = -90)
+
+
+  ggsave(Name_End,
+         plot = p_end,
+         width = 15,
+         height = 10,
+         units = "in",
+         path = Path
+  )
 
 ```
 
@@ -1924,7 +1970,7 @@ The same poleward trend is expected in the change of Pacific halibut stock-share
 
 ```{r IPHC_Proportion_Regions, eval=F, echo = F, message=F, warning=F}
 
-Path <- "./Manuscript/Results/IPHC/Proportion"
+Path <- "./Results/Ecol/IPHC/"
 # names(DBEM_Results)
 
 IPHC_Species <- c("Hippoglossus stenolepis") # Halibut
@@ -2115,7 +2161,7 @@ Atlantic_DBEM <- Raw_DBEM_Results %>%
   )
 
 # Path for saving plots
-Path <- "~/Documents/UBC/Oceans_Project/Manuscript/Results/GB/Spp/"
+Path <- "./Results/Ecol/GoM/"
 
 ### MCP Change Analysis ####
 
@@ -2127,7 +2173,7 @@ New_Mean_Data_GoM <- Atlantic_DBEM %>%
   mutate(# Indicate the three period times
     Period = ifelse(Year >= Beg_In & Year <= Beg_End,"Begining",
                     ifelse(Year >= Mid_In & Year <= Mid_End,"Mid_Century",
-                           ifelse(Year >= End_In & Year <= End_End,"The_End_Century",
+                           ifelse(Year >= End_In & Year <= End_End,"End_Century",
                                   "Other_Years"))
     )
   ) %>% 
@@ -2138,11 +2184,11 @@ New_Mean_Data_GoM <- Atlantic_DBEM %>%
   ) %>% 
   spread(Period,Mean_Temp) %>% 
   mutate_at(vars(Mid_Century, # Devide future values by present
-                 The_End_Century),
+                 End_Century),
             funs(ifelse(Begining > 0, ./Begining,.)) #if no species today value is the future
   ) %>% 
   mutate_at(vars(Mid_Century, # Estimate percentage change
-                 The_End_Century),
+                 End_Century),
             funs(ifelse(Begining == 0 & . == 0, 0, # If for no change than 0
                         ifelse(Begining == 0 & . > 0, 100, # If changes from 0 to anything then 100
                                round(-(1-.)*100) # Estimate percentage change
@@ -2150,7 +2196,7 @@ New_Mean_Data_GoM <- Atlantic_DBEM %>%
             )
             )
   ) %>% 
-  gather("Period","MCP_Chng",Mid_Century,The_End_Century) %>% 
+  gather("Period","MCP_Chng",Mid_Century,End_Century) %>% 
   mutate(Direction = ifelse(MCP_Chng >= 0, "Positive","Negative")) %>% 
   group_by(INDEX,Species,Period,RCP) %>% # Average results per ESMs
   summarise_at(vars(MCP_Chng),
@@ -2247,7 +2293,79 @@ pgm <- ggplot(New_Mean_Data_GoM) +
   )
 
   
-  Name = paste("New_Change_GB_26_85_Mid.png",sep="_")
+  Name = paste("GoM_26_85_Mid.png",sep="_")
+
+ggsave(Name,
+       plot = pgm,
+       width = 20,
+       height = 10,
+       units = "in",
+       path = Path)
+
+
+###-----------------###
+# Plot for Appendix 
+###-----------------###
+
+
+pgm <- ggplot(New_Mean_Data_GoM) +
+  geom_tile(data = subset(New_Mean_Data_GoM, Period == "End_Century"),
+            aes(
+              x = Longitude,
+              y = Latitude,
+              color = Mean_ESM_MCP_Chng,
+              fill = Mean_ESM_MCP_Chng
+            )
+  ) +
+  geom_point(data = subset(New_Mean_Data_GoM, Period == "End_Century" & Model_Agreement == "Disagree"),
+             aes(
+               x = Longitude,
+               y = Latitude
+             ),
+             # size = 0.1,
+             alpha = 0.3,
+             shape = 4,
+             color = "grey20"
+  ) +
+  scale_fill_gradient2(paste("MCP Percentage Change \n",End_In,"-",End_End,")"), # If not using the bins
+                       limits=c(Lim_Neg,
+                                Lim_Max),
+                       breaks = Seq,
+                       na.value = 'darkred' # NA values are present when the species is no more 
+  ) +
+  scale_colour_gradient2(paste("MCP Percentage Change \n",End_In,"-",End_End,")"),
+                         limits=c(Lim_Neg,
+                                  Lim_Max),
+                         breaks = Seq,
+                         na.value = 'darkred' # NA values are present when the species is no more
+  ) +
+  geom_sf(data = GM_Land, colour = "lightgrey") +
+  geom_sf(data = eez_GM, fill = NA) +
+  coord_sf(xlim = c(-71.0592, -63.33333),
+           ylim = c(41,45.5)
+           ) +
+  annotate("text", label = "United States", x = -70, y = 45, size = 4, colour = "black") +
+  annotate("text", label = "Canada", x = -66.8, y = 45.4, size = 4, colour = "black") +
+  annotate("text", label = "Canada", x = -65.4, y = 44.2, size = 4, colour = "black") +
+  ggtheme_map() +
+  theme(
+    axis.line = element_line(colour = "black", size = .5),
+    axis.ticks = element_line(size = .5),
+    axis.text.x = element_text(size = 12,
+                               angle = 0,
+                               face = "plain"),
+    axis.text.y = element_text(size = 12),
+    legend.key = element_rect(size = 3),
+    legend.key.width =unit(8,"line"),
+    legend.title = element_text(size = 20),
+    legend.text = element_text(size = 18)
+  )  +
+  facet_wrap(~RCP + Species, 
+             ncol = 3
+  )
+
+  
+  Name = paste("GoM_26_85_End.png",sep="_")
 
 ggsave(Name,
        plot = pgm,
