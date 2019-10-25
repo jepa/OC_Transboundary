@@ -399,7 +399,7 @@ ggsave("Fig1_IPHC.png",
 
 ```
 
-![Fig 1. Map of North America with the regulatory areas of the IPHC and the NAFO sub-region related to the Gulf of Main agreement](./Results/Fig1.png)
+![Fig 1. Map of North America with the regulatory areas of the IPHC and the NAFO sub-region related to the Gulf of Main agreement](./Figures/Ecol//Fig1.png)
 
 
 It is expected that climate induced shifts in stock distribution affect the rules in place that keeps these treaties alive. Therefore, the main objective of this paper is to assess the level of exposure of international fisheries management treaties between Canada and the US to climate change impacts through shifts in stock distributions. Specifically, we rely on a species distribution model and scenario planning to project the changes in the distribution of 33 fish stocks jointly managed by Canada and the US. Moreover, we use two specific treaties as case studies (IPHC and the GoM agreement) to explore the potential impacts that climate change will have on selected transboundary fisheries management. Finally, we explore similar situations around the world and identify opportunities to improve the adaptability of transboundary fisheries management to climate change in North America. Despite an overall expectation of species following a poleward shift, important geographic features (e.g. Gulf of Alaska representing a latitudinal block), geo-political (e.g. the localization of Alaska in reference to Canada and the contiguous states), and management rules (e.g. quota allocations, spatial management rules) may play an important role in the redistribution of benefits. Understanding these stocks shifts will shed a light on future conditions and inform decision makers on the paths to follow under a changing climate.
@@ -411,7 +411,7 @@ It is expected that climate induced shifts in stock distribution affect the rule
 
 The current study focuses on transboundary fisheries jointly managed by Canada and the US for both the Atlantic and the Pacific coasts. The analysis was carried out within the 200 nautical miles of both nation's EEZ from the Gulf of Mexico to The Labrador Sea in the Atlantic, and from California to Chukchi Sea, in the Pacific coast (Fig. 1). Subsets of the total area were carried for both the IPHC and the Gulf of Maine agreement. For the IPHC, we used the most updated spatial regulatory data provided by the Commission [@IPHCSecreatriat:2017uz]. For this specific case, we considered Alaska as a separate entity, the US contiguous states as a second one (Washington, Oregon and California), and lastly British Columbia (Canada). For the GoM agreement we used NAFO's divisions 5Y, 5Ze, and 4X within latitudes 46.2°N and 41.5°S, and longitudes -72°W and -64°E (Fig. 1).
 
-```{r Spatial_data, eval = T, echo = F, warning=F, message=F, results = 'hide'}
+```{r Spatial_data, eval = F, echo = F, warning=F, message=F, results = 'hide'}
 
 # List of DBEM INDEX within the EEZ
 #Data provided by Vicki Lam
@@ -1327,7 +1327,7 @@ p <- ggplot(MCP_Data) +
 
 Shifts in the distribution of 33 jointly managed transboundary stocks of North America show that by 2050 maximum catch potential (MCP) of transboundary stocks will increase in Atlantic-Canadian and Alaskan waters and decrease in Pacific-Canadian and the US contiguous states (Fig. 2). Despite the overall trend, such changes will be less intense under the low emission scenario (Fig. 2-A). Under the high emission scenario, MCP will be reduced in a larger area and with greater intensity (Fig. 2-B). Such changes are expected to intensify towards the end of the 21st century, although with greater uncertainty (**Fig A1.1**).
 
-![Fig 2. Percentage change of MCP of transboundary fisheries of North America for mid century (2046-2055) referent to 2005-2014 under a A) low emission scenario and; B) high emission scenario.](./Results/Fig2.png)
+![Fig 2. Percentage change of MCP of transboundary fisheries of North America for mid century (2046-2055) referent to 2005-2014 under a A) low emission scenario and; B) high emission scenario.](./Figures/Ecol/Fig2.png)
 
 
 ```{r Changes_Per_Species_T, eval=F, echo=F}
@@ -1469,7 +1469,7 @@ In consequence, country's share-ratio of different species would change in the d
 Even under a low emission scenario, most transboundary fish stocks sharing ratios will change by 2050 in the direction as expected from the effects of ocean warming. However, such changes will vary depending on the species, resulting in management consequences related to the rules placed by the different treaties. In the case of the IPHC, at least three of the 12 regulatory areas will see a reduction in MCP of Pacific halibut by 2050 in reference to current MCP of each area, regardless of the climate change scenario (Fig. 3). Poleward shifts might be constrained by the geopolitical position of countries, as well as geographic design of the coastline. It is likely that the stock shift from the US contiguous states towards Canada will offset the shift of the former towards northern regions, resulting in undetectable changes in areas 2B and 2C. Similarly, to the potential increase in MCP of regulatory areas 3B and 4ABCE along the Aleutian Islands and Bering Sea.
 
 
-```{r IPHC_Map_Result_Regions, eval=T, echo=F}
+```{r IPHC_Map_Result_Regions, eval = F, echo=F}
 
 ### Get the INDEX in each IPHC region
 
@@ -1683,278 +1683,7 @@ p_end <- ggplot() +
 
 ```
 
-```{r Functions, eval = F}
-
-getTaxInfo <- function(TaxNumber,TaxPath=NA, Sal = "NA"){
-  
-  # Set automatic path, change if needed
-  TaxPath  <- "/Volumes/DATA/JULIANO_NEYMAR/PristineSeasData/Species/TaxonDataC0/"
-  
-  # Sets the tac and path 
-  To_Read <- paste(TaxPath,TaxNumber,".txt",sep = "")
-  
-  if(Sal == "Y"){
-  Spp_Info <- suppressWarnings(
-    read_table2(To_Read, 
-     col_names = FALSE, col_types = cols(`0` = col_character(), 
-         X2 = col_number(), X3 = col_number(), 
-         X4 = col_number(), X5 = col_number(), 
-         X6 = col_number()), 
-     skip = 16)
-  ) 
-  Spp_Info <- Spp_Info[1,2:6]
-  }else{
-  # Reads in file
-  Spp_Info <- suppressMessages(
-    readr::read_delim(To_Read, 
-               "\t", escape_double = FALSE, col_names = FALSE, 
-               # col_types = cols(X2 = col_number()),
-               trim_ws = TRUE)
-  )
-  }
-  return(Spp_Info)
-}
-
-
-
-getTTP <- function(TaxNumber,yr,TaxPath=NA){
-  
-  # Set automatic path, change if needed
-  TaxPath  <- paste("/Volumes/DATA/JULIANO_NEYMAR/PristineSeasData/TPP",yr,"",sep="/")
-
-  # Sets the tac and path 
-  To_Read <- paste(TaxPath,"TPPotp",TaxNumber,".csv",sep = "")
-  
-  TPPotp <- read.csv(To_Read)
-  
-  return(TPPotp)
-}
-
-
-getEnvVar=function(yr,ModelRCP,RCP,Variable){
-  
-  if(ModelRCP == "IPSL"){
-    ModelRCP = "IPSL-CM5A-MR"
-    Filepath <- paste("/Volumes/DATA/DATA/Environmental data/Model Climate data/CMIP5/txt CMIP5/Reformatted",ModelRCP,RCP,"",sep="/")
-  }
-  
-  
-  if(ModelRCP ==  "MPI"){
-    ModelRCP = "MPI-ESM-MR"
-    Filepath <- paste("/Volumes/DATA/DATA/Environmental data/Model Climate data/CMIP5/txt CMIP5/Reformatted",ModelRCP,RCP,"",sep="/")
-  }
-  
-  if(ModelRCP = "GFDL"){
-    
-    if(RCP == "rcp26"){
-    ModelRCP <- "GFDL26"
-    }else{
-      ModelRCP <- "GFDL85"
-    }
-      
-  Filepath <- paste("/Volumes/DATA/JULIANO_NEYMAR/PristineSeasData/Climate",ModelRCP,"",sep="/")
-  }
-  
-  
-  if(Variable == "Ice"){
-    
-    Bottom <- paste("IceExt_",yr,".txt",sep="")
-    
-  }
-    
-    if(Variable == "Temperature"){
-       
-      Bottom = paste("botTemp_",2005,".txt",sep="")
-      
-    }
-    
-    if(Variable == "Salinity"){
-      # Bottom
-      Bottom = paste("Salinity_btm_",yr,".txt",sep="")
-      
-    }
-    
-    Read_me <- paste(Filepath,Bottom,sep="")[1]
-    Bottom_Data <- read.csv(Read_me,header=F)
-    
-   # Retrun
-    
-    getTemp <- Bottom_Data  
-}
-
-```
-
-```{r 4D_exploration, eval=F, echo=F,message=F, warning=F}
-
-# Exploring wy 4D s negative under 2.6 but positive under 8.5
-# This chunk will use functions build for the Pristince seas work
-
-### Exploration at the spatial level
-
-Spatial_4DE <- DBEM_Corrected %>% 
-  mutate(RCP = ifelse(Model %in% c("GFDL26F1","IPSL26F1","MPI26F1"),"RCP 2.6","RCP 8.5")) %>% # Set the RCPs
-  filter(Species == "Hippoglossus stenolepis") %>% 
-  left_join(IPHC_Reg_DBEM_df,
-            by = "INDEX") %>% 
-  filter(RegArea %in% c("4D","4E")) %>%
-  group_by(RegArea,RCP,Model) %>% #Sum grid-cells by regulatory area, RCP and Model
-  summarise_at(vars(`2005`:`2099`), sum,na.rm=T) %>% 
-  tidyr::gather("Year","Total_MCP",`2005`:`2099`) %>% 
-  group_by(RegArea,RCP,Year) %>% 
-  summarise(
-    m=mean(Total_MCP),
-    sd=sd(Total_MCP)
-    )
-
-ggplot(Spatial_4DE) +
-  geom_point(
-    aes(
-      x = Year,
-      y = m,
-      colour = RCP
-    )
-  ) +
-  facet_wrap(~RegArea,
-             scales = "free")
-
-### Environmental varibales of the region
-
-## Temp
-
-# Variables
-Model = c("GFDL","IPSL","MPIS")
-RCP = c("rcp26","rcp85")
-
-Grid <- DBEM_Corrected %>% 
-  select(INDEX) %>% 
-  left_join(IPHC_Reg_DBEM_df,
-            by = "INDEX") %>% 
-  filter(RegArea %in% c("4D","4E")) %>% 
-  select(INDEX)
-
-Variables <- c("Temperature","Salinity","Ice")
-
-F_BData <- NULL
-F_SData <- NULL
-F_MData <- NULL
-F_RData <- NULL
-Years <- seq(2005,2100,1)
-
-all_Grid <- seq(1,259200,1)
-
-for(v in 3:3){
-  # Loop through RCPs
-  for(r in 1:2){
-    # Loop through  variables
-    for(m in 1:3){
-      # Loop through years
-      for(y in 1:length(Years)){
-        
-        Data <- getEnvVar(yr = Years[y],
-                          Model = Model[m],
-                          Variable = Variables[v],
-                          RCP = RCP[r]
-        ) %>% 
-          mutate(INDEX = all_Grid) %>% 
-          filter(INDEX %in% Grid$INDEX)
-        
-        if(y == 1){
-          
-          F_BData <- Data[1]
-          
-          
-        }else{
-          
-          
-          F_BData <- cbind(Data[1],F_BData)
-          
-        }
-      }
-      
-      colnames(F_BData) <- Years
-      
-      F_BData <- F_BData %>% 
-        gather(Year,Value,1:426) %>% 
-        mutate(Model = Model[m],
-               RCP = RCP[r],
-               Variable = Variables[v])
-      
-      if(m == 1){
-        
-        F_MData <- F_BData
-        
-        
-      }else{
-        
-        
-        F_MData <- rbind(F_BData,F_MData)
-      }
-    }
-    
-    if(r == 1){
-      
-      F_RData <- F_MData
-      
-      
-    }else{
-      
-      
-      F_RData <- rbind(F_RData,F_MData)
-    }
-  }
-  
-  if(v == 1){
-    
-    F_VData <- F_RData
-    
-    
-  }else{
-    
-    
-    F_VData <- rbind(F_VData,F_RData)
-  }
-  
-} # closes variable loop
-
-
-write.csv(F_VData,
-          "Environmental_Data_Halibut.csv",
-          row.names = F)
-
-
-
-### Exploration at the biological level
-
-# exploited_species_list <- fread("/Volumes/DATA/PROJECTION exploited species ENM/exploited_species_list.csv")
-# 600514
-
-# Isolate Regions
-
-DE <- IPHC_MCP_Change %>% 
-  filter(RegArea %in% c("4D","4E"))
-
-#Load Halibut Species preferences
-Halibut <- getTaxInfo(600514)
-# Demersal
-# HabAssocSal 0 1 1 -1 -1
-# HabAssocIce 0
-
-# Temp
-TTPop <- getTTP(600514,"Avg") %>% 
-  filter(TempPP > 0)
-
-Min_T <- min(TTPop$Temp)
-Max_T <- max(TTPop$Temp)
-
-# Halibut_Temp 2
-# quant05 -2 
-# quant25 0 
-# quant50 2
-# quant75 5
-# quant95 11
-```
-
-```{r Figure_3, eval =F, echo =F, fig.cap="Percentage Change of MCP for Species managed by the IPHC. A, RCP 2.6 represents a low emission scenario (high mitigation). B, RCP 8.5 represents a high emission scenario (status quo)"}
+```{r Figure_3, eval = F, echo =F, fig.cap="Percentage Change of MCP for Species managed by the IPHC. A, RCP 2.6 represents a low emission scenario (high mitigation). B, RCP 8.5 represents a high emission scenario (status quo)"}
 
 img <- readPNG("/Users/jpalacios/Documents/UBC/Oceans_Project/Manuscript/Results/Fig3.png")
 grid.raster(img)
@@ -1964,11 +1693,11 @@ grid.raster(img)
 
 <!-- If rendered to word use ![](), otherwise use chunk -->
 
-![Fig 3. Percentage change of MCP for species managed by the IPHC for mid century (2046-2055) referent to 2005-2014 under a A) low emission scenario and B) high emission scenario.](./Results/Fig3.png)
+![Fig 3. Percentage change of MCP for species managed by the IPHC for mid century (2046-2055) referent to 2005-2014 under a A) low emission scenario and B) high emission scenario.](./Figures/Ecol/Fig3.png)
 
 The same poleward trend is expected in the change of Pacific halibut stock-share ratio with the average proportion increasing up to 25% in some northern regions and decreasing by 10% in southern regions, in relation to the present proportion (Fig. 4). Maintaining emissions to lower levels by 2050 would potentially leave unchanged the stock-share ratio of three regulatory areas (3AC, and 4D) and negatively change regulatory area 2A. On the other hand, failing to achieve such target will decrease the stock-share ratio almost half of the regulatory areas (2AC, 3AB).
 
-```{r IPHC_Proportion_Regions, eval=F, echo = F, message=F, warning=F}
+```{r IPHC_Proportion_Regions, eval = F, echo = F, message=F, warning=F}
 
 Path <- "./Results/Ecol/IPHC/"
 # names(DBEM_Results)
@@ -2116,7 +1845,7 @@ ggplot(data = subset(New_Proportion_Change, Time_Step == "Mid_Century_Prop"),
 
 ```
 
-```{r Figure_4, eval =F, echo =F, fig.cap="Percentage change of stock-share ratio for IPHC under two RCPs for Mid century (2046-2055)"}
+```{r Figure_4, eval = T, echo =F, fig.cap="Percentage change of stock-share ratio for IPHC under two RCPs for Mid century (2046-2055)"}
 
 Fig4 <- readPNG("~/Documents/UBC/Oceans_Project/Manuscript/Results/Fig4.png")
 grid.raster(Fig4)
@@ -2125,13 +1854,13 @@ grid.raster(Fig4)
 
 <!-- If rendered to word use ![](), otherwise use chunk -->
 
-![Fig 4. Percentage change of stock-share ratio for IPHC under A) low emission scenario and B) high emission scenario for mid century (2046-2055) referent to 2005-2014.](./Results/Fig4.png)
+![Fig 4. Percentage change of stock-share ratio for IPHC under A) low emission scenario and B) high emission scenario for mid century (2046-2055) referent to 2005-2014.](./Figures/Ecol/Fig4.png)
 
 ### Projected change to species managed under the GoM agreement
 
 While some regulatory areas of the IPHC will see increments in species' MCP, the results for the Gulf of Maine (NAFO area 5Z) show an overall decrease in MCP by 2050, depending on the climate change scenario. MCP of cod and haddock will decrease within the whole Gulf with no apparent win for any country in reference to 2014 (Fig. 5). For yellowtail flounder, some discrete areas are expected to increase with no particular pattern. Despite the overall reduction in MCP in comparison to current values, there is a benefit of achieving a low emission scenario, as reductions intensify under the high emission scenario.
 
-```{r GB_Results_Spp, eval=F, echo = F, fig.width=12}
+```{r GB_Results_Spp, eval = F, echo = F, fig.width=12}
 
 #### Filter Species  ####
 
@@ -2377,12 +2106,19 @@ ggsave(Name,
 ```
 
 
+```{r Figure_5, eval = T, echo =F, fig.cap="Percentage change of MCP in the Gulf of Main under, A) low emission scenario; and B) high emission for mid century (2041-2060) referent to present (2005-2014)"}
 
-![Fig 5. Percentage change of MCP in the Gulf of Main under, A) low emission scenario; and B) high emission for mid century (2041-2060) referent to present (2005-2014)](./Results/Fig5.png)
+Fig4 <- readPNG("./Figures/Ecol/Fig5.png")
+grid.raster(Fig5)
+
+```
+
+
+![Fig 5. Percentage change of MCP in the Gulf of Main under, A) low emission scenario; and B) high emission for mid century (2041-2060) referent to present (2005-2014)](./Figures/Ecol/Fig5.png)
 
 Despite the expected decrease in MCP for the region, changes in the stock-share ratio of MCP for the Gulf of Maine show different outcomes depending on the species in question. Following the high emission path will affect mostly Canada’s share of Y. flounder and in less degree Haddock, with an increase of Cod share. For the low emission scenario, patterns somehow invert with Canada losing a larger share of Haddock versus Y. flounder, while increasing Cod’s share (Fig 6).
 
-```{r GB_Proportion_Species, eval =F, echo=F}
+```{r GB_Proportion_Species, eval = F, echo=F}
 ### Analysis by Species ####
 
 
@@ -2563,11 +2299,18 @@ ggplot(data = subset(New_Proportion_Change_GoM, Time_Step == "Mid_Century_Prop")
 
 ```
 
-![Fig 6. Changes in MCP stock-share ratio for Gulf of Main under (A) low emission scenario; and (B) high emission for mid century (2041-2060) referent to 2005-2014](./Results/Fig6.png)
+
+```{r Figure_6, eval = T, echo =F, fig.cap="Changes in MCP stock-share ratio for Gulf of Main under (A) low emission scenario; and (B) high emission for mid century (2041-2060) referent to 2005-2014"}
+
+Fig4 <- readPNG("./Figures/Ecol/Fig6.png")
+grid.raster(Fig5)
+
+```
+
+
+![Fig 6. Changes in MCP stock-share ratio for Gulf of Main under (A) low emission scenario; and (B) high emission for mid century (2041-2060) referent to 2005-2014](./Figures/Ecol/Fig6.png)
 
 # DISCUSSION
-
-<!-- ## Species shifting towards the poles  -->
 
 The results of the present study suggest that, by 2050, climate change will alter the MCP of 33 transboundary fish stocks in North America consequently altering Canada’s and the US’s species’ stock-share ratio. For some species, such changes will intensify under the high emission carbon scenario while for others, the change will be scenario depending. These results are aligned with global [@Cheung:2010dt] and regional [@Morley:2018fn] projections suggesting that climate change will push marine species towards the poles and deeper water [@Pinsky:2013jo] in search of their ecological niche [@Poloczanska:2016kk]. Moreover, poleward shifts in Eastern Atlantic off the coast of the US have been previously recorded for American lobster (*Homarus americanus*), summer (*Paralichthys dentatus*) and yellow flounders, and red hake (*Urophycis chuss*) from North Carolina to Main [@Pinsky:2012kq]. Our models suggest that shifts will continue towards the end of the 21^st^ century resulting in changes in the proportion of the catch of important shared stocks between Canada and the US. As the effects of climate change endure, even with high mitigation, joint plans should prepare to face changes in the stock-share ratio of transboundary stocks along the coast of North America.
 
@@ -2582,13 +2325,7 @@ Side payments have been previously used to address changes in species distributi
 [^NR]: Joint Fish, joint Russian-Norwegian Fisheries Comission available at http://www.jointfish.com/eng/THE-FISHERIES-COMMISSION/HISTORY.html
 [^PNA]: The Parties to the Nauru Agreement (PNA), available at http://www.pnatuna.com/
 
-<!-- ## Uncertanty stuff -->
-
 In the current paper we follow a modeling approach to explore the potential impacts that climate change will have in the management of transboundary fisheries in North America. Models are attempts to represent reality (in our case a future reality) based on observational data, previously established theory, and future scenarios, and are thus, subjected to different degrees of uncertainty [@Payne:2016gn]. First, our study incorporates multiple earth system models to project the future distribution of transboundary stocks while accounting the structural uncertainty built within each ESM [@Bopp:2013fg]. In terms of the structural uncertainty build within the DBEM, previous analysis shown that the trends of changes in MCP are not affected by its structural uncertainty [@Cheung:2016jd]. Secondly, scenario planning has been widely used in climate change studies as a method to account for the uncertainty build in future decision making [@vanVuuren:2011ef]. In this aspect we considered two extreme RCPs that comprises the vast spectrum of possibilities proposed by the IPCC [@IPCC:2014bz]. A lower-than-2.6 RCP (1.5º warming) was discussed at the recent Paris Agreement sessions celebrated in Paris France. While we did not include this scenario in our analysis, previous research suggest that stronger mitigation efforts would bring large benefits to fisheries [@Cheung:2016tt]. Finally, future changes to species distributions could be influenced by interactions between species [@Pecl:2017hu], adaptation of species to environmental changes, and anthropogenic factors [@Serpetti:2017he]. However, these factors are expected to increase the rate of range-shifting of the species making our results conservative [@Cheung:2010dt; @Serpetti:2017he].
-
-
-<!-- Discussion on improoving management  -->
-<!-- From global (Cheung et al. 2016c) to regional (Morley et al. 2018) analysis, mitigating the effects of climate change will have positive results on fisheries (Sumaila 2019). In combination with improving management [Costello], fisheries will only be saved by a holistic approach… Indeed, dynamic management tools seem to work better than static strategies for resources expected to shift with changes in ocean condition (Pinsky and Selden 2017). -->
 
 # CONCLUSIONS
 
@@ -2596,10 +2333,283 @@ Shifts in species distribution due to climate change have the potential of creat
 
 # ACKNOWLEDGEMENTS
 
-We ack
-
 
 # LITERATURE CITED
+
+<!-- # Old Analysis -->
+
+<!-- ## Investigating 4D -->
+
+```{r Functions, eval = F}
+
+getTaxInfo <- function(TaxNumber,TaxPath=NA, Sal = "NA"){
+  
+  # Set automatic path, change if needed
+  TaxPath  <- "/Volumes/DATA/JULIANO_NEYMAR/PristineSeasData/Species/TaxonDataC0/"
+  
+  # Sets the tac and path 
+  To_Read <- paste(TaxPath,TaxNumber,".txt",sep = "")
+  
+  if(Sal == "Y"){
+  Spp_Info <- suppressWarnings(
+    read_table2(To_Read, 
+     col_names = FALSE, col_types = cols(`0` = col_character(), 
+         X2 = col_number(), X3 = col_number(), 
+         X4 = col_number(), X5 = col_number(), 
+         X6 = col_number()), 
+     skip = 16)
+  ) 
+  Spp_Info <- Spp_Info[1,2:6]
+  }else{
+  # Reads in file
+  Spp_Info <- suppressMessages(
+    readr::read_delim(To_Read, 
+               "\t", escape_double = FALSE, col_names = FALSE, 
+               # col_types = cols(X2 = col_number()),
+               trim_ws = TRUE)
+  )
+  }
+  return(Spp_Info)
+}
+
+
+
+getTTP <- function(TaxNumber,yr,TaxPath=NA){
+  
+  # Set automatic path, change if needed
+  TaxPath  <- paste("/Volumes/DATA/JULIANO_NEYMAR/PristineSeasData/TPP",yr,"",sep="/")
+
+  # Sets the tac and path 
+  To_Read <- paste(TaxPath,"TPPotp",TaxNumber,".csv",sep = "")
+  
+  TPPotp <- read.csv(To_Read)
+  
+  return(TPPotp)
+}
+
+
+getEnvVar=function(yr,ModelRCP,RCP,Variable){
+  
+  if(ModelRCP == "IPSL"){
+    ModelRCP = "IPSL-CM5A-MR"
+    Filepath <- paste("/Volumes/DATA/DATA/Environmental data/Model Climate data/CMIP5/txt CMIP5/Reformatted",ModelRCP,RCP,"",sep="/")
+  }
+  
+  
+  if(ModelRCP ==  "MPI"){
+    ModelRCP = "MPI-ESM-MR"
+    Filepath <- paste("/Volumes/DATA/DATA/Environmental data/Model Climate data/CMIP5/txt CMIP5/Reformatted",ModelRCP,RCP,"",sep="/")
+  }
+  
+  if(ModelRCP = "GFDL"){
+    
+    if(RCP == "rcp26"){
+    ModelRCP <- "GFDL26"
+    }else{
+      ModelRCP <- "GFDL85"
+    }
+      
+  Filepath <- paste("/Volumes/DATA/JULIANO_NEYMAR/PristineSeasData/Climate",ModelRCP,"",sep="/")
+  }
+  
+  
+  if(Variable == "Ice"){
+    
+    Bottom <- paste("IceExt_",yr,".txt",sep="")
+    
+  }
+    
+    if(Variable == "Temperature"){
+       
+      Bottom = paste("botTemp_",2005,".txt",sep="")
+      
+    }
+    
+    if(Variable == "Salinity"){
+      # Bottom
+      Bottom = paste("Salinity_btm_",yr,".txt",sep="")
+      
+    }
+    
+    Read_me <- paste(Filepath,Bottom,sep="")[1]
+    Bottom_Data <- read.csv(Read_me,header=F)
+    
+   # Retrun
+    
+    getTemp <- Bottom_Data  
+}
+
+```
+
+```{r 4D_exploration, eval = F, echo=F,message=F, warning=F}
+
+# Exploring wy 4D s negative under 2.6 but positive under 8.5
+# This chunk will use functions build for the Pristince seas work
+
+### Exploration at the spatial level
+
+Spatial_4DE <- DBEM_Corrected %>% 
+  mutate(RCP = ifelse(Model %in% c("GFDL26F1","IPSL26F1","MPI26F1"),"RCP 2.6","RCP 8.5")) %>% # Set the RCPs
+  filter(Species == "Hippoglossus stenolepis") %>% 
+  left_join(IPHC_Reg_DBEM_df,
+            by = "INDEX") %>% 
+  filter(RegArea %in% c("4D","4E")) %>%
+  group_by(RegArea,RCP,Model) %>% #Sum grid-cells by regulatory area, RCP and Model
+  summarise_at(vars(`2005`:`2099`), sum,na.rm=T) %>% 
+  tidyr::gather("Year","Total_MCP",`2005`:`2099`) %>% 
+  group_by(RegArea,RCP,Year) %>% 
+  summarise(
+    m=mean(Total_MCP),
+    sd=sd(Total_MCP)
+    )
+
+ggplot(Spatial_4DE) +
+  geom_point(
+    aes(
+      x = Year,
+      y = m,
+      colour = RCP
+    )
+  ) +
+  facet_wrap(~RegArea,
+             scales = "free")
+
+### Environmental varibales of the region
+
+## Temp
+
+# Variables
+Model = c("GFDL","IPSL","MPIS")
+RCP = c("rcp26","rcp85")
+
+Grid <- DBEM_Corrected %>% 
+  select(INDEX) %>% 
+  left_join(IPHC_Reg_DBEM_df,
+            by = "INDEX") %>% 
+  filter(RegArea %in% c("4D","4E")) %>% 
+  select(INDEX)
+
+Variables <- c("Temperature","Salinity","Ice")
+
+F_BData <- NULL
+F_SData <- NULL
+F_MData <- NULL
+F_RData <- NULL
+Years <- seq(2005,2100,1)
+
+all_Grid <- seq(1,259200,1)
+
+for(v in 3:3){
+  # Loop through RCPs
+  for(r in 1:2){
+    # Loop through  variables
+    for(m in 1:3){
+      # Loop through years
+      for(y in 1:length(Years)){
+        
+        Data <- getEnvVar(yr = Years[y],
+                          Model = Model[m],
+                          Variable = Variables[v],
+                          RCP = RCP[r]
+        ) %>% 
+          mutate(INDEX = all_Grid) %>% 
+          filter(INDEX %in% Grid$INDEX)
+        
+        if(y == 1){
+          
+          F_BData <- Data[1]
+          
+          
+        }else{
+          
+          
+          F_BData <- cbind(Data[1],F_BData)
+          
+        }
+      }
+      
+      colnames(F_BData) <- Years
+      
+      F_BData <- F_BData %>% 
+        gather(Year,Value,1:426) %>% 
+        mutate(Model = Model[m],
+               RCP = RCP[r],
+               Variable = Variables[v])
+      
+      if(m == 1){
+        
+        F_MData <- F_BData
+        
+        
+      }else{
+        
+        
+        F_MData <- rbind(F_BData,F_MData)
+      }
+    }
+    
+    if(r == 1){
+      
+      F_RData <- F_MData
+      
+      
+    }else{
+      
+      
+      F_RData <- rbind(F_RData,F_MData)
+    }
+  }
+  
+  if(v == 1){
+    
+    F_VData <- F_RData
+    
+    
+  }else{
+    
+    
+    F_VData <- rbind(F_VData,F_RData)
+  }
+  
+} # closes variable loop
+
+
+write.csv(F_VData,
+          "Environmental_Data_Halibut.csv",
+          row.names = F)
+
+
+
+### Exploration at the biological level
+
+# exploited_species_list <- fread("/Volumes/DATA/PROJECTION exploited species ENM/exploited_species_list.csv")
+# 600514
+
+# Isolate Regions
+
+DE <- IPHC_MCP_Change %>% 
+  filter(RegArea %in% c("4D","4E"))
+
+#Load Halibut Species preferences
+Halibut <- getTaxInfo(600514)
+# Demersal
+# HabAssocSal 0 1 1 -1 -1
+# HabAssocIce 0
+
+# Temp
+TTPop <- getTTP(600514,"Avg") %>% 
+  filter(TempPP > 0)
+
+Min_T <- min(TTPop$Temp)
+Max_T <- max(TTPop$Temp)
+
+# Halibut_Temp 2
+# quant05 -2 
+# quant25 0 
+# quant50 2
+# quant75 5
+# quant95 11
+```
 
 ```{r Old analysis, eval = F}
 
