@@ -4,7 +4,7 @@ author: "Juliano Palacios-Abrantes^1^ U. Rashid Sumaila^1^ William W. L. Cheung^
 subtitle: "[THIRD DRAFT]"
 date: "^1^ Institute for the Oceans and Fisheries, University of British Columbia, Vancouver, Canada"
 output:
-  word_document: default
+  # word_document: default
   pdf_document: default
 bibliography: Ecol_Analysis/Oceans_Canada_Biblio.bib
 editor_options: 
@@ -12,7 +12,7 @@ editor_options:
 csl: Ecol_Analysis/harvard.csl
 ---
   
-```{r setup, eval=T, echo=F, warning=F,message=F, results='hide'}
+```{r Ch3_setup, eval = T, echo=F, warning=F,message=F, results='hide'}
 
 #### READ ME !!! ####
 # Run this chunk before knit so you make sure you have all pkgs installed in R
@@ -27,6 +27,7 @@ ipak <- function(pkg){
 
 #### Library ####
 packages <- c(
+  "here", # For all thesis
   "readxl", # Read dataframe
   "dplyr", # Data manipulation
   "tidyr", # Data manipulation
@@ -35,11 +36,13 @@ packages <- c(
   "data.table",
   "ggrepel",
   "sf",
+  "knitr", # Nice tables
+  "kableExtra", # Nice tables
   # "sp",
   # "rgdal", #Spatial analysis 
-  "tools"#, #Spatial analysis 
-  # "png", # For reading plots in chunk codes
-  # "grid" # For reading plots in chunk codes
+  "tools", #Spatial analysis 
+  "png", # For reading plots in chunk codes
+  "grid" # For reading plots in chunk codes
 )
 
 ipak(packages)
@@ -399,7 +402,15 @@ ggsave("Fig1_IPHC.png",
 
 ```
 
-![Fig 1. Map of North America with the regulatory areas of the IPHC and the NAFO sub-region related to the Gulf of Main agreement](./Figures/Ecol//Fig1.png)
+```{r Figure_1, eval = T, echo =F, fig.cap="Map of North America with the regulatory areas of the IPHC and the NAFO sub-region related to the Gulf of Main agreement"}
+
+img <- readPNG(here("Figures/Ecol/Fig1.png"))
+grid.raster(img)
+
+```
+
+
+<!-- ![Fig 1. Map of North America with the regulatory areas of the IPHC and the NAFO sub-region related to the Gulf of Main agreement](./Figures/Ecol//Fig1.png) -->
 
 
 It is expected that climate induced shifts in stock distribution affect the rules in place that keeps these treaties alive. Therefore, the main objective of this paper is to assess the level of exposure of international fisheries management treaties between Canada and the US to climate change impacts through shifts in stock distributions. Specifically, we rely on a species distribution model and scenario planning to project the changes in the distribution of 33 fish stocks jointly managed by Canada and the US. Moreover, we use two specific treaties as case studies (IPHC and the GoM agreement) to explore the potential impacts that climate change will have on selected transboundary fisheries management. Finally, we explore similar situations around the world and identify opportunities to improve the adaptability of transboundary fisheries management to climate change in North America. Despite an overall expectation of species following a poleward shift, important geographic features (e.g. Gulf of Alaska representing a latitudinal block), geo-political (e.g. the localization of Alaska in reference to Canada and the contiguous states), and management rules (e.g. quota allocations, spatial management rules) may play an important role in the redistribution of benefits. Understanding these stocks shifts will shed a light on future conditions and inform decision makers on the paths to follow under a changing climate.
@@ -1003,22 +1014,22 @@ where $\theta_{r}$ is the aggregated $\hat{MCP}$ of each region, and *t* is peri
 
 # RESULTS
 
-```{r Load_Data, echo = F, eval = T, results='hide', warning=F,message=F}
+```{r Load_Data, echo = F, eval = F, results='hide', warning=F,message=F}
 
 # List of DBEM INDEX within the EEZ
 #Data provided by Vicki Lam
 
 #Data provided by Vicki Lam
-EEZIDs_List <- read_excel("./Data/Spatial/Updated_EEZList_17June2016.xlsx")
-EEZ_CellID <- read_excel("./Data/Spatial/EEZ_CellID.xlsx")
+EEZIDs_List <- read_excel(here("Data/Spatial/Updated_EEZList_17June2016.xlsx"))
+EEZ_CellID <- read_excel(here("Data/Spatial/EEZ_CellID.xlsx"))
 colnames(EEZ_CellID) <- c("EEZID","INDEX")
 
 # DBEM Coordinate system
-Coor <- fread("./Data/Spatial/Lon_Lat_DBEM.txt",header = FALSE)
+Coor <- fread(here("Data/Spatial/Lon_Lat_DBEM.txt"),header = FALSE)
 colnames(Coor) <- c("INDEX","Longitude","Latitude")
 
 # From (/Users/jpalacios/Documents/UBC/Oceans_Project/Distribution/By Cell/By_Cell_Analysis.Rmd)
-Raw_DBEM_Results <- data.table::fread("./Data/Distribution/Raw_Data.csv") %>% 
+Raw_DBEM_Results <- data.table::fread(here("Data/Distribution/Raw_Data.csv")) %>% 
   filter(Species != "Anoplopoma fimbria") #Remove
 
 ### Number of stocks per treaty##
@@ -1150,7 +1161,7 @@ DBEM_Coor_sf = st_as_sf(DBEM_Coor,
 
 ### North American transboundary fisheries are shifting poleward
 
-```{r Changes_Data_All, eval =T, echo = F, fig.height=8, fig.width=12}
+```{r Changes_Data_All, eval = F, echo = F, fig.height=8, fig.width=12}
 
 # Change North America Projection for Map
 
@@ -1327,7 +1338,15 @@ p <- ggplot(MCP_Data) +
 
 Shifts in the distribution of 33 jointly managed transboundary stocks of North America show that by 2050 maximum catch potential (MCP) of transboundary stocks will increase in Atlantic-Canadian and Alaskan waters and decrease in Pacific-Canadian and the US contiguous states (Fig. 2). Despite the overall trend, such changes will be less intense under the low emission scenario (Fig. 2-A). Under the high emission scenario, MCP will be reduced in a larger area and with greater intensity (Fig. 2-B). Such changes are expected to intensify towards the end of the 21st century, although with greater uncertainty (**Fig A1.1**).
 
-![Fig 2. Percentage change of MCP of transboundary fisheries of North America for mid century (2046-2055) referent to 2005-2014 under a A) low emission scenario and; B) high emission scenario.](./Figures/Ecol/Fig2.png)
+```{r Figure_2, eval = T, echo =F, fig.cap="Percentage change of MCP of transboundary fisheries of North America for mid century (2046-2055) referent to 2005-2014 under a A) low emission scenario and; B) high emission scenario."}
+
+img <- readPNG(here("Figures/Ecol/Fig2.png"))
+grid.raster(img)
+
+```
+
+
+<!-- ![Fig 2. Percentage change of MCP of transboundary fisheries of North America for mid century (2046-2055) referent to 2005-2014 under a A) low emission scenario and; B) high emission scenario.](./Figures/Ecol/Fig2.png) -->
 
 
 ```{r Changes_Per_Species_T, eval=F, echo=F}
@@ -1683,9 +1702,9 @@ p_end <- ggplot() +
 
 ```
 
-```{r Figure_3, eval = F, echo =F, fig.cap="Percentage Change of MCP for Species managed by the IPHC. A, RCP 2.6 represents a low emission scenario (high mitigation). B, RCP 8.5 represents a high emission scenario (status quo)"}
+```{r Figure_3, eval = T, echo =F, fig.cap="Percentage Change of MCP for Species managed by the IPHC. A, RCP 2.6 represents a low emission scenario (high mitigation). B, RCP 8.5 represents a high emission scenario (status quo)"}
 
-img <- readPNG("/Users/jpalacios/Documents/UBC/Oceans_Project/Manuscript/Results/Fig3.png")
+img <- readPNG(here("Figures/Ecol/Fig3.png"))
 grid.raster(img)
 
 ```
@@ -1693,7 +1712,7 @@ grid.raster(img)
 
 <!-- If rendered to word use ![](), otherwise use chunk -->
 
-![Fig 3. Percentage change of MCP for species managed by the IPHC for mid century (2046-2055) referent to 2005-2014 under a A) low emission scenario and B) high emission scenario.](./Figures/Ecol/Fig3.png)
+<!-- ![Fig 3. Percentage change of MCP for species managed by the IPHC for mid century (2046-2055) referent to 2005-2014 under a A) low emission scenario and B) high emission scenario.](./Figures/Ecol/Fig3.png) -->
 
 The same poleward trend is expected in the change of Pacific halibut stock-share ratio with the average proportion increasing up to 25% in some northern regions and decreasing by 10% in southern regions, in relation to the present proportion (Fig. 4). Maintaining emissions to lower levels by 2050 would potentially leave unchanged the stock-share ratio of three regulatory areas (3AC, and 4D) and negatively change regulatory area 2A. On the other hand, failing to achieve such target will decrease the stock-share ratio almost half of the regulatory areas (2AC, 3AB).
 
@@ -1845,16 +1864,16 @@ ggplot(data = subset(New_Proportion_Change, Time_Step == "Mid_Century_Prop"),
 
 ```
 
-```{r Figure_4, eval = T, echo =F, fig.cap="Percentage change of stock-share ratio for IPHC under two RCPs for Mid century (2046-2055)"}
+```{r Figure_4, eval = T, echo =F, fig.cap="Percentage change of stock-share ratio for IPHC under A) low emission scenario and B) high emission scenario for mid century (2046-2055) referent to 2005-2014."}
 
-Fig4 <- readPNG("~/Documents/UBC/Oceans_Project/Manuscript/Results/Fig4.png")
+Fig4 <- readPNG(here("Figures/Ecol/Fig4.png"))
 grid.raster(Fig4)
 
 ```
 
 <!-- If rendered to word use ![](), otherwise use chunk -->
 
-![Fig 4. Percentage change of stock-share ratio for IPHC under A) low emission scenario and B) high emission scenario for mid century (2046-2055) referent to 2005-2014.](./Figures/Ecol/Fig4.png)
+<!-- ![Fig 4. Percentage change of stock-share ratio for IPHC under A) low emission scenario and B) high emission scenario for mid century (2046-2055) referent to 2005-2014.](./Figures/Ecol/Fig4.png) -->
 
 ### Projected change to species managed under the GoM agreement
 
@@ -2108,13 +2127,13 @@ ggsave(Name,
 
 ```{r Figure_5, eval = T, echo =F, fig.cap="Percentage change of MCP in the Gulf of Main under, A) low emission scenario; and B) high emission for mid century (2041-2060) referent to present (2005-2014)"}
 
-Fig4 <- readPNG("./Figures/Ecol/Fig5.png")
+Fig5 <- readPNG(here("Figures/Ecol/Fig5.png"))
 grid.raster(Fig5)
 
 ```
 
 
-![Fig 5. Percentage change of MCP in the Gulf of Main under, A) low emission scenario; and B) high emission for mid century (2041-2060) referent to present (2005-2014)](./Figures/Ecol/Fig5.png)
+<!-- ![Fig 5. Percentage change of MCP in the Gulf of Main under, A) low emission scenario; and B) high emission for mid century (2041-2060) referent to present (2005-2014)](./Figures/Ecol/Fig5.png) -->
 
 Despite the expected decrease in MCP for the region, changes in the stock-share ratio of MCP for the Gulf of Maine show different outcomes depending on the species in question. Following the high emission path will affect mostly Canada’s share of Y. flounder and in less degree Haddock, with an increase of Cod share. For the low emission scenario, patterns somehow invert with Canada losing a larger share of Haddock versus Y. flounder, while increasing Cod’s share (Fig 6).
 
@@ -2302,13 +2321,13 @@ ggplot(data = subset(New_Proportion_Change_GoM, Time_Step == "Mid_Century_Prop")
 
 ```{r Figure_6, eval = T, echo =F, fig.cap="Changes in MCP stock-share ratio for Gulf of Main under (A) low emission scenario; and (B) high emission for mid century (2041-2060) referent to 2005-2014"}
 
-Fig4 <- readPNG("./Figures/Ecol/Fig6.png")
-grid.raster(Fig5)
+Fig6 <- readPNG(here("Figures/Ecol/Fig6.png"))
+grid.raster(Fig6)
 
 ```
 
 
-![Fig 6. Changes in MCP stock-share ratio for Gulf of Main under (A) low emission scenario; and (B) high emission for mid century (2041-2060) referent to 2005-2014](./Figures/Ecol/Fig6.png)
+<!-- ![Fig 6. Changes in MCP stock-share ratio for Gulf of Main under (A) low emission scenario; and (B) high emission for mid century (2041-2060) referent to 2005-2014](./Figures/Ecol/Fig6.png) -->
 
 # DISCUSSION
 
@@ -2340,7 +2359,7 @@ Shifts in species distribution due to climate change have the potential of creat
 
 <!-- ## Investigating 4D -->
 
-```{r Functions, eval = F}
+```{r Functions, eval = F, echo = F}
 
 getTaxInfo <- function(TaxNumber,TaxPath=NA, Sal = "NA"){
   
@@ -2611,7 +2630,7 @@ Max_T <- max(TTPop$Temp)
 # quant95 11
 ```
 
-```{r Old analysis, eval = F}
+```{r Old analysis, eval = T, echo = T}
 
 #### Old North America Estimation ####
 
