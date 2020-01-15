@@ -12,7 +12,7 @@ editor_options:
 csl: Ecol_Analysis/harvard.csl
 ---
   
-```{r Ch3_setup, eval = T, echo=F, warning=F,message=F, results='hide'}
+```{r setup, eval = T, echo=F, warning=F,message=F, results='hide'}
 
 #### READ ME !!! ####
 # Run this chunk before knit so you make sure you have all pkgs installed in R
@@ -402,7 +402,7 @@ ggsave("Fig1_IPHC.png",
 
 ```
 
-```{r Figure_1, eval = T, echo =F, fig.cap="Map of North America with the regulatory areas of the IPHC and the NAFO sub-region related to the Gulf of Main agreement"}
+```{r Figure_1, eval = T, echo = F, fig.cap="Map of North America with the regulatory areas of the IPHC and the NAFO sub-region related to the Gulf of Main agreement"}
 
 img <- readPNG(here("Figures/Ecol/Fig1.png"))
 grid.raster(img)
@@ -1349,7 +1349,7 @@ grid.raster(img)
 <!-- ![Fig 2. Percentage change of MCP of transboundary fisheries of North America for mid century (2046-2055) referent to 2005-2014 under a A) low emission scenario and; B) high emission scenario.](./Figures/Ecol/Fig2.png) -->
 
 
-```{r Changes_Per_Species_T, eval=F, echo=F}
+```{r Changes_Per_Species_T, eval = F, echo = F}
 
 # This table provides the percentage change in MCP for each species, EEZ and RCP as well as the percentage change in Stock-share ratio.
 
@@ -1864,7 +1864,7 @@ ggplot(data = subset(New_Proportion_Change, Time_Step == "Mid_Century_Prop"),
 
 ```
 
-```{r Figure_4, eval = T, echo =F, fig.cap="Percentage change of stock-share ratio for IPHC under A) low emission scenario and B) high emission scenario for mid century (2046-2055) referent to 2005-2014."}
+```{r Figure_4, eval = T, echo = F, fig.cap="Percentage change of stock-share ratio for IPHC under A) low emission scenario and B) high emission scenario for mid century (2046-2055) referent to 2005-2014."}
 
 Fig4 <- readPNG(here("Figures/Ecol/Fig4.png"))
 grid.raster(Fig4)
@@ -2125,7 +2125,7 @@ ggsave(Name,
 ```
 
 
-```{r Figure_5, eval = T, echo =F, fig.cap="Percentage change of MCP in the Gulf of Main under, A) low emission scenario; and B) high emission for mid century (2041-2060) referent to present (2005-2014)"}
+```{r Figure_5, eval = T, echo = F, fig.cap="Percentage change of MCP in the Gulf of Main under, A) low emission scenario; and B) high emission for mid century (2041-2060) referent to present (2005-2014)"}
 
 Fig5 <- readPNG(here("Figures/Ecol/Fig5.png"))
 grid.raster(Fig5)
@@ -2630,7 +2630,7 @@ Max_T <- max(TTPop$Temp)
 # quant95 11
 ```
 
-```{r Old analysis, eval = T, echo = T}
+```{r Old analysis, eval = F, echo = F}
 
 #### Old North America Estimation ####
 
@@ -3261,7 +3261,7 @@ ggsave(Name,
 
 ```
 
-```{r IPHC_Proportion_EEZ, eval=F, echo = F, message=F, warning=F}
+```{r IPHC_Proportion_EEZ, eval = F, echo = F, message=F, warning=F}
 
 Path <- "/Users/jpalacios/Documents/UBC/Oceans_Project/Manuscript/Results"
 # names(DBEM_Results)
@@ -3442,7 +3442,7 @@ Proportion_Change %>%
 
 ```
 
-```{r GB_Results_All, eval=F, echo = F}
+```{r GB_Results_All, eval = F, echo = F}
 
 #### Filter Species  ####
 
