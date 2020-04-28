@@ -142,21 +142,22 @@ This chunk loads the DBEM data (previouslly obtained with function `dbem_import(
 # List of DBEM INDEX within the EEZ
 #Data provided by Vicki Lam
 
-EEZIDs_List <- read_excel("./Econ/Data/Spatial/Updated_EEZList_17June2016.xlsx")
-EEZ_CellID <- read_excel("./Econ/Data/Spatial/EEZ_CellID.xlsx")
+EEZIDs_List <- read_excel("~/Documents/UBC/OC_Special_Issue/Econ/Data/Spatial/Updated_EEZList_17June2016.xlsx")
+EEZ_CellID <- read_excel("~/Documents/UBC/OC_Special_Issue/Econ/Data/Spatial/EEZ_CellID.xlsx")
 colnames(EEZ_CellID) <- c("EEZID","INDEX")
 
 # DBEM Coordinate system
-Coor <- fread("./Econ/Data/Spatial/Lon_Lat_DBEM.txt",header = FALSE)
+Coor <- fread("~/Documents/UBC/OC_Special_Issue/Econ/Data/Spatial/Lon_Lat_DBEM.txt",header = FALSE)
 colnames(Coor) <- c("INDEX","Longitude","Latitude")
 
 ###____________ Load DBEM Data____________#
 
 # From (/Users/jpalacios/Documents/UBC/Oceans_Project/Distribution/By Cell/By_Cell_Analysis.Rmd)
-Raw_DBEM_Results <- data.table::fread("./Ecol/Data/Distribution/Raw_Data.csv") %>% 
+Raw_DBEM_Results <- data.table::fread("~/Documents/UBC/OC_Special_Issue/Ecol/Data/Distribution/Raw_Data.csv") %>% 
   filter(Species != "Anoplopoma fimbria") #Remove
 
 ###____________Subset DBEM Data for specific region and Spp.____________#
+
 
 #### All North America ####
 
@@ -344,7 +345,7 @@ For the present study we used reported landings (i.e. excluding discards) from t
 ####_____ IPHC Data ####
 # Data from IPHC https://iphc.int/data/commercialresearch-landing-weights-datasets
 # Data in metric tonne
-IPHC_Landings <- read_excel("./Econ/Data/IPHC/iphc-19912017-commres.xlsx", 
+IPHC_Landings <- read_excel("./Data_Econ/IPHC/iphc-19912017-commres.xlsx", 
                                     col_types = c("numeric", "text", "text", 
                                                   "numeric", "numeric", "numeric", 
                                                   "text"), skip = 2)
@@ -370,7 +371,7 @@ Clean_IPHC_Landings <- IPHC_Landings %>%
 # Data provided by the Sea Around us for the Gulf of Maine Marine Ecosystem (http://www.seaaroundus.org/data/#/meow/55?chart=catch-chart&dimension=taxon&measure=tonnage&limit=10). DATA IN TONNES
 
 # 
-GoM_Landings <- read.csv("./Econ/Data/SAU_Landings/GoM/SAU MEOW 55 v47-1.csv")
+GoM_Landings <- read.csv("~/Documents/UBC/OC_Special_Issue/Econ/Data/SAU_Landings/GoM/SAU MEOW 55 v47-1.csv")
 
 Clean_GoM_Landings <- GoM_Landings %>% 
   filter(
@@ -442,7 +443,7 @@ Two main fisheries economics databases were used to estimate landings profit bet
 # Fishing cost Data ####
 # Data provided by Vicky Lam in Real 2005 USD
 
-Fishing_Cost <- read_excel("./Econ/Data/Economic/FishingCost_USA_Canada_20Feb2017.xlsx", 
+Fishing_Cost <- read_excel("~/Documents/UBC/OC_Special_Issue/Econ/Data/Economic/FishingCost_USA_Canada_20Feb2017.xlsx", 
                            col_types = c("text", "text", "text", 
                                          "numeric", "numeric", "numeric", 
                                          "numeric", "numeric", "numeric", 
@@ -486,7 +487,7 @@ Clean_Fishing_Cost <- Clean_Fishing_Cost %>%
 # Data provided by Travis 
 # Here are the price data (in 2010 real dollars) for the 5 species caught by US (187) and Canada (26) from 1950 to 2014
 
-Ex_Vessel <- read.delim("./Econ/Data/Economic/Price_US_Canada_5spp.csv")
+Ex_Vessel <- read.delim("~/Documents/UBC/OC_Special_Issue/Econ/Data/Economic/Price_US_Canada_5spp.csv")
 
 # Create a dummy database for data
 Species <- data.table(
@@ -909,6 +910,139 @@ ggsave("Econ_Plot_2.tiff",
        height = 8,
        units = "in",
        path = "./Econ/Results")
+
+
+```
+
+
+# Sensitivity Analysis
+
+## Multiple fishing cost and price
+
+Run the analysis with increses in prices and costs of 5%, 10% and 15%
+
+```{r fishing_cost_price, eval = F, echo = F}
+
+## -------------------- ##
+#  Create sensitivity data
+## -------------------- ##
+
+# random_price <- runif(3,1.05,1.5)
+# [1] A) 1.362173 B) 1.425854 C) 1.061325
+
+# Ex vessel sensitivity prices
+Sen_ex_vessel_data <- Clean_Ex_Vessel %>% 
+  mutate(
+    Level_A = Price_perTon*random_price[1],
+    Level_B = Price_perTon*random_price[2],
+    Level_C = Price_perTon*random_price[3],
+    Original = Price_perTon
+  ) %>% 
+  gather("Level","Sen_Price",Level_A:Original)
+
+# random_cost <- runif(3,1.05,1.5)
+# [1] A) 1.311245 B) 1.427684 c) 1.323787
+
+# Profit sensitivity
+Sen_cost_data <- Clean_Fishing_Cost %>%
+  mutate(
+    Level_A = Cost_perTon_2010*random_cost[1],
+    Level_B = Cost_perTon_2010*random_cost[2],
+    Level_C = Cost_perTon_2010*random_cost[3],
+    Original = Cost_perTon_2010
+  ) %>% 
+  gather("Level","Sen_Cost",Level_A:Original)
+
+
+## -------------------- ##
+# Estimate Profits 
+## -------------------- ##
+
+Sen_Profit_Data_Weight <- Landings_Data %>% 
+  left_join(Sen_cost_data,
+            by = c("gear_type","EEZ")) %>% # Joins Fishing cost Data
+  left_join(Sen_ex_vessel_data,
+            by = c("Species","EEZ","Level")) %>% 
+  mutate(
+    Sen_Profit = Sen_Price-Sen_Cost
+  )
+
+
+####___ Landings Data for Paper ####
+# Table 1
+
+Sen_Profit_Data_Paper <- Sen_Profit_Data_Weight %>% 
+  mutate_at(vars(Sen_Cost,Sen_Price,Sen_Profit), # note these are totals and not per tone
+            funs(round((.*Avrg_Landings)/1000000,2)) # million USD
+            ) %>% 
+  group_by(EEZ,Species,Level) %>% 
+  summarise_if(is.numeric,sum,na.rm=T) %>% 
+  filter(Species != "Melanogrammus aeglefinus")
+
+
+# Project profits
+
+
+Sen_Projected_Profits <- Sen_Profit_Data_Weight %>%
+  left_join(MCP_Change,
+            by = c("Species","EEZ")
+            ) %>%
+  arrange(Year) %>% # so the bumber of years match the actual year
+  # bind_cols(Years) %>% 
+  mutate(
+    Future_Landings = Avrg_Landings*Prop_Change,
+    Profit = Future_Landings*Sen_Profit,
+    # Discounted_Profit = Profit/(1*(1 +dr)^Years_Dis)
+  ) %>%
+  group_by(Species,EEZ,Model,RCP,Year,Period,Level) %>% # Summ all profits per gear
+  summarise(
+    Non_Discounted_Profits = sum(Profit)#,
+    # Discounted_Profits = sum(Discounted_Profit)
+  ) %>%
+  filter(Period != "Other_Years") %>%
+  ungroup() %>%
+  # group by time period
+  group_by(Species,Model,Period,EEZ,RCP,Level) %>%
+  summarise_if(is.numeric,mean,na.rm=T) %>% 
+  # group by ESM
+  group_by(Species,Period,EEZ,RCP,Level) %>%
+  summarise_if(is.numeric,mean,na.rm=T) %>% 
+  filter(RCP == "High Emission",
+         Period != "Begining",
+         Species != "Melanogrammus aeglefinus") %>% 
+  mutate(
+    Plot_Labels = gsub("_"," ",Level) # just to fix plot
+  )
+
+
+# Bar graph for sensitivity
+
+ggplot(Sen_Projected_Profits) +
+  geom_bar(
+    aes(
+      x = reorder(Period,desc(Period)),
+      y = Non_Discounted_Profits/1000000,
+      fill = Plot_Labels
+    ),
+    position="dodge",
+    stat = "identity"
+  ) +
+  labs(x = "",
+       y = "Profits (million USD)"
+       ) +
+  # scale_fill_discrete("Scenario",values=)+
+  scale_fill_brewer("Scenario", type='div', palette="Set3") +
+  facet_wrap(~EEZ+Species,
+             scales = "free")
+
+
+ggsave("sen_econ.png",
+         plot = last_plot(),
+         width = 10,
+         height = 8,
+         units = "in"#,
+         # path = Fig_path_out
+         )
 
 
 ```
