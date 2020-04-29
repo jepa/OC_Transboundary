@@ -47,56 +47,6 @@ my_lib(packages)
 
 ##________________________________________________##
 
-# source("/Users/jpalacios/Documents/UBC/Oceans_Project/Distribution/Functions/DBEM_imp_F.R") #Imports a single species
-
-
-my_ggtheme_p() <- function() {
- theme(
-  plot.title = element_text(size = rel(1), hjust = 0, face = "bold"),
-  panel.background = element_blank(),
-  strip.background = element_blank(),
-  # strip.text    = element_text(size = base_size, face = "italic"),
-  panel.border   = element_blank(),
-  panel.grid.minor = element_blank(),
-  panel.grid.major = element_blank(),
-  axis.ticks = element_blank(),
-  axis.text.x = element_text(size = 14,
-                angle = 0,
-                face = "plain"),
-  axis.text.y = element_text(size = 14),
-  axis.title = element_text(size = 14),
-  legend.key = element_rect(colour = NA, fill = NA),
-  legend.position = "top",
-  legend.title = element_text(size = 16),
-  legend.text = element_text(size = 14),
-  strip.text.x = element_text(size = 10, colour = "black"),
-  strip.text = element_text(size = 18)
- )
-}
-
-my_ggtheme_m() <- function(base_size = 9, Region = "NA") {
- 
- theme(text       = element_text(#family = "Helvetica",
-  color = "gray30", size = base_size),
-  plot.title    = element_text(size = rel(1.25), hjust = 0, face = "bold"),
-  panel.background = element_blank(),
-  panel.border   = element_blank(),
-  panel.grid.minor = element_blank(),
-  panel.grid.major = element_line(color = "transparent"),
-  strip.background =element_rect(fill = "transparent"),
-  strip.text.x = element_text(size = 18, colour = "black",face= "bold.italic", angle = 0),
-  axis.line    = element_blank(), # element_line(colour = "grey30", size = .5))
-  axis.ticks    = element_blank(),
-  axis.text    = element_blank(),
-  axis.title    = element_blank(),
-  # legend.key    = element_rect(colour = NA, fill = NA, size = 4),
-  legend.position = "bottom"#,
-  # legend.key.width =unit(6,"line")
- )
-}
-
-
- 
  # Current time
 Beg_In <- paste(2005); Beg_In
 Beg_End <- paste(2014); Beg_End
@@ -108,11 +58,6 @@ Mid_End <- paste(2060);Mid_End
 # End Century
 End_In <- paste(2080);End_In # 2090
 End_End <- paste(2099);End_End
-
-
-Data_Path <- "~/Documents/UBC/OC_Special_Issue/Ecol/Data"
-
-
 ```
 
 ## Abstract
@@ -133,7 +78,7 @@ The ocean is getting warmer [@Rheim:2013fv], less oxygenated [@Schmidtko:2017cl]
 
 <!-- ##### Past Conflicts of shifting stocks -->
 
-The shifts in distribution of shared fish stocks will impact the economics of their fisheries [@Pinsky:2012kq; @Sumaila:2019gh]Sumaila et al., this Special Feature), and create international disputes between countries [@Munro:2002uf; @Spijkers:2017ij; @Pinsky:2018cb]. Canada and the US share important transboundary stocks of salmon (*Oncorhynchus spp.*), Pacific halibut (*Hippoglossus stenolepis*), and Atlantic cod (*Gadus morhua*) offering a unique lens to understand the extent to which climate-induced distributional shifts will challenge the future sustainability of transboundary fisheries. These countries have a long history of fisheries cooperation participating in diverse, jointly managed, commercial transboundary stocks through various fisheries management organizations [@NOAA:2018tu]. Furthermore, climate-related fluctuations in stocks' distribution have historically created disputes between Canada and the US, increasing international conflict and threatening the health of diverse transboundary stocks [@Munro:2002uf; @CIA:2017uta].
+The shifts in distribution of shared fish stocks will impact the economics of their fisheries [@Pinsky:2012kq; @Sumaila:2019gh]Sumaila et al., this Special Feature), and create international disputes between countries [@Munro:2002uf; @Spijkers:2017ij; @Pinsky:2018cb]. Canada and the US share important transboundary stocks of salmon (*Oncorhynchus spp.*), Pacific halibut (*Hippoglossus stenolepis*), and Atlantic cod (*Gadus morhua*) offering a unique lens to understand the extent to which climate-induced distributional shifts will challenge the future sustainability of transboundary fisheries. These countries have a long history of fisheries cooperation participating in diverse, jointly managed, commercial transboundary stocks through various fisheries management organizations [@NOAA:218tu]. Furthermore, climate-related fluctuations in stocks' distribution have historically created disputes between Canada and the US, increasing international conflict and threatening the health of diverse transboundary stocks [@Munro:2002uf; @CIA:2017uta].
 
 It is expected that climate induced shifts in stocks’ distribution will affect the rules in place that keep international treaties alive. Therefore, the main objective of this article is to assess the level of exposure that bi-lateral transboundary fisheries treaties between Canada and the US have to climate change through shifts in stock distributions. Specifically, we rely on a species distribution model and scenario planning to project the changes in the distribution of 33 fish stocks jointly managed by Canada and the US. Moreover, we use two specific case studies (the International Pacific Halibut Commission -IPHC- and a fisheries arrangement for the Gulf of Maine -GoMA-) to explore the potential impacts that climate change will have on selected transboundary stocks management. Finally, we explore similar situations around the world and identify opportunities to improve the adaptability of transboundary stocks management to climate change in North America. Despite an overall expectation of species following a poleward shift, important geographic constraints (e.g. Gulf of Alaska representing a latitudinal block) [@Kleisner:2016je], geo-political features (e.g. the localization of Alaska in reference to Canada and the contiguous states), and management rules (e.g. quota allocations, spatial management rules) may play an important role in the redistribution of benefits. Understanding these stocks shifts will shed a light on future conditions and inform decision-makers on the paths to follow under a changing climate.
 
@@ -184,8 +129,7 @@ We used the IPHC and the Gulf of Maine arrangement (hereafter referred as GoMA) 
 Countries <- c("Canada","United States")
 
 ### North America Initial Map ####
-
-path_world <- "~/Documents/Github/Oceana_LA/international/information/raw_databases/Spatial/TM_WORLD_BORDERS-0.3"
+path_world <- my_path("G",Extra_Path = "Spatial/TM_WORLD_BORDERS-0.3")
 file_name <- "TM_WORLD_BORDERS"
 
 World_Land_sf <- st_read(dsn = path_world, 
@@ -208,8 +152,7 @@ st_transform(crs = 3832)
 
 
 ### North America EEZs Map ####
-
-path_eez <- ("/Users/jpalacios/Documents/R CODE/Spatial_Analysis/Data/World_EEZ_v10_2018")
+path_eez <- my_path("G",Extra_Path = "Spatial/World_EEZ_v10_2018-0.3")
 #The File
 fnam_eez <- "eez_v10.shp"
 
@@ -235,7 +178,7 @@ ggplot(North_America_Land) +
 
 #### IPHC Regulatory Areas ####
 
-path_IPHC <- ("/Users/jpalacios/Documents/UBC/Oceans_Project/Distribution/Data/IPHC/IPHC_RegulatoryAreas/")
+path_IPHC <- my_path("D",Extra_Path = "IPHC/IPHC_RegulatoryAreas/")
 
 # The Canada file
 fnam_IPHC_C <- "IPHC_RegulatoryAreas_CAN"
@@ -281,7 +224,7 @@ ggplot(IPHC_Reg) +
 
 ##### NAFO Regulatory Area ####
 
-path_NAFO <- ("/Users/jpalacios/Documents/UBC/Oceans_Project/Distribution/Data/Spatial/NAFO")
+path_NAFO <- paste(Data_path,"Spatial/NAFO")
 #The File
 fnam_NAFO <- "Divisions"
 
@@ -340,14 +283,12 @@ North_A <- ggplot() +
           ) +
  theme(legend.position = "right")
 
-Path_Save <- "/Users/jpalacios/Documents/UBC/Oceans_Project/Manuscript/Results/Others/"
-
 ggsave("Fig1_NA.png",
     plot = North_A,
     width = 6,
     height = 5,
     units = "in",
-    path = Path_Save)
+    path = Results_Path)
 
 #NAFO #
 
@@ -392,7 +333,7 @@ ggsave("Fig1_NAFO.png",
     width = 6,
     height = 5,
     units = "in",
-    path = Path_Save)
+    path = my_path("R"))
 
 
 # IPHC
@@ -437,7 +378,7 @@ ggsave("Fig1_IPHC.png",
     width = 6,
     height = 5,
     units = "in",
-    path = Path_Save)
+    path = my_path("R"))
 
 ```
 
@@ -447,12 +388,13 @@ ggsave("Fig1_IPHC.png",
 
 # List of DBEM INDEX within the EEZ
 #Data provided by Vicki Lam
-EEZIDs_List <- read_excel(paste(Data_Path,"/Spatial/Updated_EEZList_17June2016.xlsx",sep=""))
-EEZ_CellID <- read_excel(paste(Data_Path,"/Spatial/EEZ_CellID.xlsx",sep=""))
+EEZIDs_List <- my_path("G",Extra_Path = "Spatial/DBEM",Name="Updated_EEZList_17June2016.xlsx",Read = TRUE)
+
+EEZ_CellID <- my_path("G",Extra_Path = "Spatial/DBEM",Name="EEZ_CellID.xlsx",Read = TRUE)
 colnames(EEZ_CellID) <- c("EEZID","INDEX")
 
 # DBEM Coordinate system
-Coor <- fread(paste(Data_Path,"/Spatial/Lon_Lat_DBEM.txt",sep=""),header = FALSE)
+Coor <- my_path("G",Extra_Path = "Spatial/DBEM", Name = "Lon_Lat_DBEM.txt", Read = TRUE)
 colnames(Coor) <- c("INDEX","Longitude","Latitude")
 
 ### Select EEZs
@@ -469,7 +411,7 @@ EEZs <- c(
 
 ### North America Initial Map ####
 
-path_world <- paste(Data_Path,"/Spatial/TM_WORLD_BORDERS",sep="")
+path_world <- my_path("D",Extra_Path = "Spatial/TM_WORLD_BORDERS")
 file_name <- "TM_WORLD_BORDERS"
 
 World_Land_sf <- st_read(dsn = path_world, 
@@ -495,7 +437,7 @@ North_America_Land <- World_Land_sf %>%
 
 ### North America EEZs Map ####
 
-path_eez <- paste(Data_Path,"/Spatial/World_EEZ_v10_2018",sep="")
+path_eez <- my_path("D",Extra_Path = "Spatial/World_EEZ_v10_2018")
 #The File
 fnam_eez <- "eez_v10.shp"
 
@@ -558,8 +500,7 @@ IPHC_Coor_Corrected_Clean <- IPHC_Coor_Corrected %>%
 
 
 # Now we load IPHC shapefiles ####
-path_IPHC <- paste(Data_Path,"/Spatial/IPHC_RegulatoryAreas/",sep="")
-
+path_IPHC <- my_path("D",Extra_Path = "Spatial/IPHC_RegulatoryAreas")
 # The Canada file
 fnam_IPHC_C <- "IPHC_RegulatoryAreas_CAN"
 
@@ -743,22 +684,24 @@ The DBEM was projected using three Earth system models (ESM), the Geophysical Fl
 ```{r Data_Loading_For_DBEM, eval = F, echo = F, warning = F ,message = F}
 
 # Species data (Names, treaties, etc)
-# DBEM exploited species list 
+# DBEM exploited species list (ONLY ON DROBO)
 exploited_species_list <- fread("/Volumes/DATA/PROJECTION exploited species ENM/exploited_species_list.csv")
 
 # IPHC and GB species
-Selected_Species <- fread("~/Documents/UBC/Oceans_Project/Distribution/By Cell/Cell_Data/List_Species.csv")
+Selected_Species <- fread(paste(Data_Path,"Species/List_Species.csv",sep=""))
 
 # NAFO Species
 # This is the subset of species Fished on canada and US waters of all NAFO's species list
-NAFO_Species <- read.csv("~/Documents/UBC/Oceans_Project/Distribution/DBEM/Data/NAFO_Species.csv") %>%
+NAFO_Species <- read.csv(paste(Data_Path,"Species/NAFO_Species.csv",sep="")) %>%
  mutate(Treaty = "NAFO")
-
-
 
 ```
 
 ```{r DBEM_Data_For_All, eval = F, echo = F, warning = F, message = F}
+
+#-------------------- NOTE --------------------#
+# Chunk to be ran in Hall100 connected to DROBO
+#---------------------------------------------#
 
 All_Species <- exploited_species_list %>% 
  # filter(TaxonName %in% c("Hippoglossus stenolepis","Anoplopoma fimbria")) %>% 
@@ -1003,16 +946,25 @@ Where $\theta_{rt}$ is the species' aggregated $\hat{MCP}$ of each region at tim
 
 # List of DBEM INDEX within the EEZ
 #Data provided by Vicki Lam
-EEZIDs_List <- read_excel(paste(Data_Path,"/Spatial/Updated_EEZList_17June2016.xlsx",sep=""))
-EEZ_CellID <- read_excel(paste(Data_Path,"/Spatial/EEZ_CellID.xlsx",sep=""))
+EEZIDs_List <- read_excel(paste(my_path("G",Extra_Path = "Spatial/DBEM"),"Updated_EEZList_17June2016.xlsx",sep=""))
+
+
+x <- paste(my_path("G",Extra_Path = "Spatial/DBEM"),"Updated_EEZList_17June2016.xlsx",sep="")
+
+str_detect(x,".xlsx")
+
+
+EEZ_CellID <- read_excel(paste(my_path("G",Extra_Path = "Spatial/DBEM"),"EEZ_CellID.xlsx",sep=""))
 colnames(EEZ_CellID) <- c("EEZID","INDEX")
 
 # DBEM Coordinate system
-Coor <- fread(paste(Data_Path,"/Spatial/Lon_Lat_DBEM.txt",sep=""),header = FALSE)
+Coor <- my_path("G",Extra_Path = "Spatial/DBEM", Name = "Lon_Lat_DBEM.txt", Read = TRUE)
 colnames(Coor) <- c("INDEX","Longitude","Latitude")
 
-# From (/Users/jpalacios/Documents/UBC/Oceans_Project/Distribution/By Cell/By_Cell_Analysis.Rmd)
-Raw_DBEM_Results <- data.table::fread(paste(Data_Path,"/Distribution/Raw_Data.csv",sep="")) %>% 
+# Raw DBEM results
+Raw_DBEM_Results <- my_path("D",Extra_Path = "Ecol/Distribution", Name = "Raw_Data.csv", Read = TRUE)
+
+%>% 
  filter(Species != "Anoplopoma fimbria") #Remove
 
 ### Number of stocks per treaty##
@@ -1154,7 +1106,7 @@ North_America_Land <- North_America_Land %>%
 ### Load shapefile the old way ###
 
 # Path to save the plots
-Path <- "./Results/North_America"
+Path <- my_path("R",Extra_Path = "North_America")
 RCP = c("GFDL26F1","IPSL26F1","MPI26F1") #Low RCP
 
 #### New Future Method to account for mean +- sd of models #
@@ -1291,7 +1243,7 @@ Selected_Areas <- EEZIDs_List %>%
 #### NEW ESTIMATES 
 
 # Path to save the plots
-Path <- "~/Documents/UBC/Oceans_Project/Manuscript/Results/North_America"
+Path <- my_path("R",Extra_Path = "North_America")
 RCP = c("GFDL26F1","IPSL26F1","MPI26F1") #Low RCP
 
 # Aggregate MCP per Nation, Species, Model, RCP and Time period
@@ -1386,10 +1338,13 @@ SS_Change <- MCP_Species_Data %>%
   filter(Period %in% c("Beginning","Mid_Century","The_End_Century")) %>% 
   spread(Period,Mean_ESM_Proportion)
 
+Path <- my_path("R",Extra_Path = "North_America")
+
 #For paper (Table 2)
 write.csv(SS_Change,
-     "./Ecology/Results/North_America/SS_Change.csv",
+     paste(Path,"SS_Change.csv",sep=""),
      row.names = F)
+
 
 ```
 
@@ -1407,7 +1362,7 @@ In the case of the IPHC, at least one third of regulatory areas will see a reduc
 Selected_Species <- c("Hippoglossus stenolepis") # Halibut
 
 # Path for saving plots
-Path <- "./Results/IPHC"
+Path <- my_path("R",Extra_Path = "IPHC")
 RCP = c("GFDL26F1","IPSL26F1","MPI26F1") #Low RCP
 #### New version
 
@@ -1568,7 +1523,7 @@ ggsave(Name,
 
 ```{r Figure_3, eval =F, echo = F}
 
-img <- readPNG("/Users/jpalacios/Documents/UBC/Oceans_Project/Manuscript/Results/Fig3.png")
+img <- readPNG(paste(my_path("F"),"Figure 3.png",sep=""))
 grid.raster(img)
 
 ```
@@ -1582,8 +1537,7 @@ The same poleward trend is expected in the change of Pacific halibut stock-share
 ```{r IPHC_Proportion_Regions, eval = F, echo = F, message=F, warning=F}
 
 # Set saving path
-Path <- "./Manuscript/Results/IPHC/Proportion"
-
+Path <- my_path("R",Extra_Path = "IPHC/Proportion")
 IPHC_Species <- c("Hippoglossus stenolepis") # Halibut
 
 #### FIlter EEZs ###
@@ -1733,7 +1687,7 @@ ggplot(data = subset(Proportion_Change, Time_Step == "Mid_Century_Prop"),
 
 ```{r Figure_4, eval = F, echo = F}
 
-Fig4 <- readPNG("~/Documents/UBC/Oceans_Project/Manuscript/Results/Fig4.png")
+Fig4 <- readPNG(paste(my_path("F"),"Figure 4.png",sep=""))
 grid.raster(Fig4)
 
 ```
@@ -1775,7 +1729,7 @@ Atlantic_DBEM <- Raw_DBEM_Results %>%
   )
 
 # Path for saving plots
-Path <- "./Results/GoM/"
+Path <- my_path("R",Extra_Path = "GoM")
 
 # -------------------- #
 ### MCP Change Analysis
@@ -1932,8 +1886,8 @@ Despite the expected decrease in MCP for the region, changes in the stock-share 
 ```{r GB_Proportion_Species, eval = F, echo = F}
 
 ### Analysis by Species ####
+Path <- my_path("R", Extra_Path = "GoM")
 
-Path <- "~/Documents/UBC/Oceans_Project/Manuscript/Results"
 # names(DBEM_Results)
 
 Atlantic_Species <- c(
@@ -2105,7 +2059,7 @@ ggplot(data = subset(Proportion_Change_GoM, Time_Step == "Mid_Century_Prop"),
 
 ```
 
-![Fig 6.Changes in MCP stock-share ratio for Gulf of Maine under (A) high emission; and (B) low emission scenarios for mid 21st century (2041-2060) relative to present. Values represent the mean of 3 ESM; error bars represent $\mp$ sd. (2005-2014).](./Figures/Fig6.png)
+![Fig 6.Changes in MCP stock-share ratio for Gulf of Maine under (A) high emission; and (B) low emission scenarios for mid 21st century (2041-2060) relative to present. Values represent the mean of 3 ESM; error bars represent $\mp$ sd. (2005-2014).](./Figures/Figure 6.png)
 
 ## DISCUSSION
 
@@ -2404,7 +2358,7 @@ Max_T <- max(TTPop$Temp)
 ```{r halibut_enviro, eval = F, echo = F}
 
 # Read Data
-Environmental_Data_Halibut <- read.csv("~/Documents/UBC/OC_Special_Issue/Ecol/Data/Distribution/Environmental_Data_Halibut.csv")
+Environmental_Data_Halibut <- read.csv(paste(my_path("D","Distribution"),"Environmental_Data_Halibut.csv",sep=""))
 
 # Isolate Regions
 DE_Regions <- IPHC_Reg_DBEM_df %>% 
