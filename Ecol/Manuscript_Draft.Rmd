@@ -1,9 +1,4 @@
 ---
-title: Challenges to transboundary fisheries management in North America under climate
-  change
-author: "Juliano Palacios-Abrantes^1^ U. Rashid Sumaila^1^ William W. L. Cheung^1^"
-date: ^1^ Institute for the Oceans and Fisheries, University of British Columbia,
-  Vancouver, Canada
 output:
   bookdown::pdf_book:
     toc : false
@@ -12,8 +7,10 @@ output:
 editor_options:
   chunk_output_type: console
 csl: ../References/E&S.csl
-subtitle: '[Response to Reviewers]'
 bibliography: ../References/Oceans_Canada_Biblio.bib
+header-includes: #allows you to add in your own Latex packages
+- \usepackage{float} #use the 'float' package
+- \floatplacement{figure}{H} #make every figure with caption = h
 ---
  
 ```{r setup_oc, eval = T, echo = F, warning = F, message = F, results = 'hide'}
@@ -389,7 +386,7 @@ ggsave("Fig1_IPHC.png",
 
 ```
 
-```{r Figure1-map, eval = T, echo=FALSE, fig.pos= "H", fig.height = 4, fig.width = 6, fig.cap="Map of North America with the regulatory areas of the International Paific Halibut Comission and the NAFO sub-region containing the Gulf of Maine arrangement"}
+```{r Figure1-map, eval = T, echo=FALSE, fig.height = 4, fig.width = 6, fig.cap="Map of North America with the regulatory areas of the International Paific Halibut Comission and the NAFO sub-region containing the Gulf of Maine arrangement"}
 
 img <- readPNG("./Figures/Figure 1.png")
 grid.raster(img)
@@ -1230,7 +1227,7 @@ p <- ggplot(MCP_Data) +
 
 Shifts in the distribution of 33 jointly managed transboundary stocks of North America by 2050 relative to 2010 show that MCP of transboundary stocks will overall increase in Atlantic-Canadian and Alaskan waters and decrease in Pacific-Canadian and the US contiguous states waters (Figure \@ref(fig:Figure2-NA)). Such changes will be more intense under the high emission scenario (Figure \@ref(fig:Figure2-NA)A). For most regions, losses of MCP will be more intense under a high emission scenario (Figure \@ref(fig:Figure2-NA)A) than under a low emission scenario (Figure \@ref(fig:Figure2-NA)B), however, there will be no apparent change in gain intensity between scenarios. Impacts of climate change are expected to intensify towards the end of the $21^{st}$ century, although with greater uncertainty (Fig A1.1).
 
-```{r Figure2-NA, eval = T, echo=FALSE, fig.pos= "H", fig.cap="Percentage change of MCP of transboundary stocks of North America for mid $21^{st}$ century (2041-2060) relative to present (2005-2014) under a A) high emission scenario and; B) low emission scenario. Points represent areas where at least one model do not agree in the direction of change"}
+```{r Figure2-NA, eval = T, echo=FALSE, fig.cap="Percentage change of MCP of transboundary stocks of North America for mid $21^{st}$ century (2041-2060) relative to present (2005-2014) under a A) high emission scenario and; B) low emission scenario. Points represent areas where at least one model do not agree in the direction of change"}
 
 img <- readPNG("./Figures/Figure 2.png")
 grid.raster(img)
@@ -1706,7 +1703,7 @@ ggplot(data = subset(Proportion_Change, Time_Step == "Mid_Century_Prop"),
 
 ```
 
-```{r Figure-4-iphc-prop, eval = T, echo = F, fig.pos= "H", fig.height = 6, fig.width = 4,  fig.cap = "Percentage change of stock-share ratio for IPHC under A) high emission scenario and B) low emission scenario for mid 21st century (2041-2060) relative to present 2005-2014. Values represent the mean of 3 ESM; error bars represent +- sd."}
+```{r Figure-4-iphc-prop, eval = T, echo = F, fig.height = 6, fig.width = 4,  fig.cap = "Percentage change of stock-share ratio for IPHC under A) high emission scenario and B) low emission scenario for mid 21st century (2041-2060) relative to present 2005-2014. Values represent the mean of 3 ESM; error bars represent +- sd."}
 
 Fig4 <- readPNG(paste(my_path("F"),"Figure 4.png",sep=""))
 grid.raster(Fig4)
@@ -1903,7 +1900,7 @@ ggsave(Name,
  
 ```
 
-```{r Figure5-goma, eval = T, echo = F, fig.pos = "H", fig.height = 4, fig.width = 6, fig.cap = "Percentage change of MCP in the Gulf of Maine under, A) high emission scenario; and B) low emission for mid-century (2041-2060) relative to present (2005-2014). Points represent regions where models do not agree in direction of change."}
+```{r Figure5-goma, eval = T, echo = F, fig.height = 4, fig.width = 6, fig.cap = "Percentage change of MCP in the Gulf of Maine under, A) high emission scenario; and B) low emission for mid-century (2041-2060) relative to present (2005-2014). Points represent regions where models do not agree in direction of change."}
 
 Fig4 <- readPNG(paste(my_path("F"),"Figure 5.png",sep=""))
 grid.raster(Fig4)
@@ -2092,7 +2089,7 @@ ggplot(data = subset(Proportion_Change_GoM, Time_Step == "Mid_Century_Prop"),
 
 ```
 
-```{r Figure-6-goma-prop, eval = T, echo = F, fig.pos = "L", fig.cap = "Changes in MCP stock-share ratio for Gulf of Maine under (A) high emission; and (B) low emission scenarios for mid 21st century (2041-2060) relative to present. Values represent the mean of 3 ESM; error bars represent +- sd. (2005-2014)."}
+```{r Figure-6-goma-prop, eval = T, echo = F, fig.cap = "Changes in MCP stock-share ratio for Gulf of Maine under (A) high emission; and (B) low emission scenarios for mid 21st century (2041-2060) relative to present. Values represent the mean of 3 ESM; error bars represent +- sd. (2005-2014)."}
 
 Fig6 <- readPNG(paste(my_path("F"),"Figure 6.png",sep=""))
 grid.raster(Fig6)
@@ -2323,7 +2320,7 @@ ggplot(IPHC_MCP_Change_Uncert) +
 
 ```
 
-```{r Figure-S1, eval = T, echo = F, fig.pos= "H", fig.cap = "Variation of climate change scenarios"}
+```{r Figure-S1, eval = T, echo = F, fig.cap = "Variation of climate change scenarios"}
 
 FigS21 <- readPNG(paste(my_path("F"),"S21.png",sep=""))
 grid.raster(FigS21)
@@ -2567,7 +2564,7 @@ ggsave("Environ_Sup.png",
 
 ```
 
-```{r Figure_S2, eval = T, echo = F, fig.pos= "H", fig.cap = "Variation of climate change scenarios in IPHC regions 4E and 4D"}
+```{r Figure_S2, eval = T, echo = F, fig.cap = "Variation of climate change scenarios in IPHC regions 4E and 4D"}
 
 FigS22 <- readPNG(paste(my_path("F"),"S22.png",sep=""))
 grid.raster(FigS22)
@@ -2674,7 +2671,7 @@ ggsave(Name,
 ```
 
 
-```{r Figure_S3, eval = T, echo = F, fig.pos= "H", fig.cap = "Outliers GoMA"}
+```{r Figure_S3, eval = T, echo = F, fig.cap = "Outliers GoMA"}
 
 FigS23 <- readPNG(paste(my_path("F"),"S23.png",sep=""))
 grid.raster(FigS23)
