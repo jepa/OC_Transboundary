@@ -1,7 +1,7 @@
 ---
 title: "Challenges to transboundary fisheries management in North America under climate change"
 author: "Juliano Palacios-Abrantes^1^ U. Rashid Sumaila^1^ William W. L. Cheung^1^"
-subtitle: "[Response to Reviewers]"
+subtitle: "[Response to Reviewers - Second Round]"
 date: "^1^ Institute for the Oceans and Fisheries, University of British Columbia, Vancouver, Canada"
 output:
  word_document: default
@@ -62,7 +62,8 @@ End_End <- paste(2099);End_End
 
 ## Abstract
 
-Climate change is shifting the distribution of fish stocks that straddle between Exclusive Economic Zones (EEZ), challenging transboundary fisheries management. Here, we examine the projected sharing of jointly managed transboundary fish stocks between Canada and the United States. We hypothesize that ocean warming will alter the sharing of fish stocks between the two countries, and that such changes will intensify under a high carbon emission scenario. Firstly, we projected changes in potential catch of 33 transboundary stocks of North America in the $21^{st}$ century based on multiple Earth system models’ simulations and species distribution models, under two climate change scenarios. We then look at the specific cases of the International Pacific Halibut Commission that manages pacific halibut (*Hippoglossus stenolepis*) and a resource sharing arrangement in the Gulf of Maine for cod (*Gadus morhua*), haddock (*Melanogrammus aeglefinus*) and yellowtail flounder (*Limanda ferruginea*) to discuss the management consequences of shifts in transboundary stocks. Results show that, even under a low emission scenario, most transboundary fish stocks sharing ratios, i.e., the proportion of the total catch of a fish stock taken by a given country, will change by 2050 relative to present in the direction as expected from the effects of ocean warming. The overall reduction in catch potential, in addition to the changes in stock-share will further exacerbate trade-offs between changes in species catch potential. Such trade-offs in the Atlantic and Pacific regions will be amplified if a high emission scenario is followed, relative to a low carbon emission scenario. Based on the simulation results, we examine possible solution options to reduce climate risks on transboundary fish stocks and fisheries.
+Climate change is shifting the distribution of fish stocks that straddle between Exclusive Economic Zones (EEZ), challenging transboundary fisheries management. Here, we examine the projected sharing of jointly managed transboundary fish stocks between Canada and the United States. We hypothesize that ocean warming will alter the sharing of fish stocks between the two countries, and that such changes will intensify under a high carbon emission scenario. We look at the specific cases of the International Pacific Halibut Commission that manages Pacific halibut (*Hippoglossus stenolepis*) and a resource sharing arrangement in the Gulf of Maine for cod (*Gadus morhua*), haddock (*Melanogrammus aeglefinus*) and yellowtail flounder (*Limanda ferruginea*) to discuss the management consequences of shifts in transboundary stocks. We rely on multiple Earth system models’ simulations and species distribution models to estimate the change in catch potential and stock share ratio of each transboundary stock in the $21^{st}$ century under two climate change scenarios. Results show that, even under a low emission scenario, most transboundary fish stocks sharing ratios, i.e., the proportion of the total catch of a fish stock taken by a given country, will change by 2050 relative to present. The overall reduction in catch potential, in addition to the changes in stock-share will further exacerbate trade-offs between changes in species catch potential. Such trade-offs in the Atlantic and Pacific regions will be amplified if a high emission scenario is followed, relative to a low carbon emission scenario. Based on the simulation results, we examine possible solution options to reduce climate risks on transboundary fish stocks and fisheries.
+
 
 
 Keywords: *Transboundary fisheries management; climate change; joint fisheries management; species distribution shift*
@@ -70,59 +71,25 @@ Keywords: *Transboundary fisheries management; climate change; joint fisheries m
 ## INTRODUCTION
 
 <!-- ##### First paragraph of paper summary -->
-In 1982, the United Nations Law of the Seas Convention (UNCLOS) formalized the concept of economic exclusive zones (EEZs) creating what we know today as shared stocks [@UnitedNations:1986tl], i.e. stocks migrate between countries EEZs (known as transboundary stocks) or between EEZs and the high seas (also called straddling stocks) [@Song:2017iua]. Today, an estimated 347 [@Teh:2015gd] to 1500 [@Caddy:1997ue] fish stocks cross national borders, some of them jointly managed by two or more countries. These stocks are responsible for almost 50% of these countries total fish catches [@Teh:2015gd]. Under Article 63, UNCLOS incentives actions to cooperate on the management of shared stocks [@UnitedNations:1986tl]. Game theory is one of the most common approaches used to analyze the management of shared stocks, as often, success depends on effective cooperation between parties [@Munro:2002uf; @Sumaila:2013hv]. Management of these stocks' can be convoluted due to the participation of several fishing “players”, different countries and sometimes jurisdictions within a country, the migration patterns of the stock, and their abundance fluctuation within space and time [@Munro:2002uf], Engler and Saunders this Special Feature). In addition, international treaties might not be prepared to address the effects that climate change will bring to shared fish stocks (Engler and Saunders this Special Feature, Koubrak and VanderZwaag, this Special Feature).
+In 1982, the United Nations Law of the Seas Convention (UNCLOS) formalized the concept of economic exclusive zones (EEZs) creating what we know today as shared stocks [@UnitedNations:1986tl], i.e. stocks that migrate between countries EEZs (known as transboundary stocks) or between EEZs and the high seas (also called straddling stocks) [@Song:2017iua]. Today, an estimated 347 [@Teh:2015gd] to 1500 [@Caddy:1997ue] fish stocks cross national borders, some of them jointly managed by two or more countries. These stocks are responsible for almost 50% of these countries total fish catches [@Teh:2015gd]. Under Article 63, UNCLOS incentives actions to cooperate on the management of shared stocks [@UnitedNations:1986tl] as often management success depends on effective cooperation between parties [@Munro:2002uf; @Sumaila:2013hv]. Since the definition of shared stocks, game theory has been one of the most common approaches used to analyze the management of these type of stocks. However, shared stocks' management can be convoluted due to the participation of several fishing “players”, different countries and sometimes jurisdictions within a country, the migration patterns of the stock, and their abundance fluctuation within space and time [@Munro:2002uf, Engler and Saunders this Special Feature]. In addition, international treaties might not be prepared to address the effects that climate change will bring to shared fish stocks (Engler and Saunders this Special Feature, Koubrak and VanderZwaag, this Special Feature).
 
 <!-- ##### Climate Change and Transboundary Fisheries -->
 
-The ocean is getting warmer [@Rheim:2013fv], less oxygenated [@Schmidtko:2017cl], and increasing in acidity [@Ross:2011kd; @IPCC:2019to]. To cope with these changes in ocean biophysic properties, marine species, including shared fish stocks, have been shifting their distribution towards the poles and/or deeper waters [@Poloczanska:2016kk]. As climate change reshapes the ocean's environment worldwide [@Gattuso:2015jz], shared fisheries' delicate governance is threatened as new migration patterns may arise [@Miller:2013iv; @Pinsky:2018cb], historic distribution and abundances might shift [@Cheung:2010dt], and species basic natural traits may modify [@Pauly:2017hpa]. Catches of shared stocks like tunas, have significantly increased in some regions such as the subtropical Atlantic and western Pacific Oceans and are projected to continue [@MonllorHurtado:2017cm; @ErauskinExtramiana:2019fw]. Multiple shared species in North America have been observed to shift in distribution following changes in optimal conditions such as sockeye salmon (*Oncorhynchus nerka*) [@McDaniels:2010vn], Atlantic cod [@Pershing:2015gq], and flounders [@Pinsky:2012kq]. Moreover, these shifts are projected to continue towards the end of the $21^{st}$ century [@Cheung:2018hz]. As a result, some countries or management jurisdictions may see more shared fisheries and their catches shifting into their waters while others will stand to lose [@Miller:2013iv; @Pinsky:2018cb]. Nevertheless, management rules for shared stocks (e.g. quota or spatial delimitation) are often determined based on current and/or historic knowledge of the stock's distribution and do not consider future shifts in distributions [@FredstonHermann:2018kp]. 
+The ocean is getting warmer [@Rheim:2013fv], less oxygenated [@Schmidtko:2017cl], and increasing in acidity [@Ross:2011kd; @IPCC:2019to]. To cope with these changes in ocean biophysic properties, marine species, including shared fish stocks, have been shifting their distribution towards the poles and/or deeper waters [@Poloczanska:2016kk]. As climate change reshapes the ocean's environment worldwide [@Gattuso:2015jz], shared fisheries' delicate governance is threatened as new migration patterns may arise [@Miller:2013iv; @Pinsky:2018cb], historic distribution and abundances might shift [@Cheung:2010dt], and species basic natural traits may modify [@Pauly:2017hpa]. Catches of shared stocks like tunas, have significantly increased in some regions such as the subtropical Atlantic and western Pacific Oceans and are projected to continue [@MonllorHurtado:2017cm; @ErauskinExtramiana:2019fw]. Multiple shared species in North America have been observed to shift in distribution following changes in optimal conditions such as sockeye salmon (*Oncorhynchus nerka*) [@McDaniels:2010vn], Atlantic cod [@Pershing:2015gq], and flounders [@Pinsky:2012kq]. Moreover, these shifts are projected to continue towards the end of the $21^{st}$ century [@Cheung:2018hz]. As a result, some countries or management jurisdictions may see more shared fisheries and their catches shifting into their waters while others will stand to lose [@Oremus:2020id; @Pinsky:2018cb]. Nevertheless, management rules for shared stocks (e.g. quota or spatial delimitation) are often determined based on current and/or historic knowledge of the stock's distribution and do not consider future shifts in distributions [@FredstonHermann:2018kp]. 
 
 <!-- ##### Past Conflicts of shifting stocks -->
 
-The shifts in distribution of shared fish stocks will impact the economics of their fisheries [@Pinsky:2012kq; @Sumaila:2019gh]Sumaila et al., this Special Feature), and create international disputes between countries [@Munro:2002uf; @Spijkers:2017ij; @Pinsky:2018cb]. Canada and the US share important transboundary stocks of salmon (*Oncorhynchus spp.*), Pacific halibut (*Hippoglossus stenolepis*), and Atlantic cod (*Gadus morhua*) offering a unique lens to understand the extent to which climate-induced distributional shifts will challenge the future sustainability of transboundary fisheries. These countries have a long history of fisheries cooperation participating in diverse, jointly managed, commercial transboundary stocks through various fisheries management organizations [@NOAA:218tu]. Furthermore, climate-related fluctuations in stocks' distribution have historically created disputes between Canada and the US, increasing international conflict and threatening the health of diverse transboundary stocks [@Munro:2002uf; @CIA:2017uta].
+The shifts in distribution of shared fish stocks will impact the economics of their fisheries [@Pinsky:2012kq; @Sumaila:2019gh, Sumaila et al., this Special Feature], and create international disputes between countries [@Munro:2002uf; @Spijkers:2017ij; @Pinsky:2018cb]. Canada and the US share important transboundary stocks of salmon (*Oncorhynchus spp.*), Pacific halibut (*Hippoglossus stenolepis*), and Atlantic cod (*Gadus morhua*) offering a unique lens to understand the extent to which climate-induced distributional shifts will challenge the future sustainability of transboundary fisheries. These countries have a long history of fisheries cooperation participating in diverse, jointly managed, commercial transboundary stocks through various fisheries management organizations [@NOAA:2018tu]. Furthermore, climate-related fluctuations in stocks' distribution have historically created disputes between Canada and the US, increasing international conflict and threatening the health of diverse transboundary stocks [@Munro:2002uf; @CIA:2017uta].
 
-It is expected that climate induced shifts in stocks’ distribution will affect the rules in place that keep international treaties alive. Therefore, the main objective of this article is to assess the level of exposure that bi-lateral transboundary fisheries treaties between Canada and the US have to climate change through shifts in stock distributions. Specifically, we rely on a species distribution model and scenario planning to project the changes in the distribution of 33 fish stocks jointly managed by Canada and the US. Moreover, we use two specific case studies (the International Pacific Halibut Commission -IPHC- and a fisheries arrangement for the Gulf of Maine -GoMA-) to explore the potential impacts that climate change will have on selected transboundary stocks management. Finally, we explore similar situations around the world and identify opportunities to improve the adaptability of transboundary stocks management to climate change in North America. Despite an overall expectation of species following a poleward shift, important geographic constraints (e.g. Gulf of Alaska representing a latitudinal block) [@Kleisner:2016je], geo-political features (e.g. the localization of Alaska in reference to Canada and the contiguous states), and management rules (e.g. quota allocations, spatial management rules) may play an important role in the redistribution of benefits. Understanding these stocks shifts will shed a light on future conditions and inform decision-makers on the paths to follow under a changing climate.
-
+It is expected that climate induced shifts in stocks’ distribution will affect the rules in place that keep international treaties alive. Therefore, the main objective of this article is to assess the level of exposure that bi-lateral transboundary fisheries treaties between Canada and the US have to climate change through shifts in stock distributions. Specifically, we rely on a species distribution model and scenario planning to project the changes in the distribution of selected fish stocks jointly managed by Canada and the United States focusing on two case studies (the International Pacific Halibut Commission and a fisheries arrangement for the Gulf of Maine) Finally, we explore similar situations around the world and identify opportunities to improve the adaptability of transboundary stocks management to climate change in North America. Despite an overall expectation of species following a poleward shift, important geographic constraints (e.g. Gulf of Alaska representing a latitudinal block) [@Kleisner:2016je], geo-political features (e.g. the localization of Alaska in reference to Canada and the contiguous states), and management rules (e.g. quota allocations, spatial management rules) may play an important role in the redistribution of benefits. Understanding these stocks shifts will shed a light on future conditions and inform decision-makers on the paths to follow under a changing climate.
 
 ## METHODS
 
 ### Study Area and Fisheries
 
-The current study focuses on 33 transboundary stocks, **some of them** jointly managed by Canada and the US for both the Atlantic and the Pacific coasts (Table A3.1). The analysis was carried out within the 200 nautical miles of both nation’s EEZ from the Gulf of Mexico to The Labrador Sea in the Atlantic, and from California to Chukchi Sea, in the Pacific coast. The species analyzed (Table A2.1) were selected based on five treaties in both the Atlantic and Pacific coast of North America (Table 1). All species under the IPHC, Pacific Salmon Commission, the Pacific Whiting Treaty, and the GoMA arrangement were analyzed as these are bi-lateral agreements. **However, in the case of NAFO, the Comission is signed by 12 members and oversees the managment of 11 species in areas beyong national jurisdicions. Within the EEZs, NAFOs areas are used for management purposes but the management of stocks is made by each conuntry, unless a bilateral arrangement exists. For the purpose of this study, we assume that 26 species reported in NAFO's catch statistics fished in regions that fall within the EEZs of Canada and the United States (NAFO subareas 2s, 3s with the exception of 3M and 3N and limited to the EEZ, 4s, 5s and 6 A,B, and C), were transboundary in ntarue.** Fisheries data used in this study was gathered from the Sea Around Us from 1951 to 2014 [@Zeller2016].
+The current study used the International Pacific Halibut Commission (IPHC) and the Gulf of Maine arrangement (hereafter referred as GoMA) as case studies to discuss the implications that climate change could have in the management of transboundary stocks. For the IPHC, we used the most updated spatial regulatory data along its 12 regulatory areas [@IPHCSecreatriat:2017uz; @IPHC:2019wt]. For this specific case, we considered Alaska as a separate entity, the US contiguous states as a second one (Washington, Oregon and California), and lastly British Columbia (Canada). For the GoMA we used the Northwest Atlantic Fisheries Organization's (NAFO) divisions 5Y, 5Ze, and 4X[^NAFO] within latitudes 46.2°N and 41.5°S, and longitudes -72°W and -64°E (Fig. 1). Is worth mention that, while NAFO's regulatory areas were used in this study for domestic management, NAFO does not manage fisheries within the EEZs of Canada and the United States. Fisheries data was gathered from the Sea Around Us from 1951 to 2014 [@Zeller2016].
 
-[^NAFO]: Northwest Atlantic Fisheries Organization, Available at https://www.nafo.int/Science/Species
-
-```{r Treaties_Table, eval = T, echo = F}
-
-# Foot note
-fn <- "*These species are also part of NAFO. This is an arrangement and not an official agreement between parties."
-
-data.table::data.table(Treaty =
-             c("International Pacific Halibut Commission (IPHC)",
-              "Pacific Salmon Commission (PSC)",
-              "Pacific Whiting Treaty (PWT)",
-              "Northwest Atlantic Fisheries Organization (NAFO)",
-              "Gulf of Maine's Arrangement (GoMA)"),
-            Species =
-             c(1,
-              5,
-              1,
-              26,
-              "3*"),
-            Coast =
-             c("Pacific",
-              "Pacific",
-              "Pacific",
-              "Atlantic",
-              "Atlantic")
-) %>% 
- kable("latex",
-    caption = "Treaties and number of species included in the current analysis."
-    ) %>% 
- add_footnote(fn)
-```
-
-We used the IPHC and the Gulf of Maine arrangement (hereafter referred as GoMA) as case studies to discuss the implications that climate change could have in the management of transboundary stocks. For the IPHC, we used the most updated spatial regulatory data along its 12 regulatory areas [@IPHCSecreatriat:2017uz; @IPHC:2019wt]. For this specific case, we considered Alaska as a separate entity, the US contiguous states as a second one (Washington, Oregon and California), and lastly British Columbia (Canada). For the GoMA we used NAFO's divisions 5Y, 5Ze, and 4X within latitudes 46.2°N and 41.5°S, and longitudes -72°W and -64°E (Fig. 1).
-
+[^NAFO]: Northwest Atlantic Fisheries Organization, Available at https://www.nafo.int/Science/
 
 ```{r Study_Area_Map, eval = F, echo = F, warning=F, message=F}
 
@@ -382,7 +349,7 @@ ggsave("Fig1_IPHC.png",
 
 ```
 
-![Fig 1. Map of North America with the regulatory areas of the International Paific Halibut Comission and the NAFO sub-region containing the Gulf of Maine arrangement](./Figures/Figure 1.png)
+![Fig.1. Map of Canada and the US with the regulatory areas of the International Pacific Halibut Commission and the NAFO sub-regions containing the Gulf of Maine arrangement.](./Figures/Figure 1.png)
 
 ```{r Spatial_data, eval = F, echo = F, warning=F, message=F, results = 'hide'}
 
@@ -669,13 +636,13 @@ The IPHC was established by Canada and the United States to oversee the manageme
 
 ### The Gulf of Maine Arrangement
 
-Since 1998 Canada and the US have used a "Resource Sharing Understanding" to inform the management of Eastern George Bank's Atlantic cod (*Gadus morhua*) and haddock (*Melanogrammus aeglefinus*) and, yellowtail flounder (*Limanda ferruginea*) [@Pudden:2007bo; @CIA:2017uta; @TRAC:2016wu]. The GoMA suggests catch-limits based on a weighted method where 10% represents the stocks’ historical distribution (from 1967 to 1994) and 90% current distributions produced by quarterly surveys and historical catch [@TRAC:2016wu]. In 2017, the allocation proposed for the GoMA was, Atlantic cod 80% Canada to 20 % U.S, haddock 41% Canada and 59% U.S, and yellowtail flounder 31% Canada and 69% U.S [@TRAC:2016wu]. However, because this is an unofficial agreement, Canada and the US ultimately take single management decisions [@Soboil:2006gw]. In terms of management, the US has a multi species harvest control with area and season closures, mesh sizes, effort control, and mobile gear vessels that use bottom otter trawl gear [@Soboil:2006gw]. In contrast, Canada has a quota system in addition to limited-entry licensing, fleet allocations, and mesh and fish size regulation, among other input controls. Canada inshore vessels fish cod with longline and gillnet while haddock is mainly caught with bottom otter trawl gear [@Soboil:2006gw].
+Since 1998 Canada and the US have used a "Resource Sharing Understanding" to inform the management of Eastern George Bank's Atlantic cod (*Gadus morhua*) and haddock (*Melanogrammus aeglefinus*) and, yellowtail flounder (*Limanda ferruginea*) [@Pudden:2007bo; @TRAC:2016wu; @Song:2017va]. The GoMA suggests catch-limits based on a weighted method where 10% represents the stocks’ historical distribution (from 1967 to 1994) and 90% current distributions produced by quarterly surveys and catch [@TRAC:2016wu]. In 2017, the allocation proposed for the GoMA was, Atlantic cod 80% Canada and 20% U.S, haddock 41% Canada and 59% U.S, and yellowtail flounder 31% Canada and 69% U.S [@TRAC:2016wu]. However, because this is an unofficial agreement, Canada and the US ultimately take single management decisions [@Soboil:2006gw]. In terms of management, the US has a multi species harvest control with area and season closures, mesh sizes, effort control, and mobile gear vessels that use bottom otter trawl gear [@Soboil:2006gw]. In contrast, Canada has a quota system in addition to limited-entry licensing, fleet allocations, and mesh and fish size regulation, among other input controls. Canada inshore vessels fish cod with longline and gillnet while haddock is mainly caught with bottom otter trawl gear [@Soboil:2006gw].
 
 ### Projecting Future Species Distribution
 
-We used a Dynamic Bioclimatic Envelope Model (DBEM) to project the distribution of species from 2015 to 2100 under two scenarios of climate change [@Cheung:2010dt; @Cheung:2016jd]. The DBEM algorithm integrated ecophysiology and habitat suitability with spatial population dynamics of exploited fishes and invertebrates to project shifts in abundance and potential fisheries catches under climate change. The algorithm predicted species distribution based on depth and latitudinal range, habitat preferences and an index of species association with major habitat types to estimate changes in abundance distribution over a $0.5^{\circ}$ x $0.5^{\circ}$ grid of the world ocean. For each grid cell and time step, the model then calculated species carrying capacity according to sea surface temperature, salinity, oxygen content, sea ice extent (for polar species) and bathymetry, as well as the species preferences to these conditions. It then incorporated the intrinsic population growth, settled larvae, and net migration of adults from surrounding cells using an advection-diffusion-reaction equation. Finally, the model also simulated the effects of changes in temperature and oxygen content on growth of individuals [@Cheung:2013gk]. Ultimately, the model simulates spatial and temporal population dynamics, and estimates a proxy of maximum sustainable yield (MSY) by applying fishing at MSY level for each grid cell, hereafter referred as maximum catch potential (MCP).
+We used a Dynamic Bioclimatic Envelope Model (DBEM) to project the distribution of species from 2015 to 2100 under two scenarios of climate change [@Cheung:2010dt; @Cheung:2016jd]. The DBEM algorithm integrated ecophysiology and habitat suitability with spatial population dynamics of exploited fishes and invertebrates to project shifts in abundance and potential fisheries catches under climate change. The algorithm predicted species distribution based on depth and latitudinal range, habitat preferences and an index of species association with major habitat types to estimate changes in abundance distribution over a **0.5º x 0.5º** grid of the world ocean. For each grid cell and time step, the model then calculated species carrying capacity according to sea surface temperature, salinity, oxygen content, sea ice extent (for polar species) and bathymetry, as well as the species preferences to these conditions. It then incorporated the intrinsic population growth, settled larvae, and net migration of adults from surrounding cells using an advection-diffusion-reaction equation. Finally, the model also simulated the effects of changes in temperature and oxygen content on growth of individuals [@Cheung:2013gk; @Cheung:2016jd]. Ultimately, the model simulated spatial and temporal population dynamics, and estimated a proxy of maximum sustainable yield (MSY) by applying fishing at MSY level for each grid cell, hereafter referred as maximum catch potential (MCP).
 
-The DBEM was projected using three Earth system models (ESM), the Geophysical Fluid Dynamics Laboratory Earth System Models 2M (GFDL)[^GFDL], the Institute Pierre Simon Laplace Climate Model 5 (IPSL-CM5)[^IPSL], and the Max Planck Institute for Meteorology Earth System Model (MPI)[^MPI]. Each model was downscaled to match the DBEM $0.5^{\circ}$ x $0.5^{\circ}$ grid using the nearest neighbor method, and in some cases, bilinear interpolation [@Cheung:2016hf]. Finally, we used the model outputs for two scenarios of the Intergovernmental Panel on Climate Change (IPCC)-Representative Concentration Pathways (RCP) 2.6 and 8.5 representing a low greenhouse gas emission (strong mitigation) and a high greenhouse gas emission (week mitigation) scenario, respectively [@IPCC:2014bz]. To estimate model robustness and capture the structural uncertainty build within ESM models, we averaged the DBEM results for all three models ($\mu±\sigma$) and marked regions where at least one ESM disagree in direction with the rest.
+We projected the DBEM using three Earth system models (ESM), the Geophysical Fluid Dynamics Laboratory Earth System Models 2M (GFDL)[^GFDL], the Institute Pierre Simon Laplace Climate Model 5 (IPSL-CM5)[^IPSL], and the Max Planck Institute for Meteorology Earth System Model (MPI)[^MPI]. Each model was downscaled to match the DBEM **$0.5^{\circ}$ x $0.5^{\circ}$** grid using the nearest neighbor method, and in some cases, bilinear interpolation [@Cheung:2016hf]. Finally, we used the model outputs for two scenarios of the Intergovernmental Panel on Climate Change (IPCC)-Representative Concentration Pathways (RCP) 2.6 and 8.5 representing a low greenhouse gas emission (strong mitigation) and a high greenhouse gas emission (week mitigation) scenario, respectively [@IPCC:2014bz]. To estimate model robustness and capture the structural uncertainty build within ESM models, we averaged the DBEM results for all three models **(<mu> +- <sigma>)** and marked regions where at least one ESM disagree in direction with the rest.
 
 [^GFDL]: Geophysical Fluid Dynamics Laboratory Earth System Models 2M [online] https://www.gfdl.noaa.gov
 [^IPSL]:Institute Pierre Simon Laplace Climate Model 5 [online] https://www.icmc.ipsl.fr
@@ -921,20 +888,21 @@ For estimating the percentage change of MCP at the regional scale, we first aggr
 $$ X_{yr} = \sum_{s = 1}^n \hat{MCP_s}$$
 <!-- <eqn1> -->
 
-where *y* is year, *r* is region, *s* is species, *n* is total number of species, and $\hat{MCP}$ is the MCP averaged by the three ESMs. In the case of North America as a whole, and the GoM arrangement, region is defined as the $0.5^{\circ}$ x $0.5^{\circ}$ grid-cell within the EEZ and the specific NAFO regulatory areas, respectively. For the IPHC analysis, region is defined as the Commission's regulatory areas (Fig. 1). We then average the values in three time periods (*t*) to reduce temporal model sensitivity. Thus, we computed the regional percentage change in MCP ($\Delta MCP_r$) as follows:
+where *y* is year, *r* is region, *s* is species, *n* is total number of species, and $\hat{MCP}$ is the MCP averaged by the three ESMs. In the case of the GoMA, region was defined as the **$0.5^{\circ}$ x $0.5^{\circ}$** grid-cell within the specific NAFO regulatory areas. For the IPHC analysis, region was defined as the Commission's regulatory areas (Fig. 1). We then averaged the values in three time periods (*t*) to reduce temporal model sensitivity. Thus, we computed the regional percentage change in MCP **(<DELTA>MCPr)** as follows:
 
 $$\Delta MCP_r = -(1-\frac{X_{t}}{X_{t_0}})*100 $$
 <!-- <eqn2> -->
 
-Where $X_{t}$ is the future averaged MCP for each of the two time periods analyzed in this study and $t_0$ is the present averaged MCP ($\mu$ `r Beg_In`-`r Beg_End`). This way, Equ. 2 shows the percentage change in MCP by mid $21^{st}$ century when $X_T$ = $\mu$ `r Mid_In`-`r Mid_End`, and end of $21^{st}$ century when $X_T$ = $\mu$ `r End_In`-`r End_End`, relative to today ($t_0$). The rationale between choosing these time periods was to provide a relative short-term projection (mid-century) that would be more policy-relevant but also show the long term-trend (end of century).
+
+Where $X_{t}$ is the future average MCP for each of the two time periods analyzed in this study and $t_0$ is the present averaged MCP (<mu> `r Beg_In`-`r Beg_End`). Note that in cases where $X_{0}$ = 0 and $X_{t}$ > 0, then **(<DELTA>MCPr)** = 100%, consequently, the opposite case would give a -100% result. This way, Equ. 2 shows the percentage change in MCP by mid $21^{st}$ century when $X_t$ = <mu> `r Mid_In`-`r Mid_End`, and end of $21^{st}$ century when $X_t$ = <mu> `r End_In`-`r End_End`, relative to today ($t_0$). The rationale between choosing these time periods was to provide a relative short-term projection (mid-century) that would be more policy-relevant but also show the long-term trend (end of century).
 
 <!-- #### Estimation of Changes in Catch Proportion -->
 
-In addition, we borrowed the concept of “threat point” from game theory defined as the minimum payoff that a player is willing to receive in order to cooperate with other players (see Sumaila et al., this Special Feature). Thus, we estimate the change in the $\hat{MCP}$ (threat point) that each country (players) would have for each species (hereafter referred as stock-share ratio), for both the IPHC and the GoMA. The stock-share ratio can be seen as the proportion of the stock's distribution within the study area that each country has. For this, we first modify Equ. 1, to estimate the aggregated yearly mean MCP of each species per region. We then average the results by the same previously mentioned periods (present, mid and end of the $21^{st}$ century). Next, for each species we estimated the stock-share ratio ($\alpha_s$) that each region had during each time period:
+In addition, we borrowed the concept of “threat point” from game theory defined as the minimum payoff that a player is willing to receive in order to cooperate with other players (see Sumaila et al., this Special Feature). Thus, we estimated the change in the <DELTA>MCP (threat point) that each country (players) would have for each species (hereafter referred as stock-share ratio), for both the IPHC and the GoMA. The stock-share ratio can be seen as the proportion of the stock’s distribution within the study area that each country has. For this, we first modified Equ. 1, to estimate the aggregated yearly mean MCP of each species per region. We then averaged the results by the same previously motioned periods (present, mid and end of the **21st** century). Next, for each species we estimated the stock-share ratio **(<alpha> s)** that each region had during each time period:
 
 $$\alpha_{s} = \frac{\theta_{rt}}{\delta_{rt}}$$
 
-Where $\theta_{rt}$ is the species' aggregated $\hat{MCP}$ of each region at time period *t*, and $\delta_{rt}$ is the species' aggregated $\hat{MCP}$ of the whole specie's distribution within the study area at the same time period. Finally, we estimated the percentage change in stock-share ratio substituting $X_{t_0}$ and $X_{t}$ by $\alpha_{t_0}$ and $\alpha_{t}$, respectively in Equ. 2. The process was carried out for each ESM and results presented as mean standard deviation (sd). All of the analysis was done in the statistical software *R* version 3.5.2 (2018-12-20) with the associated packages, *data.table* [@Packagedatatable:2019uh], *ggrepel* [@PackageggrepelAut:2018to], *gridExtra* [@PackagegridExtraM:2017wx], *knirt* [@PackageknitrAGen:2020wt], *RColorBrewer* [@PackagerColorBrewer:2014uw], *sf* [@PackagesfSimpleF:2018vp], and *tidyverse* [@PackagetidyverseE:2017vq]. All code is available at http://www.github.com/jepa/OC_Transboundary.
+Where **<theta>rt** is the species' aggregated $\hat{MCP}$ of each region at time period *t*, and **<delta>rt** is the species' aggregated $\hat{MCP}$ of the whole specie's distribution within the study area at the same time period. Finally, we estimated the percentage change in stock-share ratio substituting $X_{t_0}$ and $X_{t}$ by **<alpha>t0** and **<alpha>t**, respectively in Equ. 2. The process was carried out for each ESM and results presented as average **+-** standard deviation (sd). All of the analysis was done in the statistical software *R* version 3.5.2 (2018-12-20) with the associated packages, *data.table* [@Packagedatatable:2019uh], *ggrepel* [@PackageggrepelAut:2018to], *gridExtra* [@PackagegridExtraM:2017wx], *knirt* [@PackageknitrAGen:2020wt], *RColorBrewer* [@PackagerColorBrewer:2014uw], *sf* [@PackagesfSimpleF:2018vp], and *tidyverse* [@PackagetidyverseE:2017vq]. All code is available at http://www.github.com/jepa/OC_Transboundary.
 
 <!-- Finally, we estimated the ($\alpha$) percentage change ($\Delta\alpha$) for each region as follows: -->
 <!-- $$\Delta\alpha = -(-1-\frac{\alpha_{f}}{\alpha_{p}})*100 $$ -->
@@ -1088,268 +1056,10 @@ DBEM_Coor_sf = st_as_sf(DBEM_Coor,
 
 ```
 
-### North American transboundary stocks are shifting poleward
-
-```{r Changes_Data_All, eval = F, echo = F, fig.height=8, fig.width=12}
-
-# Change North America Projection for Map
-
-North_America_Land <- North_America_Land %>% 
- st_transform(crs = 4326)
-
-### Load shapefile the old way ###
-
-# Path to save the plots
-Path <- my_path("R",Extra_Path = "North_America")
-RCP = c("GFDL26F1","IPSL26F1","MPI26F1") #Low RCP
-
-#### New Future Method to account for mean +- sd of models #
-MCP_Data <- DBEM_Corrected %>% 
-  mutate(RCP = ifelse(Model %in% RCP,"Low_Emission","High_Emission")) %>% 
-  # Sum the MCP of all species in each index by model
-  group_by(INDEX,
-           Model,
-           RCP) %>% 
-  summarise_at(vars(Beg_In:End_End), sum,na.rm=T) %>% 
-  gather("Year","MCP",Beg_In:End_End) %>% 
-  # Indicate the three period times
-  mutate( 
-    Period = ifelse(Year >= Beg_In & Year <= Beg_End,"Beginning",
-                    ifelse(Year >= Mid_In & Year <= Mid_End,"Mid_Century",
-                           ifelse(Year >= End_In & Year <= End_End,"The_End_Century",
-                                  "Other_Years"))
-    )
-  ) %>% 
-  #Average per Time period
-  group_by(INDEX,Model,RCP,Period) %>% 
-  summarise(Mean_T_MCP =mean(MCP,na.rm=T)) %>% 
-  filter(Period != "Other_Years") %>% 
-  spread(Period,Mean_T_MCP) %>% #Spread to estimate MCP_Change
-  # Divide future values by present
-  mutate_at(vars(Mid_Century, 
-                 The_End_Century),
-            funs(ifelse(Begining > 0, ./Begining,.)) #if no species today value is the future
-  ) %>% 
-  # Estimate percentage change
-  mutate_at(vars(Mid_Century, 
-                 The_End_Century),
-            funs(ifelse(Begining == 0 & . == 0, 0, # If for no change than 0
-                        ifelse(Begining == 0 & . > 0, 100, # If changes from 0 to anything then 100
-                               round(-(1-.)*100) # Estimate percentage change
-                        )
-            )
-            )
-  ) %>% 
-  gather("Period","MCP_Change",Mid_Century,The_End_Century) %>% 
-  mutate(Direction = ifelse(MCP_Change >= 0, "Positive","Negative")) %>% 
-  # Average results per ESMs
-  group_by(INDEX,Period,RCP) %>% 
-  summarise_at(vars(MCP_Change),
-               funs("Mean_ESM_MCP_Chng"=mean,
-                    "sd_ESM_MCP_Chng"=sd,
-                    "N_ESMs"=n(),
-                    "Model_Agreement" = paste(length(unique(Direction)),collapse = ";")
-               )
-  ) %>%
-  mutate(
-    Model_Agreement = ifelse(Model_Agreement == 1, "Agree","Disagree"),
-    Model_Agreement_sd = ifelse(abs(Mean_ESM_MCP_Chng) < sd_ESM_MCP_Chng*2,"Disagree","Agree")
-  ) %>% 
-  left_join(DBEM_Coor,
-            by="INDEX") %>% 
-  # set everything over 100 to 100
-  mutate_at(vars(Mean_ESM_MCP_Chng,
-                 sd_ESM_MCP_Chng),
-            funs(ifelse(. > 100, 100,.)
-            )
-  )
-
-
-# Plot map for paper figure 
-Seq <- seq(-100,100,by=5) #Axis
-
-p <- ggplot(MCP_Data) +
- geom_tile(data = subset(MCP_Data, Period == "Mid_Century"),
-      aes(
-       x = longitude,
-       y = latitude,
-       color = Mean_ESM_MCP_Chng,
-       fill = Mean_ESM_MCP_Chng
-      )
- ) +
- geom_point(data = subset(MCP_Data, Period == "Mid_Century" & Model_Agreement == "Disagree"),
-       aes(
-        x = longitude,
-        y = latitude
-       ),
-       size = 0.1,
-       # alpha = 0.5,
-       shape = 16,
-       color = "grey20"
-       ) +
- geom_sf(data = North_America_Land, fill = "grey90") +
- facet_wrap(~RCP) +
- coord_sf(xlim = c(-190,-50)) +
- scale_color_gradient2(
-  limits=c(-100,
-       100),
-  breaks = Seq) +
- scale_fill_gradient2(
-  limits=c(-100,
-       100),
-  breaks = Seq) +
- my_ggtheme_m()() 
- 
- 
- ggsave("Fig2.png",
-     plot = p,
-     width = 16,
-     height = 8,
-     units = "in",
-     path = Path)
- 
-```
-
-Shifts in the distribution of 33 jointly managed transboundary stocks of North America by 2050 relative to 2010 show that MCP of transboundary stocks will overall increase in Atlantic-Canadian and Alaskan waters and decrease in Pacific-Canadian and the US contiguous states waters (Fig. 2). Such changes will be more intense under the high emission scenario (Fig. 2A). For most regions, losses of MCP will be more intense under a high emission scenario (Fig 2A) than under a low emission scenario (Fig 2B), however, there will be no apparent change in gain intensity between scenarios. Impacts of climate change are expected to intensify towards the end of the $21^{st}$ century, although with greater uncertainty (Fig A1.1).
-
-![Fig. 2. Percentage change of MCP of transboundary stocks of North America for mid $21^{st}$ century (2041-2060) relative to present (2005-2014) under a A) high emission scenario and; B) low emission scenario. Points represent areas where at least one model do not agree in the direction of change](./Figures/Figure 2.png)
-
-
-```{r Changes_Per_Species_T, eval = F, echo = F }
-
-# This table provides the percentage change in MCP for each species, EEZ and RCP as well as the percentage change in Stock-share ratio.
-
-#### Mid Century result Table ####
-Areas <- c(
- "Canada (East Coast)",
- "Canada (Pacific)",
- "USA (East Coast)",
- "USA (West Coast)",
- "USA (Alaska, Arctic)",
- "USA (Alaska, Subarctic)"
-)
-
-RCP <- c("GFDL26F1","IPSL26F1","MPI26F1")
-
-Selected_Areas <- EEZIDs_List %>% 
- filter(Name %in% Areas)
-
-#### NEW ESTIMATES 
-
-# Path to save the plots
-Path <- my_path("R",Extra_Path = "North_America")
-RCP = c("GFDL26F1","IPSL26F1","MPI26F1") #Low RCP
-
-# Aggregate MCP per Nation, Species, Model, RCP and Time period
-
-MCP_Species_Data <- DBEM_Corrected %>% 
-  left_join(EEZ_CellID,
-            by = "INDEX") %>% 
-  filter(EEZID %in% Selected_Areas$EEZID) %>% 
-  mutate(RCP = ifelse(Model %in% RCP,"Low_Emission","High_Emission"),
-         Nation = ifelse(EEZID >= 958, "Alaska",
-                         ifelse(EEZID == 925,"Can W",
-                                ifelse(EEZID == 851, "USA E",
-                                       ifelse( EEZID== 848, "USA W",
-                                               "Can E"))
-                         )),
-         Basin = ifelse(Nation %in% c("USA E","Can E"),"Atlantic","Pacific"),
-  ) %>% 
-  # Sum the MCP of each species by country
-  group_by(Species, Model, RCP, Nation, Basin) %>%
-  summarise_at(vars(Beg_In:End_End), sum,na.rm=T) %>% 
-  gather("Year","MCP",Beg_In:End_End) %>% 
-  mutate( # Indicate the three period times
-    Period = ifelse(Year >= Beg_In & Year <= Beg_End,"Beginning",
-                    ifelse(Year >= Mid_In & Year <= Mid_End,"Mid_Century",
-                           ifelse(Year >= End_In & Year <= End_End,"The_End_Century",
-                                  "Other_Years"))
-    )
-  ) %>% 
-  # Average by time period
-  group_by(Nation,Basin,Species,Model,RCP,Period) %>% 
-  summarise(Mean_T_MCP =mean(MCP,na.rm=T))
-
-### Estimate average change of all species ####
-
-MCP_Species_Change <- MCP_Species_Data %>% 
-  filter(Period != "Other_Years") %>% 
-  spread(Period,Mean_T_MCP) %>% #Spread to estimate MCP_Change
-  # Divide future values by present
-  mutate_at(vars(Mid_Century, 
-                 The_End_Century),
-            funs(ifelse(Begining > 0, ./Begining,.)) #if no species today value is the future
-  ) %>% 
-  # Estimate percentage change
-  mutate_at(vars(Mid_Century, 
-                 The_End_Century),
-            funs(ifelse(Begining == 0 & . == 0, 0, # If for no change than 0
-                        ifelse(Begining == 0 & . > 0, 100, # If changes from 0 to anything then 100
-                               round(-(1-.)*100) # Estimate percentage change
-                        )
-            )
-            )
-  ) %>% 
-  gather("Period","MCP_Change",Mid_Century,The_End_Century) %>% 
-  mutate(Direction = ifelse(MCP_Change >= 0, "Positive","Negative")) %>% 
-  # Average results per ESMs
-  group_by(Nation,Species,Period,RCP) %>% 
-  summarise_at(vars(MCP_Change),
-               funs("Mean_ESM_MCP_Chng"=mean,
-                    "sd_ESM_MCP_Chng"=sd,
-                    "N_ESMs"=n(),
-                    "Model_Agreement" = paste(length(unique(Direction)),collapse = ";")
-               )
-  ) %>%
-  mutate(
-    Model_Agreement = ifelse(Model_Agreement == 1, "Agree","Disagree")
-  ) %>% 
-  # set everything over 100 to 100
-  mutate_at(vars(Mean_ESM_MCP_Chng,
-                 sd_ESM_MCP_Chng),
-            funs(ifelse(. > 100, 100,.)
-            )
-  )
- 
-
-#### Estimate Stock Share Change ####
-
-# Estimate total MCP of all species per basin
-Basin_Total <- MCP_Species_Data %>% 
-  group_by(Basin,Model,RCP,Period) %>% 
-  summarise(TB_MCP = sum(Mean_T_MCP))
-
-# Stock Share Change per EEZ
-SS_Change <- MCP_Species_Data %>% 
-  group_by(RCP,Period,Model,Nation,Basin) %>% # Estimate total MCP of all species per Nation 
-  summarise(Total_MCP = sum(Mean_T_MCP)) %>% 
-  left_join(Basin_Total,
-            by = c("RCP", "Period", "Model","Basin")) %>% 
-  mutate(Proportion = (Total_MCP/TB_MCP)*100) %>% # estimates each Country's catch proportion per period and RCP
-  group_by(Nation,RCP,Period) %>%  # Average ESMs
-  summarise(Mean_ESM_Proportion = paste(round(mean(Proportion),2)," (",round(sd(Proportion),2),")",sep="")
-  ) %>% 
-  filter(Period %in% c("Beginning","Mid_Century","The_End_Century")) %>% 
-  spread(Period,Mean_ESM_Proportion)
-
-Path <- my_path("R",Extra_Path = "North_America")
-
-#For paper (Table 2)
-write.csv(SS_Change,
-     paste(Path,"SS_Change.csv",sep=""),
-     row.names = F)
-
-
-```
-
-
-Consequently, each country’s share-ratio of different species will change with an overall benefit to northern regions, regardless of the RCP scenario. Overall, shifts will be amplified under the high emission scenario relative to the low greenhouse emission scenario pathway (Table 2).
-
-Table 2. Total stock-share of all 33 transboundary species by EEZ and emission scenario for the present, and mid and end of the $21^{st}$ century. Averages might not add to 100% due to model differences. Standard deviation of the projected values are provided in parentheses.
 
 ### Projected change to species managed by the IPHC
 
-In the case of the IPHC, at least one third of regulatory areas will see a reduction in MCP of Pacific halibut by 2050 relative to current MCP, regardless of the climate change scenario (Fig. 3). It is likely that the stock shift from the U.S. contiguous states towards Canada will offset the shift of the later towards northern regions, resulting in undetectable changes in Canadian area 2B and Alaskan 2C under both climate change scenarios. The potential movement of halibut westward will increase the MCP of regulatory areas 3B (under a low emission scenario) and 4ABCE along the Aleutian Islands and Bering Sea. Regions 4DE, the most poleward regulatory areas of the IPHC, are expected to gain MCP by mid (Fig. 3) and end of the $21^{st}$ century (Fig. A1.2) under a high emission scenario due to the expansion of halibut suitable habitat as sea ice retreats (Fig. A2.1). In contrast, under a low emission scenario, sea ice is expected to stabilize towards mid 21st century, thus providing less “new” suitable habitat for Pacific halibut and resulting in undetectable changes in MCP for the region (Fig. 3B) and decreasing even more towards 2100 (Fig. A1.2).
+At least one third of the IPHC regulatory areas will see a reduction in MCP of Pacific halibut by 2050 relative to current MCP, regardless of the climate change scenario (Fig. 2). It is likely that the stock shift from the U.S. contiguous states towards Canada will offset the shift of the later towards northern regions, resulting in undetectable changes in Canadian area 2B and Alaskan 2C under both climate change scenarios. The potential movement of halibut westward will increase the MCP of regulatory areas 3B (under a low emission scenario) and 4ABCE along the Aleutian Islands and Bering Sea. Regions 4DE, the most poleward regulatory areas of the IPHC, are expected to gain MCP by mid (Fig. 2) and end of the $21^{st}$ century (Fig. A1.1) under a high emission scenario due to the expansion of halibut suitable habitat as sea ice retreats (Fig. A2.1). In contrast, under a low emission scenario, sea ice is expected to stabilize towards mid 21st century, thus providing less “new” suitable habitat for Pacific halibut and resulting in undetectable changes in MCP for the region (Fig. 2B) and decreasing even more towards 2100 (Fig. A1.1).
 
 ```{r IPHC_Map_Result_Regions, eval = F, echo = F}
 
@@ -1524,9 +1234,9 @@ grid.raster(img)
 
 <!-- If rendered to word use ![](), otherwise use chunk -->
 
-![Fig 3. Percentage change of MCP for species managed by the IPHC for mid 21st century (2041-2060) relative to present 2005-2014 under a A) high emission scenario and B) low emission scenario. Labels marked with "*" represent regions where models do not agree in direction of change](./Figures/Fig3.png)
+![Fig. 2. Percentage change of MCP for species managed by the IPHC for mid 21st century (2041-2060) relative to present 2005-2014 under a A) high emission scenario and B) low emission scenario. Labels marked with "*" represent regions where models do not agree in direction of change.](./Figures/Figure 3.png)
 
-The same poleward trend is expected in the change of Pacific halibut stock-share ratio with the average proportion increasing up to 25% in some northern regions and decreasing by 10% in southern regions, relative to the present proportion (Fig. 4). Maintaining emissions to lower levels through 2050 would potentially leave unchanged the stock-share ratio of three regulatory areas (3AC, and 4D) and negatively change regulatory area 2A. On the other hand, failing to achieve such target will decrease the stock-share ratio in the most productive regulatory areas (2AC, 3AB).
+The same poleward trend is expected in the change of Pacific halibut stock-share ratio with the average proportion increasing up to 25% in some northern regions and decreasing by 10% in southern regions, relative to the present proportion (Fig. 3). Maintaining emissions to lower levels through 2050 would potentially leave unchanged the stock-share ratio of three regulatory areas (3AC, and 4D) and negatively change regulatory area 2A. On the other hand, failing to achieve such target will decrease the stock-share ratio in the most productive regulatory areas (2AC, 3AB).
 
 ```{r IPHC_Proportion_Regions, eval = F, echo = F, message=F, warning=F}
 
@@ -1688,11 +1398,11 @@ grid.raster(Fig4)
 
 <!-- If rendered to word use ![](), otherwise use chunk -->
 
-![Fig. 4. Percentage change of stock-share ratio for IPHC under A) high emission scenario and B) low emission scenario for mid 21st century (2041-2060) relative to present 2005-2014. Values represent the mean of 3 ESM; error bars represent $\mp$ sd.](./Figures/Figure 4.png)
+![Fig. 3. Percentage change of stock-share ratio for IPHC under A) high emission scenario and B) low emission scenario for mid 21st century (2041-2060) relative to present 2005-2014. Values represent the mean of 3 ESM; error bars represent $\pm$ sd.](./Figures/Figure 4.png)
 
 ### Projected change to species managed under the Gulf of Maine arrangement
 
-While some regulatory areas of the IPHC will see an incremental increase in Pacific halibut MCP, the results for the Gulf of Maine show an overall decrease in MCP by 2050, regardless of the climate change scenario or ESM (Fig. 5), intensifying by the end of the $21^{st}$ century (Fig. A1.3). For cod and haddock, MCP will decrease within the whole Gulf with no apparent win for any country in reference to the current period (Fig. 5). For yellowtail flounder, despite an overall reduction, some discrete areas are expected to increase with no particular pattern and high uncertainty as ESMs in these regions do not agree in the direction of change. Despite the overall reduction in MCP for all three species in comparison to current values, there is a benefit of achieving a low emission scenario as reductions intensify under the high emission scenario.
+While some regulatory areas of the IPHC will see an incremental increase in Pacific halibut MCP, the results for the Gulf of Maine show an overall decrease in MCP by 2050, regardless of the climate change scenario or ESM (Fig. 4), intensifying by the end of the $21^{st}$ century (Fig. A1.2). For cod and haddock, MCP will decrease within the whole Gulf with no apparent win for any country in reference to the current period (Fig. 4). For yellowtail flounder, despite an overall reduction, some discrete areas are expected to increase with no particular pattern and high uncertainty, as ESMs in these regions do not agree in the direction of change (Fig. A2.3). Despite the overall reduction in MCP for all three species in comparison to current values, there is a benefit of achieving a low emission scenario as reductions intensify under the high emission scenario.
 
 ```{r GB_Results_Spp, eval = F, echo = F, fig.width=12}
 
@@ -1873,9 +1583,9 @@ ggsave(Name,
  
 ```
 
-![Fig. 5. Percentage change of MCP in the Gulf of Maine under, A) high emission scenario; and B) low emission for mid-century (2041-2060) relative to present (2005-2014). Points represent regions where models do not agree in direction of change.](./Figures/Figure 5.png)
+![Fig. 4. Percentage change of MCP in the Gulf of Maine under, A) high emission scenario; and B) low emission for mid-century (2041-2060) relative to present (2005-2014). Points represent regions where models do not agree in direction of change.](./Figures/Figure 5.png)
 
-Despite the expected decrease in MCP for the region, changes in the stock-share ratio of species within the Gulf of Maine show different outcomes dependent on the climate change scenario and species in question. Following a high emission path will affect mostly Canada’s share of yellowtail flounder and in less degree haddock, with an increase of cod share. under the low emission scenario, haddock and cod patterns intensify, while yellowtail flounder’s share approaches almost no change (Fig. 6). Such pattern is likely the combination of the bathymetry or the Gulf, the warming gradient, and the species distribution (see discussion).
+Despite the expected decrease in MCP for the region, changes in the stock-share ratio of species within the Gulf of Maine show different outcomes dependent on the climate change scenario and species in question. Following a high emission path will affect mostly Canada’s share of yellowtail flounder and in less degree haddock, with an increase of cod share. under the low emission scenario, haddock and cod patterns intensify, while yellowtail flounder’s share approaches almost no change (Fig. 5). Such pattern is likely the combination of the bathymetry or the Gulf, the warming gradient, and the species distribution (see discussion).
 
 ```{r GB_Proportion_Species, eval = F, echo = F}
 
@@ -2053,29 +1763,62 @@ ggplot(data = subset(Proportion_Change_GoM, Time_Step == "Mid_Century_Prop"),
 
 ```
 
-![Fig 6.Changes in MCP stock-share ratio for Gulf of Maine under (A) high emission; and (B) low emission scenarios for mid 21st century (2041-2060) relative to present. Values represent the mean of 3 ESM; error bars represent $\mp$ sd. (2005-2014).](./Figures/Figure 6.png)
+![Fig. 5. Changes in MCP stock-share ratio for Gulf of Maine under (A) high emission; and (B) low emission scenarios for mid 21st century (2041-2060) relative to present (2005-2014). Values represent the mean of 3 ESM; error bars represent $\pm$ sd.](./Figures/Figure 6.gif)
 
 ## DISCUSSION
 
-<!-- ## Species shifting towards the poles -->
+```{r, iphc_distr, eval = F, echo = F}
 
-The results of the present study suggest that climate change would alter the MCP of 33 transboundary fish stocks in North America consequently altering Canada’s and the US’s species’ stock-share ratio, regardless of the climate change scenario. These results are aligned with regional [@Morley:2018fn] projections suggesting that climate change will push marine species towards the poles and deeper water [@Pinsky:2013jo] in search of their ecological niche [@Poloczanska:2016kk]. Poleward shifts in Eastern Atlantic off the coast of the US include American lobster (*Homarus americanus*), summer (*Paralichthys dentatus*) and flounders, and red hake (*Urophycis chuss*) from North Carolina to Maine [@Pinsky:2012kq]. However, geographic barriers [@Cheung:2015fm; @Kleisner:2016je], local temperature gradients [@Pinsky:2013jo], species interactions and human activities [@Serpetti:2017he] might change the rate and direction of species shifts. Species such as haddock in the Atlantic [@Morley:2018fn], and big skate (*Raja binoculata*) in the Pacific coast [@Pinsky:2013jo] have been projected to shift away from the poles. In the Gulf of Maine, the stock-share gain of yellowtail flounder and haddock by the US (Fig. 6) could be a response to a temperature gradient shift combined with geographic barriers as southern waters are deeper, and warming slower than northern waters (Fig A3.1.). On the other hand, Maine has seen its landings of yellowtail flounder increased at the expenses of southern states [@Pinsky:2012kq]. This could be influencing the US gain in MCP in the GoMA in relation to Canada as species shift their distribution from lower latitudes naturally reaching the US (lower) region first. Geographic barriers also affect the westward increase of stock-share in IPHC regions where species can only migrate northward into the Arctic Ocean through the Bering Sea and Bering Strait [@Cheung:2015fm] (Fig. 4). As the effects of climate change endure, even with high mitigation, joint plans should prepare to face changes in the stock-share ratio of transboundary stocks along both coast of North America.
+library("tidyverse")
 
-The shifts in the distribution of transboundary stocks can jeopardize management objectives such as conservation measures and gear operation. Fish moving out of fishing grounds and into protected areas could result in a pressure increase to open such area to fishing. Moreover, overlapping shifting stocks could interfere in gear-limitation management rules of multiple fisheries generating conflicts between fleets [@VanDerVoo:2016uc]. The effectiveness of the IPHC-Closed Area ("CA" in Fig 1.) in terms of protecting juveniles has been historically questioned as trawling for other species is still allowed in the area [@Karim:2010ut; @IPHC:2017CA]. In 2015, for example, 97% of the trawl by-catch in areas 4CDE and the Closed Area were juveniles [@IPHC:2017CA]. Consequently, the Alaskan trawl fisheries has been closed before reaching annual quota due to the attainment of Pacific halibut bycatch quota limits [@Karim:2010ut]. Thus the commission has been asked to open the closed area for Pacific halibut fishing, under the premise that the expansion of the trawl fishery is likely reducing any conservation goal for juvenile Pacific halibut [@IPHC:2017CA]. Although not assessed in this study, some trawling target species like Pacific cod (*Gadus macrocephalus*), flathead sole (*Hippoglossoides elassodon*), and Alaskan plaice (*Limanda aspera*) have already shift their distributions due to warming waters [@Stram:2009xc] and some are expected to continue shifting in similar direction than Pacific halibut [@Pinsky:2013jo]. The overlap of target species could be addressed by applying ecosystem-based management and dynamic management tools [@Hazen:2018fa] to manage these fisheries and reduce potential lost of sustainable harvest for both the halibut and the trawl fisheries. 
+iphc_2019_tsd_005 <- read_excel("/Volumes/HALL2000/Data/OC_Transboundary/iphc-2019-tsd-005.xlsx")
 
-Quota allocation ruled by historic distributions will most likely be outdated incentivizing maladaptation [@FAO:2018uv; @Gaines:2018sg; @Miller:2013iv]. In Europe, for example, the EU Common Fisheries Policy quota allocation is based on historic reference period of 1973-1978 [@Harte:2019us]. However, climate change has shifted the distribution of multiple European commercial stocks [@Baudron:2020dj], outdating the fixed quotas and thus compromising the sustainability of European fisheries [@FAO:2018uv; @Baudron:2020dj]. Management regimes that include a dynamic harvest control (e.g. adjusting the quota based on the stocks distribution) have the potential of increasing fish biomass, harvest and profits under climate change [@Gaines:2018sg]. In North America, poleward shifts of Pacific halibut along the coast of Oregon, Washington and British Columbia have been previously addressed by the IPHC resulting in the adoption of a dynamic quota allocation method [@McCaughran:1992uw]. By allocating quotas based on yearly surveys along the Convention area, the IPHC should be able to capture shifts in Pacific halibut distribution due to climate change, reducing the chances of over exploitation of the stock due to this shifts [@Miller:2013iv]. Similarly, for the Gulf of Maine, since the GoMA’s method to estimate quota allocation is weighted based on stocks distribution (90%) and historical catch (10%) [@TRAC:2016wu]. This process is especially important for cod and haddock due to their distribution variation within the Gulf [@Soboil:2006gw; @TRAC:2016wu].
+iphc_2019_tsd_005 %>% 
+  gather("Region","Prop",-Year) %>% 
+  # filter(Year >= 2010) %>% 
+  # group_by(Region) %>% 
+  # summarise(me=mean(Prop)) %>% 
+  ggplot() +
+  # geom_bar(
+  #   aes(
+  #     x = Region,
+  #     y = me,
+  #     color = Region
+  #   ),
+  #   stat="identity"
+  # )
+  geom_line(
+    aes(
+      x = Year,
+      y = Prop,
+      color = Region
+    )
+  )
 
-Side payments have been previously used to address changes in species distribution due to environmental forcings. In game theory, a side payment is received by a player as a compensation from the other player in a shared resource agreement, with the premise that cooperation will result in a better overall outcome [@Bjorndal:2012vd; @Sumaila:2013hv]. Side payments do not have to be in monetary form and are widely used in transboundary stocks around the world. For example, Norway and Russia have implemented a quota swap strategy for jointly managed stocks of cod, haddock and capelin in the Barents Sea [^NR]. Similarly, species' quota swaps are allowed, up to a degree, within regulatory areas of the European union [@Baudron:2020dj]. Specifically, for northern European spring spawning Herring (*Clupea harengus*), Norway, Iceland, Faroe Islands, Russia and the EU reached an agreement to manage the stock after its collapsed, partially due to climate variations [@Miller:2013iv]. Among the implemented rules, the agreement sets a dynamic quota allocation, allows members to fish part of their quota within Norway's EEZ, and land the catch in Norwegian ports. In North America, Canada and the US have previous history of applying side payments when in the 70's Pacific salmon shifted its distribution resulting in large interceptions of Canada's salmon by Alaskan fisheries [@Miller:2013iv]. The conflict was resolved by the implementation of a conservation fund that work as a side payment for both Canada and the state of Alaska [@Miller:2013iv]. The potential adaptation of side payments in terms of quota swaps or allowing free quota fishing within across the Gulf of Maine EEZs could be a potential solution as stocks shift due to climate change.
 
-[^NR]: Joint Fish, joint Russian-Norwegian Fisheries Commission available at http://www.jointfish.com/eng/THE-FISHERIES-COMMISSION/HISTORY.html
+```
 
-Transboundary fisheries management have to be prepared for the uncertainty that comes with a changing world. Future climate change will depend on the path society as a whole will take, and thus we rely on scenario planning to account for the uncertainty build in future decision making [@vanVuuren:2011ef]. In our results, the "winners and losers" of climate change, and the intensity of the change, will be scenario dependent. For instance, stock-share of yellowtail flounder under a high emission scenario will be larger for the US while Canada's gain of haddock stock-share will be larger under a low emission scenario (Fig. 6). Applying previously describe strategies (e.g. quota swaps or EEZ-fishing rights) could increase the resilience of treaties by preventing members from leaving the agreement due to a shift in threat points, as happened in the Pacific salmon case [@Miller:2013iv].
+The results of the present study suggest that climate change will alter the MCP of jointly managed transboundary fish stocks in North America consequently altering Canada’s and the US’s species’ stock-share ratio, regardless of the climate change scenario. These results are aligned with regional [@Morley:2018fn] projections suggesting that climate change will push marine species towards the poles and deeper water [@Pinsky:2013jo] in search of their ecological niche [@Poloczanska:2016kk]. Moreover, IPHC data[^IPHC] suggest that some of these shits are already happening. For example, since 2010, the distribution proportion of Pacific halibut has increased from 9% to 11% in region 2B, from 7.5% to 13% in region 2C, and from 12.3% to 13.5% in region 4CDE. On the other hand, regions 3A and 3B have seen the largest decreases in the IPHC regulatory areas since 2010, from 35.3% to 30.6% and 20.6% to 15.9%, respectively. Similarly, in the Gulf of Maine, the projected stock-share gain of yellowtail flounder and haddock by the US (Fig. 5) follows a historical trend where in 2019, Canada's stock-share decreased from 35% to 32% and 60% to 40% relative to 2010, respectively [@Trinko:2019ou].
 
-Models are attempts to represent reality (in our case a future reality) based on observational data, previously established theory, and future scenarios, and are thus, subjected to different degrees of uncertainty [@Payne:2016gn]. An ensemble of models is a way to present a more robust result that accounts for differences in the structural composition of each model [@Cheung:2016gv].). In here we used three ESMs to project future changes in species maximum catch potential. The levels of uncertainty related to the ESMs differ among case studies. Overall, results for the Gulf of Maine agree with a reduction in MCP of all three species. However, some discrete areas show a positive change for yellowtail flounder by mid $21^{st}$ century (Fig. 4), mainly driven by the GFDL model (Fig. A2.3). Potential model artifacts could also be contributing to the results, especially in the northern part of the study area (Bay of Fundy) as most disagreeing grids are covered by land, which could be influencing the results. In contrast, considerable uncertainty exists in the change of MCP along the IPHC Convention area shown by a disagreement between ESMs (Fig. A2.4). Off the coast of British Columbia, increasing temperature trends are consistent among ESMs, however, other processes such as acidification and deoxygenation are still not well understood from British Columbia to the Gulf of Alaska  [@TalloniAlvarez:2019gz]. Moreover, considerable uncertainty exists along the Bering Sea [@Douglas:2010Mb] and Antarctic Pacific regarding the extent and intensity of future sea-ice reduction under climate change [@Steiner:2015hc; @IPCC:2019to]. Regarding the DBEM, its structural uncertainty has been previously tested for agreement against commonly used species distribution algorithms such as Maxent [@Phillips:2006ff] and AquaMaps [@Kaschner:2011hi; @Ready:2010wr] resulting in no qualitative differences in trends between algorithms [@Cheung:2016jd]. Finally, is worth mentioning that future changes to species distributions could be influenced by factors not captured by our model such as interactions between species [@Pecl:2017hu], adaptation of species to environmental changes, and anthropogenic factors [@Serpetti:2017he]. However, these factors are expected to increase the rate of range-shifting of the species making our results conservative [@Cheung:2010dt; @Serpetti:2017he].
+[^IPHC]: See IPHC Time Series Datasets, Modelled FISS Stock Distribution Estimates [internet] https://www.iphc.int/data/time-series-datasets
+
+Geographic barriers [@Cheung:2015fm; @Kleisner:2016je], local temperature gradients [@Pinsky:2013jo], species interactions and human activities [@Serpetti:2017he] might change the rate and direction of species shifts. For the IPHC, geographic barriers might induce a westward increase of stock-share in IPHC regions where species can only migrate northward into the Arctic Ocean through the Bering Sea and Bering Strait [@Cheung:2015fm] (Fig. 3). In the Gulf of Maine, future projections could be a response to a temperature gradient shift combined with geographic barriers as southern waters are deeper and warming slower than northern waters according to the ESMs (Fig. A2.2). Moreover, Maine has seen its landings of yellowtail flounder increased at the expenses of southern states [@Pinsky:2012kq]. This could be influencing the US gain in MCP in the GoMA in relation to Canada as species shift their distribution from lower latitudes naturally reaching the US (lower) region first. As the effects of climate change endure, even with high mitigation, joint plans should prepare to face changes in the stock-share ratio of transboundary stocks along both coast of North America.
+
+The shifts in the distribution of transboundary stocks can jeopardize management objectives such as conservation measures and gear operation. Fish moving out of fishing grounds and into protected areas could result in a pressure increase to open such area to fishing. Moreover, overlapping shifting stocks could interfere in gear-limitation management rules of multiple fisheries generating conflicts between fleets [@VanDerVoo:2016uc]. The effectiveness of the IPHC-Closed Area ("CA" in Fig.1.) in terms of protecting juveniles has been historically questioned as trawling for other species is still allowed in the area [@Karim:2010ut; @IPHC:2017CA]. In 2015, for example, 97% of the trawl by-catch in areas 4CDE and the Closed Area were juveniles [@IPHC:2017CA]. Consequently, the Alaskan trawl fisheries has been closed before reaching annual quota due to the attainment of Pacific halibut bycatch quota limits [@Karim:2010ut]. Thus, the commission has been asked to open the closed area for Pacific halibut fishing, under the premise that the expansion of the trawl fishery is likely reducing any conservation goal for juvenile Pacific halibut [@IPHC:2017CA]. Although not assessed in this study, some trawling target species like Pacific cod (*Gadus macrocephalus*), flathead sole (*Hippoglossoides elassodon*), and Alaskan plaice (*Limanda aspera*) have already shift their distributions due to warming waters [@Stram:2009xc] and some are expected to continue shifting in similar direction than Pacific halibut [@Pinsky:2013jo]. The overlap of target species could be addressed by applying ecosystem-based management and dynamic management tools [@Hazen:2018fa] to manage these fisheries and reduce potential loss of sustainable harvest for both the halibut and the trawl fisheries. 
+
+Quota allocation ruled by historic distributions will most likely be outdated incentivizing maladaptation [@FAO:2018uv; @Gaines:2018sg; @Miller:2013iv]. In Europe, for example, the EU Common Fisheries Policy quota allocation is based on historic reference period of the 70's [@Harte:2019us]. However, climate change has shifted the distribution of multiple European commercial stocks [@Baudron:2020dj], outdating the fixed quotas and thus compromising the sustainability of European fisheries [@FAO:2018uv; @Baudron:2020dj]. Management regimes that include a dynamic harvest control (e.g. adjusting the quota based on the stocks distribution) have the potential of increasing fish biomass, harvest and profits under climate change [@Gaines:2018sg]. In North America, poleward shifts of Pacific halibut along the coast of Oregon, Washington and British Columbia have been previously addressed by the IPHC resulting in the adoption of a dynamic quota allocation method [@McCaughran:1992uw]. By allocating quotas based on yearly surveys along the Convention area, the IPHC should be able to capture shifts in Pacific halibut distribution due to climate change, reducing the chances of over exploitation of the stock due to this shifts [@Miller:2013iv]. Similarly, for the Gulf of Maine, since the GoMA’s method to estimate quota allocation is weighted based on stocks distribution (90%) and historical catch (10%) [@TRAC:2016wu]. This process is especially important for cod and haddock due to their distribution variation within the Gulf [@Soboil:2006gw; @TRAC:2016wu]. However, since 2010, when the weighted method was implemented, the quota allocation has favored the US over Canada, especially in terms of haddock and yellowtail flounder [@Trinko:2019ou]. A perpetuation of this trend with no mitigation policy could jeopardize the arrangement as Canada's quota reduction could disincentive cooperation (see Sumaila et al., this Special Feature).
+
+Side payments have been previously used to address changes in species distribution, including cases caused by environmental forcings. In game theory, a side payment is received by a player as a compensation from the other player in a shared resource agreement, with the premise that cooperation will result in a better overall outcome [@Bjorndal:2012vd; @Sumaila:2013hv]. Side payments do not have to be in monetary form and are widely used in transboundary stocks around the world. For example, Norway and Russia have implemented a quota swap strategy for jointly managed stocks of cod, haddock and capelin in the Barents Sea [^NR]. Similarly, species' quota swaps are allowed, up to a degree, within regulatory areas of the European union [@Baudron:2020dj]. Specifically, for northern European spring spawning herring (*Clupea harengus*), Norway, Iceland, Faroe Islands, Russia and the EU reached an agreement to manage the stock after its collapsed, partially due to climate variations [@Miller:2013iv]. Among the implemented rules, the agreement established a dynamic quota allocation, allowing members to fish part of their quota within Norway's EEZ, and land the catch in Norwegian ports. In North America, Canada and the US have previous history with the utilization of side payments when in the 70's Pacific salmon shifted its distribution resulting in large interceptions of Canada's salmon by Alaskan fisheries [@Miller:2013iv; @Song:2017va]. The conflict was resolved by the implementation of a conservation fund that worked as a side payment for both Canada and the state of Alaska [@Miller:2013iv; @Song:2017va]. The potential adaptation of side payments in terms of quota swaps or allocating EEZ-fishing rights across the Gulf of Maine EEZs could be a potential solution as stocks shift due to climate change.
+
+[^NR]: Joint Fish, joint Russian-Norwegian Fisheries Commission [internet] http://www.jointfish.com/eng/THE-FISHERIES-COMMISSION/HISTORY.html
+
+Transboundary fisheries management have to be prepared for the uncertainty that comes with a changing world. Future climate change will depend on the path society as a whole will take, and thus we rely on scenario planning to account for the uncertainty build in future decision making [@vanVuuren:2011ef]. In our results, the "winners and losers" of climate change, and the intensity of the change, will be scenario dependent. For instance, stock-share of yellowtail flounder under a high emission scenario will be larger for the US while Canada's gain of cod stock-share will be larger under a low emission scenario (Fig. 5). Applying previously describe strategies (e.g. quota swaps or EEZ-fishing rights) could increase the resilience of treaties by preventing members from leaving the agreement due to a shift in threat points, as happened in the Pacific salmon case [@Miller:2013iv].
+
+Models are attempts to represent reality (in our case a future reality) based on observational data, previously established theory, and future scenarios, and are thus, subjected to different degrees of uncertainty [@Payne:2016gn]. An ensemble of models is a way to present a more robust result that accounts for differences in the structural composition of each model [@Cheung:2016gv]. In here we used three ESMs to project future changes in species maximum catch potential. The levels of uncertainty related to the ESMs differ among case studies. Overall, results for the Gulf of Maine agree with a reduction in MCP of all three species. However, some discrete areas show a positive change for yellowtail flounder by mid $21^{st}$ century (Fig. 3), mainly driven by the GFDL model (Fig. A2.3). Potential model artifacts could also be contributing to the results, especially in the northern part of the study area (Bay of Fundy) as most disagreeing grids are covered by land, which could be influencing the results. In contrast, considerable uncertainty exists in the change of MCP along the IPHC Convention area shown by a disagreement between ESMs (Fig. A2.4). Off the coast of British Columbia, increasing temperature trends are consistent among ESMs, however, other processes such as acidification and deoxygenation are still not well understood from British Columbia to the Gulf of Alaska  [@TalloniAlvarez:2019gz]. Moreover, considerable uncertainty exists along the Bering Sea [@Douglas:2010Mb] and Antarctic Pacific regarding the extent and intensity of future sea-ice reduction under climate change [@Steiner:2015hc; @IPCC:2019to]. Regarding the DBEM, its structural uncertainty has been previously tested for agreement against commonly used species distribution algorithms such as Maxent [@Phillips:2006ff] and AquaMaps [@Kaschner:2011hi; @Ready:2010wr] resulting in no qualitative differences in trends between algorithms [@Cheung:2016jd]. Finally, is worth mentioning that future changes to species distributions could be influenced by factors not captured by our model such as interactions between species [@Pecl:2017hu], adaptation of species to environmental changes, and anthropogenic factors [@Serpetti:2017he]. However, these factors are expected to increase the rate of range-shifting of the species making our results conservative [@Cheung:2010dt; @Serpetti:2017he].
 
 ## CONCLUSIONS
 
-Shifts in stocks distribution due to climate change have the potential of creating local extinction of economically important stocks while enhancing fisheries in areas where they were not present before. In this paper, we have explored the potential impacts of climate change in the joint management of 33 transboundary stocks managed by Canada and the US. We found that, transboundary stocks are likely to shift in the upcoming years changing the proportion of the catch of jointly managed fisheries of Canada and the US. Lessons from other countries can provide solutions to such challenges. More specific, side payments, dynamic management, and interchangeable quotas were identified as potential solutions for North American region. While not directly addressed in this study, socio-economic impacts of shifting transboundary stocks could add an extra layer of complexity to the problem. Addressing shifts in stocks distribution sooner rather than latter could avert the so called “fish wars”, improve sustainability of jointly managed stocks, and secure the livelihood of thousands of families that depend on stocks that move freely between national jurisdictions. Finally, preparing for an uncertain future is key to achieve sustainable fisheries. 
+Shifts in stocks distribution due to climate change have the potential of creating local extinction of economically important stocks while enhancing fisheries in areas where they were not present before. In this paper, we have explored the potential impacts of climate change in the joint management of selected transboundary stocks managed by Canada and the US. We found that, transboundary stocks are likely to shift in the upcoming years changing the proportion of the catch of jointly managed fisheries of Canada and the US. Lessons from other countries can provide solutions to such challenges. More specific, side payments, dynamic management, and interchangeable quotas were identified as potential solutions for North American region. While not directly addressed in this study, socio-economic impacts of shifting transboundary stocks could add an extra layer of complexity to the problem. Addressing shifts in stocks distribution sooner rather than latter could avert the so called “fish wars”, improve sustainability of jointly managed stocks, and secure the livelihood of thousands of families that depend on stocks that move freely between national jurisdictions. Finally, preparing for an uncertain future is key to achieve sustainable fisheries. 
 
 <!-- Comented out for thesis -->
 <!-- # ACKNOWLEDGEMENTS -->
@@ -2083,7 +1826,7 @@ Shifts in stocks distribution due to climate change have the potential of creati
 <!-- This is a product of the *OceanCanada* Partnership funded by the Social Sciences and Humanities Research Council of Canada. -->
 
 
-<!-- # LITERATURE CITED -->
+# LITERATURE CITED
 
 
 
@@ -4173,3 +3916,298 @@ ggplot(GFDL_Hist_Out) +
 
 
 <!-- In the current paper we follow a modeling approach to explore the potential impacts that climate change will have in the management of transboundary stocks in North America. Models are attempts to represent reality (in our case a future reality) based on observational data, previously established theory, and future scenarios, and are thus, subjected to different degrees of uncertainty [@Payne:2016gn]. First, our study incorporates multiple earth system models to project the future distribution of transboundary stocks while accounting the structural uncertainty built within each ESM [@Bopp:2013fg]. In terms of the structural uncertainty build within the DBEM, previous analysis shown that the trends of changes in MCP are not affected by its structural uncertainty [@Cheung:2016jd]. Secondly, scenario planning has been widely used in climate change studies as a method to account for the uncertainty build in future decision making [@vanVuuren:2011ef]. In this aspect we considered two extreme RCPs that comprises the vast spectrum of possibilities proposed by the IPCC [@IPCC:2014bz]. A lower-than-2.6 RCP (1.5º warming) was discussed at the recent Paris Agreement sessions celebrated in Paris France. While we did not include this scenario in our analysis, previous research suggest that stronger mitigation efforts would bring large benefits to fisheries [@Cheung:2016tt]. Finally, future changes to species distributions could be influenced by interactions between species [@Pecl:2017hu], adaptation of species to environmental changes, and anthropogenic factors [@Serpetti:2017he]. However, these factors are expected to increase the rate of range-shifting of the species making our results conservative [@Cheung:2010dt; @Serpetti:2017he]. -->
+
+<!-- Poleward shifts in Eastern Atlantic off the coast of the US include American lobster (*Homarus americanus*), summer (*Paralichthys dentatus*) and flounders, and red hake (*Urophycis chuss*) from North Carolina to Maine [@Pinsky:2012kq]. -->
+<!-- Species such as haddock in the Atlantic [@Morley:2018fn], and big skate (*Raja binoculata*) in the Pacific coast [@Pinsky:2013jo] have been projected to shift away from the poles. -->
+
+```{r Treaties_Table, eval = F, echo = F}
+
+# Foot note
+fn <- "*These species are also part of NAFO. This is an arrangement and not an official agreement between parties."
+
+data.table::data.table(Treaty =
+             c("International Pacific Halibut Commission (IPHC)",
+              "Pacific Salmon Commission (PSC)",
+              "Pacific Whiting Treaty (PWT)",
+              "Northwest Atlantic Fisheries Organization (NAFO)",
+              "Gulf of Maine's Arrangement (GoMA)"),
+            Species =
+             c(1,
+              5,
+              1,
+              26,
+              "3*"),
+            Coast =
+             c("Pacific",
+              "Pacific",
+              "Pacific",
+              "Atlantic",
+              "Atlantic")
+) %>% 
+ kable("latex",
+    caption = "Treaties and number of species included in the current analysis."
+    ) %>% 
+ add_footnote(fn)
+```
+
+
+<!-- # Option removing NAFO -->
+<!-- ### North American transboundary stocks are shifting poleward -->
+
+```{r Changes_Data_All, eval = F, echo = F, fig.height=8, fig.width=12}
+
+# Change North America Projection for Map
+
+North_America_Land <- North_America_Land %>% 
+ st_transform(crs = 4326)
+
+### Load shapefile the old way ###
+
+# Path to save the plots
+Path <- my_path("R",Extra_Path = "North_America")
+RCP = c("GFDL26F1","IPSL26F1","MPI26F1") #Low RCP
+
+#### New Future Method to account for mean +- sd of models #
+MCP_Data <- DBEM_Corrected %>% 
+  mutate(RCP = ifelse(Model %in% RCP,"Low_Emission","High_Emission")) %>% 
+  # Sum the MCP of all species in each index by model
+  group_by(INDEX,
+           Model,
+           RCP) %>% 
+  summarise_at(vars(Beg_In:End_End), sum,na.rm=T) %>% 
+  gather("Year","MCP",Beg_In:End_End) %>% 
+  # Indicate the three period times
+  mutate( 
+    Period = ifelse(Year >= Beg_In & Year <= Beg_End,"Beginning",
+                    ifelse(Year >= Mid_In & Year <= Mid_End,"Mid_Century",
+                           ifelse(Year >= End_In & Year <= End_End,"The_End_Century",
+                                  "Other_Years"))
+    )
+  ) %>% 
+  #Average per Time period
+  group_by(INDEX,Model,RCP,Period) %>% 
+  summarise(Mean_T_MCP =mean(MCP,na.rm=T)) %>% 
+  filter(Period != "Other_Years") %>% 
+  spread(Period,Mean_T_MCP) %>% #Spread to estimate MCP_Change
+  # Divide future values by present
+  mutate_at(vars(Mid_Century, 
+                 The_End_Century),
+            funs(ifelse(Begining > 0, ./Begining,.)) #if no species today value is the future
+  ) %>% 
+  # Estimate percentage change
+  mutate_at(vars(Mid_Century, 
+                 The_End_Century),
+            funs(ifelse(Begining == 0 & . == 0, 0, # If for no change than 0
+                        ifelse(Begining == 0 & . > 0, 100, # If changes from 0 to anything then 100
+                               round(-(1-.)*100) # Estimate percentage change
+                        )
+            )
+            )
+  ) %>% 
+  gather("Period","MCP_Change",Mid_Century,The_End_Century) %>% 
+  mutate(Direction = ifelse(MCP_Change >= 0, "Positive","Negative")) %>% 
+  # Average results per ESMs
+  group_by(INDEX,Period,RCP) %>% 
+  summarise_at(vars(MCP_Change),
+               funs("Mean_ESM_MCP_Chng"=mean,
+                    "sd_ESM_MCP_Chng"=sd,
+                    "N_ESMs"=n(),
+                    "Model_Agreement" = paste(length(unique(Direction)),collapse = ";")
+               )
+  ) %>%
+  mutate(
+    Model_Agreement = ifelse(Model_Agreement == 1, "Agree","Disagree"),
+    Model_Agreement_sd = ifelse(abs(Mean_ESM_MCP_Chng) < sd_ESM_MCP_Chng*2,"Disagree","Agree")
+  ) %>% 
+  left_join(DBEM_Coor,
+            by="INDEX") %>% 
+  # set everything over 100 to 100
+  mutate_at(vars(Mean_ESM_MCP_Chng,
+                 sd_ESM_MCP_Chng),
+            funs(ifelse(. > 100, 100,.)
+            )
+  )
+
+
+# Plot map for paper figure 
+Seq <- seq(-100,100,by=5) #Axis
+
+p <- ggplot(MCP_Data) +
+ geom_tile(data = subset(MCP_Data, Period == "Mid_Century"),
+      aes(
+       x = longitude,
+       y = latitude,
+       color = Mean_ESM_MCP_Chng,
+       fill = Mean_ESM_MCP_Chng
+      )
+ ) +
+ geom_point(data = subset(MCP_Data, Period == "Mid_Century" & Model_Agreement == "Disagree"),
+       aes(
+        x = longitude,
+        y = latitude
+       ),
+       size = 0.1,
+       # alpha = 0.5,
+       shape = 16,
+       color = "grey20"
+       ) +
+ geom_sf(data = North_America_Land, fill = "grey90") +
+ facet_wrap(~RCP) +
+ coord_sf(xlim = c(-190,-50)) +
+ scale_color_gradient2(
+  limits=c(-100,
+       100),
+  breaks = Seq) +
+ scale_fill_gradient2(
+  limits=c(-100,
+       100),
+  breaks = Seq) +
+ my_ggtheme_m()() 
+ 
+ 
+ ggsave("Fig2.png",
+     plot = p,
+     width = 16,
+     height = 8,
+     units = "in",
+     path = Path)
+ 
+```
+
+<!-- # Option removing NAFO -->
+<!-- Shifts in the distribution of 33 jointly managed transboundary stocks of North America by 2050 relative to 2010 show that MCP of transboundary stocks will overall increase in Atlantic-Canadian and Alaskan waters and decrease in Pacific-Canadian and the US contiguous states waters (Fig. 2). Such changes will be more intense under the high emission scenario (Fig. 2A). For most regions, losses of MCP will be more intense under a high emission scenario (Fig.2A) than under a low emission scenario (Fig.2B), however, there will be no apparent change in gain intensity between scenarios. Impacts of climate change are expected to intensify towards the end of the $21^{st}$ century, although with greater uncertainty (Fig.A1.1). -->
+
+<!-- ![Fig. 2. Percentage change of MCP of transboundary stocks of North America for mid $21^{st}$ century (2041-2060) relative to present (2005-2014) under a A) high emission scenario and; B) low emission scenario. Points represent areas where at least one model do not agree in the direction of change](./Figures/Figure 2.png) -->
+
+
+```{r Changes_Per_Species_T, eval = F, echo = F }
+
+# This table provides the percentage change in MCP for each species, EEZ and RCP as well as the percentage change in Stock-share ratio.
+
+#### Mid Century result Table ####
+Areas <- c(
+ "Canada (East Coast)",
+ "Canada (Pacific)",
+ "USA (East Coast)",
+ "USA (West Coast)",
+ "USA (Alaska, Arctic)",
+ "USA (Alaska, Subarctic)"
+)
+
+RCP <- c("GFDL26F1","IPSL26F1","MPI26F1")
+
+Selected_Areas <- EEZIDs_List %>% 
+ filter(Name %in% Areas)
+
+#### NEW ESTIMATES 
+
+# Path to save the plots
+Path <- my_path("R",Extra_Path = "North_America")
+RCP = c("GFDL26F1","IPSL26F1","MPI26F1") #Low RCP
+
+# Aggregate MCP per Nation, Species, Model, RCP and Time period
+
+MCP_Species_Data <- DBEM_Corrected %>% 
+  left_join(EEZ_CellID,
+            by = "INDEX") %>% 
+  filter(EEZID %in% Selected_Areas$EEZID) %>% 
+  mutate(RCP = ifelse(Model %in% RCP,"Low_Emission","High_Emission"),
+         Nation = ifelse(EEZID >= 958, "Alaska",
+                         ifelse(EEZID == 925,"Can W",
+                                ifelse(EEZID == 851, "USA E",
+                                       ifelse( EEZID== 848, "USA W",
+                                               "Can E"))
+                         )),
+         Basin = ifelse(Nation %in% c("USA E","Can E"),"Atlantic","Pacific"),
+  ) %>% 
+  # Sum the MCP of each species by country
+  group_by(Species, Model, RCP, Nation, Basin) %>%
+  summarise_at(vars(Beg_In:End_End), sum,na.rm=T) %>% 
+  gather("Year","MCP",Beg_In:End_End) %>% 
+  mutate( # Indicate the three period times
+    Period = ifelse(Year >= Beg_In & Year <= Beg_End,"Beginning",
+                    ifelse(Year >= Mid_In & Year <= Mid_End,"Mid_Century",
+                           ifelse(Year >= End_In & Year <= End_End,"The_End_Century",
+                                  "Other_Years"))
+    )
+  ) %>% 
+  # Average by time period
+  group_by(Nation,Basin,Species,Model,RCP,Period) %>% 
+  summarise(Mean_T_MCP =mean(MCP,na.rm=T))
+
+### Estimate average change of all species ####
+
+MCP_Species_Change <- MCP_Species_Data %>% 
+  filter(Period != "Other_Years") %>% 
+  spread(Period,Mean_T_MCP) %>% #Spread to estimate MCP_Change
+  # Divide future values by present
+  mutate_at(vars(Mid_Century, 
+                 The_End_Century),
+            funs(ifelse(Begining > 0, ./Begining,.)) #if no species today value is the future
+  ) %>% 
+  # Estimate percentage change
+  mutate_at(vars(Mid_Century, 
+                 The_End_Century),
+            funs(ifelse(Begining == 0 & . == 0, 0, # If for no change than 0
+                        ifelse(Begining == 0 & . > 0, 100, # If changes from 0 to anything then 100
+                               round(-(1-.)*100) # Estimate percentage change
+                        )
+            )
+            )
+  ) %>% 
+  gather("Period","MCP_Change",Mid_Century,The_End_Century) %>% 
+  mutate(Direction = ifelse(MCP_Change >= 0, "Positive","Negative")) %>% 
+  # Average results per ESMs
+  group_by(Nation,Species,Period,RCP) %>% 
+  summarise_at(vars(MCP_Change),
+               funs("Mean_ESM_MCP_Chng"=mean,
+                    "sd_ESM_MCP_Chng"=sd,
+                    "N_ESMs"=n(),
+                    "Model_Agreement" = paste(length(unique(Direction)),collapse = ";")
+               )
+  ) %>%
+  mutate(
+    Model_Agreement = ifelse(Model_Agreement == 1, "Agree","Disagree")
+  ) %>% 
+  # set everything over 100 to 100
+  mutate_at(vars(Mean_ESM_MCP_Chng,
+                 sd_ESM_MCP_Chng),
+            funs(ifelse(. > 100, 100,.)
+            )
+  )
+ 
+
+#### Estimate Stock Share Change ####
+
+# Estimate total MCP of all species per basin
+Basin_Total <- MCP_Species_Data %>% 
+  group_by(Basin,Model,RCP,Period) %>% 
+  summarise(TB_MCP = sum(Mean_T_MCP))
+
+# Stock Share Change per EEZ
+SS_Change <- MCP_Species_Data %>% 
+  group_by(RCP,Period,Model,Nation,Basin) %>% # Estimate total MCP of all species per Nation 
+  summarise(Total_MCP = sum(Mean_T_MCP)) %>% 
+  left_join(Basin_Total,
+            by = c("RCP", "Period", "Model","Basin")) %>% 
+  mutate(Proportion = (Total_MCP/TB_MCP)*100) %>% # estimates each Country's catch proportion per period and RCP
+  group_by(Nation,RCP,Period) %>%  # Average ESMs
+  summarise(Mean_ESM_Proportion = paste(round(mean(Proportion),2)," (",round(sd(Proportion),2),")",sep="")
+  ) %>% 
+  filter(Period %in% c("Beginning","Mid_Century","The_End_Century")) %>% 
+  spread(Period,Mean_ESM_Proportion)
+
+Path <- my_path("R",Extra_Path = "North_America")
+
+#For paper (Table 2)
+write.csv(SS_Change,
+     paste(Path,"SS_Change.csv",sep=""),
+     row.names = F)
+
+
+```
+
+
+<!-- Consequently, each country’s share-ratio of different species will change with an overall benefit to northern regions, regardless of the RCP scenario. Overall, shifts will be amplified under the high emission scenario relative to the low greenhouse emission scenario pathway (Table 2). -->
+
+<!-- Table 2. Total stock-share of all 33 transboundary species by EEZ and emission scenario for the present, and mid and end of the $21^{st}$ century. Averages might not add to 100% due to model differences. Standard deviation of the projected values are provided in parentheses. -->
