@@ -1072,7 +1072,7 @@ DBEM_Coor_sf = st_as_sf(DBEM_Coor,
 
 ### Projected change to species managed by the IPHC
 
-At least one third of the IPHC regulatory areas will see a reduction in MCP of Pacific halibut by 2050 relative to current MCP, regardless of the climate change scenario (Figure \ref{fig:Figure2-IPHC}). It is likely that the stock shift from the US. contiguous states towards Canada will offset the shift of the later towards northern regions, resulting in undetectable changes in Canadian area 2B and Alaskan 2C under both climate change scenarios. The potential movement of halibut westward will increase the MCP of regulatory areas 3B (under a low emission scenario) and 4ABCE along the Aleutian Islands and Bering Sea. Regions 4DE, the most poleward regulatory areas of the IPHC, are expected to gain MCP by mid (Figure \ref{fig:Figure2-IPHC)) and end of the $21^{st}$ century (Fig. A1.1) under a high emission scenario due to the expansion of halibut suitable habitat as sea ice retreats (Fig. A2.1). In contrast, under a low emission scenario, sea ice is expected to stabilize towards mid 21st century, thus providing less “new” suitable habitat for Pacific halibut and resulting in undetectable changes in MCP for the region (Figure \ref{fig:Figure2-IPHC)B) and decreasing even more towards 2100 (Fig. A1.1).
+At least one third of the IPHC regulatory areas will see a reduction in MCP of Pacific halibut by 2050 relative to current MCP, regardless of the climate change scenario (Figure \ref{fig:Figure2-IPHC}). It is likely that the stock shift from the US. contiguous states towards Canada will offset the shift of the later towards northern regions, resulting in undetectable changes in Canadian area 2B and Alaskan 2C under both climate change scenarios. The potential movement of halibut westward will increase the MCP of regulatory areas 3B (under a low emission scenario) and 4ABCE along the Aleutian Islands and Bering Sea. Regions 4DE, the most poleward regulatory areas of the IPHC, are expected to gain MCP by mid (Figure \ref{fig:Figure2-IPHC)) and end of the $21^{st}$ century (Figure \ref{fig:FigureS11}) under a high emission scenario due to the expansion of halibut suitable habitat as sea ice retreats (Fig. A2.1). In contrast, under a low emission scenario, sea ice is expected to stabilize towards mid 21st century, thus providing less “new” suitable habitat for Pacific halibut and resulting in undetectable changes in MCP for the region (Figure \ref{fig:Figure2-IPHC)B) and decreasing even more towards 2100 (Figure \ref{fig:FigureS11}).
 
 ```{r IPHC_Map_Result_Regions, eval = F, echo = F}
 
@@ -1860,7 +1860,9 @@ Shifts in stocks distribution due to climate change have the potential of creati
 
 ## Supplements
 
-```{r FigureS11, eval = F, echo = F, fig.cap = "Outliers GoMA"}
+<!-- End of the century change  -->
+
+```{r FigureS11, eval = F, echo = F, fig.cap = "Percentage change of MCP for species managed by the IPHC for end-century (2081–2100) referent to 2005–2014 under a (A) high emission scenario and (B) low emission scenario. Labels marked with "*" represent regions where models do not agree in direction of change."}
 
 FigS1 <- readPNG(paste(my_path("F"),"S11.png",sep=""))
 grid.raster(FigS11)
@@ -1868,8 +1870,7 @@ grid.raster(FigS11)
 ```
 
 
-
-```{r FigureS12, eval = T, echo = F, fig.cap = "Outliers GoMA"}
+```{r FigureS12, eval = T, echo = F, fig.cap = "Percentage change of MCP in the Gulf of Maine under (RCP 8.5) high emission scenario and (RCP 2.6) low emission for end-century (2080–2100) referent to present (2005– 2014). Values represent the mean of 3 ESM. Points represent regions where ESMs do not agree in direction of change"}
 
 FigS12 <- readPNG(paste(my_path("F"),"S12.png",sep=""))
 grid.raster(FigS12)
@@ -1879,6 +1880,8 @@ grid.raster(FigS12)
 
 <!-- This was included to address the reviewers comments on the region 4D of Pacific Halibut -->
 <!-- NOTE: Remember to run the Results chunk to load all the data needed -->
+<!-- # ESM uncertainty -->
+<!-- This chunk explores the uncertainty build in the ESM-DBEM  -->
 
 ```{r Functions, eval = F, echo = F}
 
@@ -1981,98 +1984,6 @@ getEnvVar=function(yr,ModelRCP,RCP,Variable){
 }
 
 ```
-
-<!-- # ESM uncertainty -->
-<!-- This chunk explores the uncertainty build in the ESM-DBEM  -->
-
-```{r DBEM_Uncertanty, eval = F, echo = F}
-
-#### DBEM-ESM Uncertanty
-
-Today_Uncertanty <- DBEM_Corrected %>% 
-  filter(Species %in% Selected_Species) %>% 
-  left_join(IPHC_Reg_DBEM_df,
-            by = "INDEX") %>% 
-  filter(!is.na(RegArea)) %>% 
-  mutate(RCP = ifelse(Model %in% RCP,"Low Emission","High Emission")) %>% 
-  gather("Year","MCP",Beg_In:Beg_End) %>% 
-  mutate(Period = ifelse(Year >= Beg_In & Year <= Beg_End,"Beginning","NA")) %>% 
-  group_by(RegArea,Model,RCP,Year,Period) %>% 
-  summarise(Regional_MCP =sum(MCP,na.rm=T)) %>% 
-  group_by(RegArea,Model,RCP) %>% 
-  summarise(Today_MCP =mean(Regional_MCP,na.rm=T))
-
-
-IPHC_MCP_Change_Uncert <- DBEM_Corrected %>% 
-  filter(Species %in% Selected_Species) %>% 
-  left_join(IPHC_Reg_DBEM_df,
-            by = "INDEX") %>% 
-  filter(!is.na(RegArea)) %>% 
-  mutate(RCP = ifelse(Model %in% RCP,"Low Emission","High Emission")) %>% 
-  gather("Year","MCP",Beg_In:End_End) %>%
-  group_by(Model,RCP,Year,RegArea) %>%
-  summarise(Regional_MCP =sum(MCP,na.rm=T)) %>% 
-  group_by(RCP,Model,RegArea) %>% # Running mean as Kleisner & Pauly 2012
-  mutate(RMean = rollmean(x = Regional_MCP, 10,
-                          align = "right",
-                          fill = Regional_MCP)
-  ) %>% 
-  mutate(GCM = ifelse(Model == "GFDL26F1" | Model == "GFDL85F1","GFDL",
-                      ifelse(Model == "IPSL26F1" | Model == "IPSL85F1", "IPSL",
-                             ifelse(Model == "MPI26F1" | Model == "MPI85F1","MPI","NA"
-                             )
-                      )
-  )
-  ) %>% 
-  filter(Year >= 2015) %>% 
-  left_join(Today_Uncertanty,
-            by = c("RegArea","Model","RCP")) %>% 
-  mutate(Index = RMean/Today_MCP)
-
-# Create and save plot
-
-ggplot(IPHC_MCP_Change_Uncert) +
-  geom_line(
-    aes(
-      x = as.numeric(Year),
-      y = Index,
-      color = GCM,
-      linetype = RCP
-    )
-  ) +
-  facet_wrap(~RegArea,
-             scales = "free_y") +
-  labs(
-    x = "Year",
-    y ="Index (Future MCP/Present)"
-  ) +
-  scale_color_manual("Global Circulation model",
-                     values=c("#EEA410","#B53CB9","#2EBC67")
-  ) +
-  scale_x_continuous(breaks = seq(2010,2100,30),
-                     limits = c(2010,2100)
-  ) +
-  my_ggtheme_p()() +
-  # Save plot
-  ggsave("Model_Uncer_Sup.png",
-         plot = .,
-         width = 12,
-         height =8,
-         units = "in",
-         path = "./Results/Sup"
-  )
-
-
-```
-
-```{r FigureS1, eval = T, echo = F, fig.cap = "Variation of climate change scenarios"}
-
-FigS21 <- readPNG(paste(my_path("F"),"S21.png",sep=""))
-grid.raster(FigS21)
-
-```
-
-<!-- # Explore Regions 4d and 4e -->
 
 ```{r 4DE_exploration, eval = F, echo = F,message=F, warning=F}
 
@@ -2309,12 +2220,94 @@ ggsave("Environ_Sup.png",
 
 ```
 
-```{r FigureS2, eval = T, echo = F, fig.cap = "Variation of climate change scenarios in IPHC regions 4E and 4D"}
+```{r DBEM_Uncertanty, eval = F, echo = F}
 
-FigS22 <- readPNG(paste(my_path("F"),"S22.png",sep=""))
-grid.raster(FigS22)
+#### DBEM-ESM Uncertanty
+
+Today_Uncertanty <- DBEM_Corrected %>% 
+  filter(Species %in% Selected_Species) %>% 
+  left_join(IPHC_Reg_DBEM_df,
+            by = "INDEX") %>% 
+  filter(!is.na(RegArea)) %>% 
+  mutate(RCP = ifelse(Model %in% RCP,"Low Emission","High Emission")) %>% 
+  gather("Year","MCP",Beg_In:Beg_End) %>% 
+  mutate(Period = ifelse(Year >= Beg_In & Year <= Beg_End,"Beginning","NA")) %>% 
+  group_by(RegArea,Model,RCP,Year,Period) %>% 
+  summarise(Regional_MCP =sum(MCP,na.rm=T)) %>% 
+  group_by(RegArea,Model,RCP) %>% 
+  summarise(Today_MCP =mean(Regional_MCP,na.rm=T))
+
+
+IPHC_MCP_Change_Uncert <- DBEM_Corrected %>% 
+  filter(Species %in% Selected_Species) %>% 
+  left_join(IPHC_Reg_DBEM_df,
+            by = "INDEX") %>% 
+  filter(!is.na(RegArea)) %>% 
+  mutate(RCP = ifelse(Model %in% RCP,"Low Emission","High Emission")) %>% 
+  gather("Year","MCP",Beg_In:End_End) %>%
+  group_by(Model,RCP,Year,RegArea) %>%
+  summarise(Regional_MCP =sum(MCP,na.rm=T)) %>% 
+  group_by(RCP,Model,RegArea) %>% # Running mean as Kleisner & Pauly 2012
+  mutate(RMean = rollmean(x = Regional_MCP, 10,
+                          align = "right",
+                          fill = Regional_MCP)
+  ) %>% 
+  mutate(GCM = ifelse(Model == "GFDL26F1" | Model == "GFDL85F1","GFDL",
+                      ifelse(Model == "IPSL26F1" | Model == "IPSL85F1", "IPSL",
+                             ifelse(Model == "MPI26F1" | Model == "MPI85F1","MPI","NA"
+                             )
+                      )
+  )
+  ) %>% 
+  filter(Year >= 2015) %>% 
+  left_join(Today_Uncertanty,
+            by = c("RegArea","Model","RCP")) %>% 
+  mutate(Index = RMean/Today_MCP)
+
+# Create and save plot
+
+ggplot(IPHC_MCP_Change_Uncert) +
+  geom_line(
+    aes(
+      x = as.numeric(Year),
+      y = Index,
+      color = GCM,
+      linetype = RCP
+    )
+  ) +
+  facet_wrap(~RegArea,
+             scales = "free_y") +
+  labs(
+    x = "Year",
+    y ="Index (Future MCP/Present)"
+  ) +
+  scale_color_manual("Global Circulation model",
+                     values=c("#EEA410","#B53CB9","#2EBC67")
+  ) +
+  scale_x_continuous(breaks = seq(2010,2100,30),
+                     limits = c(2010,2100)
+  ) +
+  my_ggtheme_p()() +
+  # Save plot
+  ggsave("Model_Uncer_Sup.png",
+         plot = .,
+         width = 12,
+         height =8,
+         units = "in",
+         path = "./Results/Sup"
+  )
+
 
 ```
+
+```{r FigureS21, eval = T, echo = F, fig.cap = "Projected environmental variables under climate change from 2010 to 2010 for Arctic regions of the IPHC (Top:4D, Bottom, 4E). The solid line represents the average of all three ESMs and the shaded area represents the model’s uncertainty (s.d.)."}
+
+FigS21 <- readPNG(paste(my_path("F"),"S21.png",sep=""))
+grid.raster(FigS21)
+
+```
+
+<!-- Explore environental differences withing GOMA -->
 
 ```{r GoM_Environ_outliers, eval = F, echo = F}
 
@@ -2415,20 +2408,14 @@ ggsave(Name,
 
 ```
 
+```{r FigureS22, eval = T, echo = F, fig.cap = "Depth profile (A) and bottom water warming of the Gulf of Maine. Everything deeper than 1000 meters is colored in green. B) Percentage change of bottom temperature relative to the present showing more intense warming in northern regions, especially under a high emission climate change scenario."}
 
-```{r FigureS3, eval = T, echo = F, fig.cap = "Outliers GoMA"}
-
-FigS23 <- readPNG(paste(my_path("F"),"S23.png",sep=""))
-grid.raster(FigS23)
-
-```
-
-```{r FigureS13, eval = T, echo = F, fig.cap = "Outliers GoMA"}
-
-FigS13 <- readPNG(paste(my_path("F"),"S13.png",sep=""))
-grid.raster(FigS13)
+FigS23 <- readPNG(paste(my_path("F"),"S22.png",sep=""))
+grid.raster(FigS22)
 
 ```
+
+<!-- # Explore Regions 4d and 4e -->
 
 
 
