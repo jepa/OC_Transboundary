@@ -1598,8 +1598,8 @@ ggsave(Name,
 
 ```{r Figure4-GOMA, eval = F, echo = F, fig.cap= "Percentage change of MCP in the Gulf of Maine under, A) high emission scenario; and B) low emission for mid-century (2041-2060) relative to present (2005-2014). Points represent regions where models do not agree in direction of change."}
 
-Fig4 <- readPNG(paste(my_path("F"),"Figure 4.png",sep=""))
-grid.raster(Fig4)
+Fig4 <- readPNG(paste(my_path("F"),"Figure 5.png",sep=""))
+grid.raster(Fig5)
 
 ```
 
@@ -1788,14 +1788,14 @@ ggplot(data = subset(Proportion_Change_GoM, Time_Step == "Mid_Century_Prop"),
 
 ```{r Figure5-GOMA-prop, eval = T, echo = F, fig.cap="Changes in MCP stock-share ratio for Gulf of Maine under (A) high emission; and (B) low emission scenarios for mid 21st century (2041-2060) relative to present (2005-2014). Values represent the mean of 3 ESM; error bars represent $\pm$ sd."}
 
-Fig5 <- readPNG(paste(my_path("F"),"Figure 5.png",sep=""))
-grid.raster(Fig5)
+Fig5 <- readPNG(paste(my_path("F"),"Figure 6.png",sep=""))
+grid.raster(Fig6)
 
 ```
 
 <!-- ![Fig. 5. Changes in MCP stock-share ratio for Gulf of Maine under (A) high emission; and (B) low emission scenarios for mid 21st century (2041-2060) relative to present (2005-2014). Values represent the mean of 3 ESM; error bars represent $\pm$ sd.](./Figures/Figure 6.gif) -->
 
-## DISCUSSION
+## Discussion
 
 ```{r, iphc_distr, eval = F, echo = F}
 
@@ -1847,7 +1847,7 @@ Transboundary fisheries management have to be prepared for the uncertainty that 
 
 Models are attempts to represent reality (in our case a future reality) based on observational data, previously established theory, and future scenarios, and are thus, subjected to different degrees of uncertainty [@Payne:2016gn]. An ensemble of models is a way to present a more robust result that accounts for differences in the structural composition of each model [@Cheung:2016gv]. In here we used three ESMs to project future changes in species maximum catch potential. The levels of uncertainty related to the ESMs differ among case studies. Overall, results for the Gulf of Maine agree with a reduction in MCP of all three species. However, some discrete areas show a positive change for yellowtail flounder by mid $21^{st}$ century (Figure \ref{fig:Figure3-IPHC-prop)), mainly driven by the GFDL model (Fig. A2.3). Potential model artifacts could also be contributing to the results, especially in the northern part of the study area (Bay of Fundy) as most disagreeing grids are covered by land, which could be influencing the results. In contrast, considerable uncertainty exists in the change of MCP along the IPHC Convention area shown by a disagreement between ESMs (Fig. A2.4). Off the coast of British Columbia, increasing temperature trends are consistent among ESMs, however, other processes such as acidification and deoxygenation are still not well understood from British Columbia to the Gulf of Alaska  [@TalloniAlvarez:2019gz]. Moreover, considerable uncertainty exists along the Bering Sea [@Douglas:2010Mb] and Antarctic Pacific regarding the extent and intensity of future sea-ice reduction under climate change [@Steiner:2015hc; @IPCC:2019to]. Regarding the DBEM, its structural uncertainty has been previously tested for agreement against commonly used species distribution algorithms such as Maxent [@Phillips:2006ff] and AquaMaps [@Kaschner:2011hi; @Ready:2010wr] resulting in no qualitative differences in trends between algorithms [@Cheung:2016jd]. Finally, is worth mentioning that future changes to species distributions could be influenced by factors not captured by our model such as interactions between species [@Pecl:2017hu], adaptation of species to environmental changes, and anthropogenic factors [@Serpetti:2017he]. However, these factors are expected to increase the rate of range-shifting of the species making our results conservative [@Cheung:2010dt; @Serpetti:2017he].
 
-## CONCLUSIONS
+## Conclusions
 
 Shifts in stocks distribution due to climate change have the potential of creating local extinction of economically important stocks while enhancing fisheries in areas where they were not present before. In this paper, we have explored the potential impacts of climate change in the joint management of selected transboundary stocks managed by Canada and the US. We found that, transboundary stocks are likely to shift in the upcoming years changing the proportion of the catch of jointly managed fisheries of Canada and the US. Lessons from other countries can provide solutions to such challenges. More specific, side payments, dynamic management, and interchangeable quotas were identified as potential solutions for North American region. While not directly addressed in this study, socio-economic impacts of shifting transboundary stocks could add an extra layer of complexity to the problem. Addressing shifts in stocks distribution sooner rather than latter could avert the so called “fish wars”, improve sustainability of jointly managed stocks, and secure the livelihood of thousands of families that depend on stocks that move freely between national jurisdictions. Finally, preparing for an uncertain future is key to achieve sustainable fisheries. 
 
@@ -1856,11 +1856,11 @@ Shifts in stocks distribution due to climate change have the potential of creati
 
 <!-- This is a product of the *OceanCanada* Partnership funded by the Social Sciences and Humanities Research Council of Canada. -->
 
-## LITERATURE CITED
+## References
 
 ## Supplements
 
-```{r FigureS11, eval = T, echo = F, fig.cap = "Outliers GoMA"}
+```{r FigureS11, eval = F, echo = F, fig.cap = "Outliers GoMA"}
 
 FigS1 <- readPNG(paste(my_path("F"),"S11.png",sep=""))
 grid.raster(FigS11)
