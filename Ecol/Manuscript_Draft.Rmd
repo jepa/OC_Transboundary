@@ -2229,6 +2229,14 @@ grid.raster(FigS21)
 
 <!-- Explore environental differences withing GOMA -->
 
+```{r FigureS22, eval = T, echo = F, fig.cap = "Depth profile (A) and bottom water warming of the Gulf of Maine. Everything deeper than 1000 meters is colored in green. B) Percentage change of bottom temperature relative to the present showing more intense warming in northern regions, especially under a high emission climate change scenario."}
+
+FigS22 <- readPNG(paste(my_path("F"),"S22.png",sep=""))
+grid.raster(FigS22)
+
+```
+
+<!-- GOMA Outliers analysis -->
 ```{r GoM_Environ_outliers, eval = F, echo = F}
 
 # ------------------ #
@@ -2328,21 +2336,13 @@ ggsave(Name,
 
 ```
 
-```{r FigureS22, eval = T, echo = F, fig.cap = "Depth profile (A) and bottom water warming of the Gulf of Maine. Everything deeper than 1000 meters is colored in green. B) Percentage change of bottom temperature relative to the present showing more intense warming in northern regions, especially under a high emission climate change scenario."}
+```{r FigureS23, eval = T, echo = F, fig.cap = "Changes in maximum catch potential of yellowtail flounder (*Limanda ferruginea*) within the study area by mid-century relative to present time. Results for the three global circulation models (GFDL, IPSL, MPIS) used in the current study and two climate change scenarios (Top: High emission – RCP 8.5, Bottom: Low Emission – RCP 2.6). Grid-cells marked in yellow represent discrete areas where average MCP is projected to increase by mid-century."}
 
-FigS22 <- readPNG(paste(my_path("F"),"S22.png",sep=""))
-grid.raster(FigS22)
-
-```
-
-<!-- GOMA Outliers analysis -->
-
-```{r FigureS23, eval = T, echo = F, fig.cap = "PChanges in maximum catch potential of yellowtail flounder (Limanda ferruginea) within the study area by mid-century relative to present time. Results for the three global circulation models (GFDL, IPSL, MPIS) used in the current study and two climate change scenarios (Top: High emission – RCP 8.5, Bottom: Low Emission – RCP 2.6). Grid-cells marked in yellow represent discrete areas where average MCP is projected to increase by mid-century."}
-
-FigS24 <- readPNG(paste(my_path("F"),"S24.png",sep=""))
-grid.raster(FigS24)
+FigS23 <- readPNG(paste(my_path("F"),"S23.png",sep=""))
+grid.raster(FigS23)
 
 ```
+
 
 <!-- ESM-DBEM Uncertinty analysis -->
 
@@ -2432,7 +2432,6 @@ FigS24 <- readPNG(paste(my_path("F"),"S24.png",sep=""))
 grid.raster(FigS24)
 
 ```
-
 
 
 <!-- # OLD ANALYSIS -->
