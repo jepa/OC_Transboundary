@@ -1,15 +1,16 @@
 ---
-title: "Challenges to transboundary fisheries management in North America under climate change"
-author: "Juliano Palacios-Abrantes^1^ U. Rashid Sumaila^1^ William W. L. Cheung^1^"
-subtitle: "[Response to Reviewers - Second Round]"
-date: "^1^ Institute for the Oceans and Fisheries, University of British Columbia, Vancouver, Canada"
 output:
- word_document: default
- pdf_document: default
-bibliography: ../References/Oceans_Canada_Biblio.bib
-editor_options: 
- chunk_output_type: console
+  bookdown::pdf_book:
+    toc : false
+  # pdf_document: default
+  # word_document: default
+editor_options:
+  chunk_output_type: console
 csl: ../References/E&S.csl
+bibliography: ../References/Oceans_Canada_Biblio.bib
+header-includes: #allows you to add in your own Latex packages
+- \usepackage{float} #use the 'float' package
+- \floatplacement{figure}{H} #make every figure with caption = h
 ---
  
 ```{r setup_oc, eval = T, echo = F, warning = F, message = F, results = 'hide'}
@@ -40,7 +41,8 @@ packages <- c(
  "rgdal", #Spatial analysis 
  "tools", #Spatial analysis 
  "png", # For reading plots in chunk codes
- "grid" # For reading plots in chunk codes
+ "grid", # For reading plots in chunk codes
+ "here"
 )
 
 my_lib(packages)
@@ -68,9 +70,10 @@ Climate change is shifting the distribution of fish stocks that straddle between
 
 Keywords: *Transboundary fisheries management; climate change; joint fisheries management; species distribution shift*
 
-## INTRODUCTION
+## Introduction
 
 <!-- ##### First paragraph of paper summary -->
+
 In 1982, the United Nations Law of the Sea Convention (UNCLOS) formalized the concept of economic exclusive zones (EEZs) creating what we know today as shared stocks [@UnitedNations:1986tl], i.e. stocks that migrate between countries EEZs (known as transboundary stocks) or between EEZs and the high seas (also called straddling stocks) [@Song:2017iua]. Today, an estimated 347 [@Teh:2015gd] to 1500 [@Caddy:1997ue] fish stocks cross national borders, some of them jointly managed by two or more countries. These stocks are responsible for almost 50% of these countries total fish catches [@Teh:2015gd]. Under Article 63, UNCLOS incentives actions to cooperate on the management of shared stocks [@UnitedNations:1986tl] as often management success depends on effective cooperation between parties [@Munro:2002uf; @Sumaila:2013hv]. Since the definition of shared stocks, game theory has been one of the most common approaches used to analyze the management of these type of stocks. However, shared stocks' management can be convoluted due to the participation of several fishing “players”, different countries and sometimes jurisdictions within a country, the migration patterns of the stock, and their abundance fluctuation within space and time [@Munro:2002uf, Engler and Saunders this Special Feature]. In addition, international treaties might not be prepared to address the effects that climate change will bring to shared fish stocks (Engler and Saunders this Special Feature, Koubrak and VanderZwaag, this Special Feature).
 
 <!-- ##### Climate Change and Transboundary Fisheries -->
@@ -83,7 +86,7 @@ The shifts in distribution of shared fish stocks will impact the economics of th
 
 It is expected that climate induced shifts in stocks’ distribution will affect the rules in place that keep international treaties alive. Therefore, the main objective of this article is to assess the level of exposure that bi-lateral transboundary fisheries treaties between Canada and the US have to climate change through shifts in stock distributions. Specifically, we rely on a species distribution model and scenario planning to project the changes in the distribution of selected fish stocks jointly managed by Canada and the United States focusing on two case studies (the International Pacific Halibut Commission and a fisheries arrangement for the Gulf of Maine) Finally, we explore similar situations around the world and identify opportunities to improve the adaptability of transboundary stocks management to climate change in North America. Despite an overall expectation of species following a poleward shift, important geographic constraints (e.g. Gulf of Alaska representing a latitudinal block) [@Kleisner:2016je], geo-political features (e.g. the localization of Alaska in reference to Canada and the contiguous states), and management rules (e.g. quota allocations, spatial management rules) may play an important role in the redistribution of benefits. Understanding these stocks shifts will shed a light on future conditions and inform decision-makers on the paths to follow under a changing climate.
 
-## METHODS
+## Methods
 
 ### Study Area and Fisheries
 
@@ -348,9 +351,14 @@ ggsave("Fig1_IPHC.png",
     path = my_path("R"))
 
 ```
-
 <!-- ![Fig.1. Map of Canada and the US with the regulatory areas of the International Pacific Halibut Commission and the NAFO sub-divisions containing the Gulf of Maine arrangement.](./Figures/Figure 1.png) -->
 
+```{r Figure1-map, eval = F, echo=FALSE, fig.height = 4, fig.width = 6, fig.cap="Map of Canada and the US with the regulatory areas of the International Pacific Halibut Commission and the NAFO sub-divisions containing the Gulf of Maine arrangement"}
+
+img <- readPNG("./Figures/Figure 1.png")
+grid.raster(img)
+
+```
 <insert Figure 1>
 
 ```{r Spatial_data, eval = F, echo = F, warning=F, message=F, results = 'hide'}
@@ -900,7 +908,6 @@ where *y* is year, *r* is region, *s* is species, *n* is total number of species
 $$\Delta MCP_r = -(1-\frac{X_{t}}{X_{t_0}})*100 $$
 <!-- <eqn2> -->
 
-
 Where $X_{t}$ is the future average MCP for each of the two time periods analyzed in this study and $t_0$ is the present averaged MCP (<mu> `r Beg_In`-`r Beg_End`). Note that in cases where $X_{0}$ = 0 and $X_{t}$ > 0, then **(<DELTA>MCPr)** = 100%, consequently, the opposite case would give a -100% result. This way, Equ. 2 shows the percentage change in MCP by mid $21^{st}$ century when $X_t$ = <mu> `r Mid_In`-`r Mid_End`, and end of $21^{st}$ century when $X_t$ = <mu> `r End_In`-`r End_End`, relative to today ($t_0$). The rationale between choosing these time periods was to provide a relative short-term projection (mid-century) that would be more policy-relevant but also show the long-term trend (end of century).
 
 <!-- #### Estimation of Changes in Catch Proportion -->
@@ -915,7 +922,7 @@ Where **<theta>rt** is the species' aggregated $\hat{MCP}$ of each region at tim
 <!-- $$\Delta\alpha = -(-1-\frac{\alpha_{f}}{\alpha_{p}})*100 $$ -->
 <!-- where $\alpha_{f}$ is the future MCP proportion of each region (mid 21^st^ century and end of the 21^st^ century). -->
 
-## RESULTS
+## Results
 
 ```{r Load_Data, echo = F, eval = F, results='hide', warning=F,message=F}
 
@@ -1062,7 +1069,6 @@ DBEM_Coor_sf = st_as_sf(DBEM_Coor,
 #### _______________________________________________ #
 
 ```
-
 
 ### Projected change to species managed by the IPHC
 
@@ -1233,7 +1239,6 @@ ggsave(Name,
 
 
 ```{r Figure_3, eval =F, echo = F}
-
 img <- readPNG(paste(my_path("F"),"Figure 3.png",sep=""))
 grid.raster(img)
 
@@ -1607,6 +1612,7 @@ Atlantic_Species <- c(
   "Melanogrammus aeglefinus" # haddock 
 )
 
+
 N_Lim <- 45.9759
 S_Lim <- 41
 W_Lim <- -72.0592
@@ -1770,6 +1776,7 @@ ggplot(data = subset(Proportion_Change_GoM, Time_Step == "Mid_Century_Prop"),
 
 ```
 
+
 ![Fig. 5. Changes in MCP stock-share ratio for Gulf of Maine under (A) high emission; and (B) low emission scenarios for mid 21st century (2041-2060) relative to present (2005-2014). Values represent the mean of 3 ESM; error bars represent $\pm$ sd.](./Figures/Figure 6.gif)
 
 ## DISCUSSION
@@ -1803,6 +1810,7 @@ iphc_2019_tsd_005 %>%
   )
 
 
+
 ```
 
 The results of the present study suggest that climate change will alter the MCP of jointly managed transboundary fish stocks in North America consequently altering Canada’s and the US’s species’ stock-share ratio, regardless of the climate change scenario. These results are aligned with regional [@Morley:2018fn] projections suggesting that climate change will push marine species towards the poles and deeper water [@Pinsky:2013jo] in search of their ecological niche [@Poloczanska:2016kk]. Moreover, IPHC data[^IPHC] suggest that some of these shits are already happening. For example, since 2010, the distribution proportion of Pacific halibut has increased from 9% to 11% in region 2B, from 7.5% to 13% in region 2C, and from 12.3% to 13.5% in region 4CDE. On the other hand, regions 3A and 3B have seen the largest decreases in the IPHC regulatory areas since 2010, from 35.3% to 30.6% and 20.6% to 15.9%, respectively. Similarly, in the Gulf of Maine, the projected stock-share gain of yellowtail flounder and haddock by the US (Fig. 5) follows a historical trend where in 2019, Canada's stock-share decreased from 35% to 32% and 60% to 40% relative to 2010, respectively [@Trinko:2019ou].
@@ -1832,12 +1840,26 @@ Shifts in stocks distribution due to climate change have the potential of creati
 
 <!-- This is a product of the *OceanCanada* Partnership funded by the Social Sciences and Humanities Research Council of Canada. -->
 
+## LITERATURE CITED
 
-# LITERATURE CITED
+## Supplements
+
+```{r FigureS11, eval = T, echo = F, fig.cap = "Outliers GoMA"}
+
+FigS1 <- readPNG(paste(my_path("F"),"S11.png",sep=""))
+grid.raster(FigS11)
+
+```
 
 
 
-# SUPPLEMENTS
+```{r FigureS12, eval = T, echo = F, fig.cap = "Outliers GoMA"}
+
+FigS12 <- readPNG(paste(my_path("F"),"S12.png",sep=""))
+grid.raster(FigS12)
+
+```
+
 
 <!-- This was included to address the reviewers comments on the region 4D of Pacific Halibut -->
 <!-- NOTE: Remember to run the Results chunk to load all the data needed -->
@@ -1941,6 +1963,96 @@ getEnvVar=function(yr,ModelRCP,RCP,Variable){
   
   getTemp <- Bottom_Data 
 }
+
+```
+
+<!-- # ESM uncertainty -->
+<!-- This chunk explores the uncertainty build in the ESM-DBEM  -->
+
+```{r DBEM_Uncertanty, eval = F, echo = F}
+
+#### DBEM-ESM Uncertanty
+
+Today_Uncertanty <- DBEM_Corrected %>% 
+  filter(Species %in% Selected_Species) %>% 
+  left_join(IPHC_Reg_DBEM_df,
+            by = "INDEX") %>% 
+  filter(!is.na(RegArea)) %>% 
+  mutate(RCP = ifelse(Model %in% RCP,"Low Emission","High Emission")) %>% 
+  gather("Year","MCP",Beg_In:Beg_End) %>% 
+  mutate(Period = ifelse(Year >= Beg_In & Year <= Beg_End,"Beginning","NA")) %>% 
+  group_by(RegArea,Model,RCP,Year,Period) %>% 
+  summarise(Regional_MCP =sum(MCP,na.rm=T)) %>% 
+  group_by(RegArea,Model,RCP) %>% 
+  summarise(Today_MCP =mean(Regional_MCP,na.rm=T))
+
+
+IPHC_MCP_Change_Uncert <- DBEM_Corrected %>% 
+  filter(Species %in% Selected_Species) %>% 
+  left_join(IPHC_Reg_DBEM_df,
+            by = "INDEX") %>% 
+  filter(!is.na(RegArea)) %>% 
+  mutate(RCP = ifelse(Model %in% RCP,"Low Emission","High Emission")) %>% 
+  gather("Year","MCP",Beg_In:End_End) %>%
+  group_by(Model,RCP,Year,RegArea) %>%
+  summarise(Regional_MCP =sum(MCP,na.rm=T)) %>% 
+  group_by(RCP,Model,RegArea) %>% # Running mean as Kleisner & Pauly 2012
+  mutate(RMean = rollmean(x = Regional_MCP, 10,
+                          align = "right",
+                          fill = Regional_MCP)
+  ) %>% 
+  mutate(GCM = ifelse(Model == "GFDL26F1" | Model == "GFDL85F1","GFDL",
+                      ifelse(Model == "IPSL26F1" | Model == "IPSL85F1", "IPSL",
+                             ifelse(Model == "MPI26F1" | Model == "MPI85F1","MPI","NA"
+                             )
+                      )
+  )
+  ) %>% 
+  filter(Year >= 2015) %>% 
+  left_join(Today_Uncertanty,
+            by = c("RegArea","Model","RCP")) %>% 
+  mutate(Index = RMean/Today_MCP)
+
+# Create and save plot
+
+ggplot(IPHC_MCP_Change_Uncert) +
+  geom_line(
+    aes(
+      x = as.numeric(Year),
+      y = Index,
+      color = GCM,
+      linetype = RCP
+    )
+  ) +
+  facet_wrap(~RegArea,
+             scales = "free_y") +
+  labs(
+    x = "Year",
+    y ="Index (Future MCP/Present)"
+  ) +
+  scale_color_manual("Global Circulation model",
+                     values=c("#EEA410","#B53CB9","#2EBC67")
+  ) +
+  scale_x_continuous(breaks = seq(2010,2100,30),
+                     limits = c(2010,2100)
+  ) +
+  my_ggtheme_p()() +
+  # Save plot
+  ggsave("Model_Uncer_Sup.png",
+         plot = .,
+         width = 12,
+         height =8,
+         units = "in",
+         path = "./Results/Sup"
+  )
+
+
+```
+
+```{r FigureS1, eval = T, echo = F, fig.cap = "Variation of climate change scenarios"}
+
+FigS21 <- readPNG(paste(my_path("F"),"S21.png",sep=""))
+grid.raster(FigS21)
 
 ```
 
@@ -2181,86 +2293,10 @@ ggsave("Environ_Sup.png",
 
 ```
 
-<!-- # ESM uncertainty -->
-<!-- This chunk explores the uncertainty build in the ESM-DBEM  -->
+```{r FigureS2, eval = T, echo = F, fig.cap = "Variation of climate change scenarios in IPHC regions 4E and 4D"}
 
-```{r DBEM_Uncertanty, eval = F, echo = F}
-
-#### DBEM-ESM Uncertanty
-
-Today_Uncertanty <- DBEM_Corrected %>% 
-  filter(Species %in% Selected_Species) %>% 
-  left_join(IPHC_Reg_DBEM_df,
-            by = "INDEX") %>% 
-  filter(!is.na(RegArea)) %>% 
-  mutate(RCP = ifelse(Model %in% RCP,"Low Emission","High Emission")) %>% 
-  gather("Year","MCP",Beg_In:Beg_End) %>% 
-  mutate(Period = ifelse(Year >= Beg_In & Year <= Beg_End,"Beginning","NA")) %>% 
-  group_by(RegArea,Model,RCP,Year,Period) %>% 
-  summarise(Regional_MCP =sum(MCP,na.rm=T)) %>% 
-  group_by(RegArea,Model,RCP) %>% 
-  summarise(Today_MCP =mean(Regional_MCP,na.rm=T))
-
-
-IPHC_MCP_Change_Uncert <- DBEM_Corrected %>% 
-  filter(Species %in% Selected_Species) %>% 
-  left_join(IPHC_Reg_DBEM_df,
-            by = "INDEX") %>% 
-  filter(!is.na(RegArea)) %>% 
-  mutate(RCP = ifelse(Model %in% RCP,"Low Emission","High Emission")) %>% 
-  gather("Year","MCP",Beg_In:End_End) %>%
-  group_by(Model,RCP,Year,RegArea) %>%
-  summarise(Regional_MCP =sum(MCP,na.rm=T)) %>% 
-  group_by(RCP,Model,RegArea) %>% # Running mean as Kleisner & Pauly 2012
-  mutate(RMean = rollmean(x = Regional_MCP, 10,
-                          align = "right",
-                          fill = Regional_MCP)
-  ) %>% 
-  mutate(GCM = ifelse(Model == "GFDL26F1" | Model == "GFDL85F1","GFDL",
-                      ifelse(Model == "IPSL26F1" | Model == "IPSL85F1", "IPSL",
-                             ifelse(Model == "MPI26F1" | Model == "MPI85F1","MPI","NA"
-                             )
-                      )
-  )
-  ) %>% 
-  filter(Year >= 2015) %>% 
-  left_join(Today_Uncertanty,
-            by = c("RegArea","Model","RCP")) %>% 
-  mutate(Index = RMean/Today_MCP)
-
-# Create and save plot
-
-ggplot(IPHC_MCP_Change_Uncert) +
-  geom_line(
-    aes(
-      x = as.numeric(Year),
-      y = Index,
-      color = GCM,
-      linetype = RCP
-    )
-  ) +
-  facet_wrap(~RegArea,
-             scales = "free_y") +
-  labs(
-    x = "Year",
-    y ="Index (Future MCP/Present)"
-  ) +
-  scale_color_manual("Global Circulation model",
-                     values=c("#EEA410","#B53CB9","#2EBC67")
-  ) +
-  scale_x_continuous(breaks = seq(2010,2100,30),
-                     limits = c(2010,2100)
-  ) +
-  my_ggtheme_p()() +
-  # Save plot
-  ggsave("Model_Uncer_Sup.png",
-         plot = .,
-         width = 12,
-         height =8,
-         units = "in",
-         path = "./Results/Sup"
-  )
-
+FigS22 <- readPNG(paste(my_path("F"),"S22.png",sep=""))
+grid.raster(FigS22)
 
 ```
 
@@ -2362,6 +2398,23 @@ ggsave(Name,
     path = Path)
 
 ```
+
+
+```{r FigureS3, eval = T, echo = F, fig.cap = "Outliers GoMA"}
+
+FigS23 <- readPNG(paste(my_path("F"),"S23.png",sep=""))
+grid.raster(FigS23)
+
+```
+
+```{r FigureS13, eval = T, echo = F, fig.cap = "Outliers GoMA"}
+
+FigS13 <- readPNG(paste(my_path("F"),"S13.png",sep=""))
+grid.raster(FigS13)
+
+```
+
+
 
 <!-- # OLD ANALYSIS -->
 
