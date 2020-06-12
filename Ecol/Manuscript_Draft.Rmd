@@ -2220,86 +2220,6 @@ ggsave("Environ_Sup.png",
 
 ```
 
-```{r DBEM_Uncertanty, eval = F, echo = F}
-
-#### DBEM-ESM Uncertanty
-
-Today_Uncertanty <- DBEM_Corrected %>% 
-  filter(Species %in% Selected_Species) %>% 
-  left_join(IPHC_Reg_DBEM_df,
-            by = "INDEX") %>% 
-  filter(!is.na(RegArea)) %>% 
-  mutate(RCP = ifelse(Model %in% RCP,"Low Emission","High Emission")) %>% 
-  gather("Year","MCP",Beg_In:Beg_End) %>% 
-  mutate(Period = ifelse(Year >= Beg_In & Year <= Beg_End,"Beginning","NA")) %>% 
-  group_by(RegArea,Model,RCP,Year,Period) %>% 
-  summarise(Regional_MCP =sum(MCP,na.rm=T)) %>% 
-  group_by(RegArea,Model,RCP) %>% 
-  summarise(Today_MCP =mean(Regional_MCP,na.rm=T))
-
-
-IPHC_MCP_Change_Uncert <- DBEM_Corrected %>% 
-  filter(Species %in% Selected_Species) %>% 
-  left_join(IPHC_Reg_DBEM_df,
-            by = "INDEX") %>% 
-  filter(!is.na(RegArea)) %>% 
-  mutate(RCP = ifelse(Model %in% RCP,"Low Emission","High Emission")) %>% 
-  gather("Year","MCP",Beg_In:End_End) %>%
-  group_by(Model,RCP,Year,RegArea) %>%
-  summarise(Regional_MCP =sum(MCP,na.rm=T)) %>% 
-  group_by(RCP,Model,RegArea) %>% # Running mean as Kleisner & Pauly 2012
-  mutate(RMean = rollmean(x = Regional_MCP, 10,
-                          align = "right",
-                          fill = Regional_MCP)
-  ) %>% 
-  mutate(GCM = ifelse(Model == "GFDL26F1" | Model == "GFDL85F1","GFDL",
-                      ifelse(Model == "IPSL26F1" | Model == "IPSL85F1", "IPSL",
-                             ifelse(Model == "MPI26F1" | Model == "MPI85F1","MPI","NA"
-                             )
-                      )
-  )
-  ) %>% 
-  filter(Year >= 2015) %>% 
-  left_join(Today_Uncertanty,
-            by = c("RegArea","Model","RCP")) %>% 
-  mutate(Index = RMean/Today_MCP)
-
-# Create and save plot
-
-ggplot(IPHC_MCP_Change_Uncert) +
-  geom_line(
-    aes(
-      x = as.numeric(Year),
-      y = Index,
-      color = GCM,
-      linetype = RCP
-    )
-  ) +
-  facet_wrap(~RegArea,
-             scales = "free_y") +
-  labs(
-    x = "Year",
-    y ="Index (Future MCP/Present)"
-  ) +
-  scale_color_manual("Global Circulation model",
-                     values=c("#EEA410","#B53CB9","#2EBC67")
-  ) +
-  scale_x_continuous(breaks = seq(2010,2100,30),
-                     limits = c(2010,2100)
-  ) +
-  my_ggtheme_p()() +
-  # Save plot
-  ggsave("Model_Uncer_Sup.png",
-         plot = .,
-         width = 12,
-         height =8,
-         units = "in",
-         path = "./Results/Sup"
-  )
-
-
-```
-
 ```{r FigureS21, eval = T, echo = F, fig.cap = "Projected environmental variables under climate change from 2010 to 2010 for Arctic regions of the IPHC (Top:4D, Bottom, 4E). The solid line represents the average of all three ESMs and the shaded area represents the model’s uncertainty (s.d.)."}
 
 FigS21 <- readPNG(paste(my_path("F"),"S21.png",sep=""))
@@ -2410,12 +2330,108 @@ ggsave(Name,
 
 ```{r FigureS22, eval = T, echo = F, fig.cap = "Depth profile (A) and bottom water warming of the Gulf of Maine. Everything deeper than 1000 meters is colored in green. B) Percentage change of bottom temperature relative to the present showing more intense warming in northern regions, especially under a high emission climate change scenario."}
 
-FigS23 <- readPNG(paste(my_path("F"),"S22.png",sep=""))
+FigS22 <- readPNG(paste(my_path("F"),"S22.png",sep=""))
 grid.raster(FigS22)
 
 ```
 
-<!-- # Explore Regions 4d and 4e -->
+<!-- GOMA Outliers analysis -->
+
+```{r FigureS23, eval = T, echo = F, fig.cap = "PChanges in maximum catch potential of yellowtail flounder (Limanda ferruginea) within the study area by mid-century relative to present time. Results for the three global circulation models (GFDL, IPSL, MPIS) used in the current study and two climate change scenarios (Top: High emission – RCP 8.5, Bottom: Low Emission – RCP 2.6). Grid-cells marked in yellow represent discrete areas where average MCP is projected to increase by mid-century."}
+
+FigS24 <- readPNG(paste(my_path("F"),"S24.png",sep=""))
+grid.raster(FigS24)
+
+```
+
+<!-- ESM-DBEM Uncertinty analysis -->
+
+```{r DBEM_Uncertanty, eval = F, echo = F}
+
+#### DBEM-ESM Uncertanty
+
+Today_Uncertanty <- DBEM_Corrected %>% 
+  filter(Species %in% Selected_Species) %>% 
+  left_join(IPHC_Reg_DBEM_df,
+            by = "INDEX") %>% 
+  filter(!is.na(RegArea)) %>% 
+  mutate(RCP = ifelse(Model %in% RCP,"Low Emission","High Emission")) %>% 
+  gather("Year","MCP",Beg_In:Beg_End) %>% 
+  mutate(Period = ifelse(Year >= Beg_In & Year <= Beg_End,"Beginning","NA")) %>% 
+  group_by(RegArea,Model,RCP,Year,Period) %>% 
+  summarise(Regional_MCP =sum(MCP,na.rm=T)) %>% 
+  group_by(RegArea,Model,RCP) %>% 
+  summarise(Today_MCP =mean(Regional_MCP,na.rm=T))
+
+
+IPHC_MCP_Change_Uncert <- DBEM_Corrected %>% 
+  filter(Species %in% Selected_Species) %>% 
+  left_join(IPHC_Reg_DBEM_df,
+            by = "INDEX") %>% 
+  filter(!is.na(RegArea)) %>% 
+  mutate(RCP = ifelse(Model %in% RCP,"Low Emission","High Emission")) %>% 
+  gather("Year","MCP",Beg_In:End_End) %>%
+  group_by(Model,RCP,Year,RegArea) %>%
+  summarise(Regional_MCP =sum(MCP,na.rm=T)) %>% 
+  group_by(RCP,Model,RegArea) %>% # Running mean as Kleisner & Pauly 2012
+  mutate(RMean = rollmean(x = Regional_MCP, 10,
+                          align = "right",
+                          fill = Regional_MCP)
+  ) %>% 
+  mutate(GCM = ifelse(Model == "GFDL26F1" | Model == "GFDL85F1","GFDL",
+                      ifelse(Model == "IPSL26F1" | Model == "IPSL85F1", "IPSL",
+                             ifelse(Model == "MPI26F1" | Model == "MPI85F1","MPI","NA"
+                             )
+                      )
+  )
+  ) %>% 
+  filter(Year >= 2015) %>% 
+  left_join(Today_Uncertanty,
+            by = c("RegArea","Model","RCP")) %>% 
+  mutate(Index = RMean/Today_MCP)
+
+# Create and save plot
+
+ggplot(IPHC_MCP_Change_Uncert) +
+  geom_line(
+    aes(
+      x = as.numeric(Year),
+      y = Index,
+      color = GCM,
+      linetype = RCP
+    )
+  ) +
+  facet_wrap(~RegArea,
+             scales = "free_y") +
+  labs(
+    x = "Year",
+    y ="Index (Future MCP/Present)"
+  ) +
+  scale_color_manual("Global Circulation model",
+                     values=c("#EEA410","#B53CB9","#2EBC67")
+  ) +
+  scale_x_continuous(breaks = seq(2010,2100,30),
+                     limits = c(2010,2100)
+  ) +
+  my_ggtheme_p()() +
+  # Save plot
+  ggsave("Model_Uncer_Sup.png",
+         plot = .,
+         width = 12,
+         height =8,
+         units = "in",
+         path = "./Results/Sup"
+  )
+
+
+```
+
+```{r FigureS24, eval = T, echo = F, fig.cap = "Projected MCP change relative to present (2005-2014) for each IPHC regulatory area. Colors represents the different ESM used in the study. Solid line represents a high emission scenario (RCP 8.5) and dashed line represents a low emission scenario (RCP 2.6)"}
+
+FigS24 <- readPNG(paste(my_path("F"),"S24.png",sep=""))
+grid.raster(FigS24)
+
+```
 
 
 
