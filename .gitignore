@@ -25,8 +25,10 @@ vignettes/*.pdf
 # Shiny token, see https://shiny.rstudio.com/articles/shinyapps.html
 rsconnect/
 .Rproj.user
-./Ecol/Reviewers/*
-./Econ_Analysis/Manuscript_Comments/*
+./Ecol/Reviewers/Comments/*
+./Econ/Reviewers/Comments/*
+./Ecol/Submited_Response/*
 Other_Manuscripts
 Data
 Figures_Edditing.pptx
+Revisions
