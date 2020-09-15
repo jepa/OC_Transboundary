@@ -644,13 +644,36 @@ GM_Land <- World_Land_sf %>%
 
 The IPHC was established by Canada and the United States to oversee the management of Pacific halibut (*Hippoglossus stenolepis*) [@IPHC:2014tz]. There are 12 regulatory areas from which 3AB holds 51.2% of the stock, followed by regions 2ABC and 4ACDE with 23.1% and 20.4%, respectively, and lastly region 4B with only 5.2% of the stock distribution [@IPHC:2018vz]. In terms of management, the IPHC implements a total allowable catch (TAC) based on a yearly sampling of the Convention area in addition to a series of regulations to control fishing effort [@IPHC:2018vz]. The TAC is divided between recreational, subsistence and commercial fishery, with a portion set aside for bycatch of other fisheries [@IPHC:2019wt]. The commercial fishing season starts in March ending around November with restrictions allowing only set line gear with J-type hooks targeting individuals over 81.3 cm of total length [@IPHC:2019wt].
 
-<insert Table 1>
 
 ### The Gulf of Maine Arrangement
 
-Since 1998 Canada and the US have used a "Resource Sharing Understanding" to inform the management of Eastern George Bank's Atlantic cod (*Gadus morhua*) and haddock (*Melanogrammus aeglefinus*) and, yellowtail flounder (*Limanda ferruginea*) [@Pudden:2007bo; @TRAC:2016wu; @Song:2017va]. From 2010 onward, the GoMA suggests catch-limits based on a weighted method where 10% represents the stocks’ historical distribution (from 1967 to 1994) and 90% current distributions produced by quarterly surveys and catch [@TRAC:2016wu]. Since its introduction, the average quota allocation for each species proposed by the GoMA has been; Atlantic cod 77% Canada and 23% US, haddock 55% Canada and 45% US, and yellowtail flounder 34% Canada and 66% US [Table 1, @TRAC:2015wj; @TRAC:2015vp; @TRAC:2015tt; @TRAC:2018tw; @TRAC:2018tj; @TRAC:2018wx; @Trinko:2019ou]. However, because this is an unofficial agreement, Canada and the US ultimately take single management decisions [@Soboil:2006gw]. In terms of management, the US has a multi species harvest control with area and season closures, mesh sizes, effort control, and mobile gear vessels that use bottom otter trawl gear [@Soboil:2006gw]. In contrast, Canada has a quota system in addition to limited-entry licensing, fleet allocations, and mesh and fish size regulation, among other input controls. Canada inshore vessels fish cod with longline and gillnet while haddock is mainly caught with bottom otter trawl gear [@Soboil:2006gw].
+Since 1998 Canada and the US have used a "Resource Sharing Understanding" to inform the management of Eastern George Bank's Atlantic cod (*Gadus morhua*) and haddock (*Melanogrammus aeglefinus*) and, yellowtail flounder (*Limanda ferruginea*) [@Pudden:2007bo; @TRAC:2016wu; @Song:2017va]. From 2010 onward, the GoMA suggests catch-limits based on a weighted method where 10% represents the stocks’ historical distribution (from 1967 to 1994) and 90% current distributions produced by quarterly surveys and catch [@TRAC:2016wu]. Since its introduction, the average quota allocation for each species proposed by the GoMA has been (Table \ref{tab:table_1}); Atlantic cod 77% Canada and 23% US, haddock 55% Canada and 45% US, and yellowtail flounder 34% Canada and 66% US [@TRAC:2015wj; @TRAC:2015vp; @TRAC:2015tt; @TRAC:2018tw; @TRAC:2018tj; @TRAC:2018wx; @Trinko:2019ou]. However, because this is an unofficial agreement, Canada and the US ultimately take single management decisions [@Soboil:2006gw]. In terms of management, the US has a multi species harvest control with area and season closures, mesh sizes, effort control, and mobile gear vessels that use bottom otter trawl gear [@Soboil:2006gw]. In contrast, Canada has a quota system in addition to limited-entry licensing, fleet allocations, and mesh and fish size regulation, among other input controls. Canada inshore vessels fish cod with longline and gillnet while haddock is mainly caught with bottom otter trawl gear [@Soboil:2006gw].
 
-<insert Table 2>
+```{table_1, eval = T, echo = F}
+
+
+table_1 <- read_excel("Ecol/Tables/Tables.xlsx") 
+colnames(table_1) <- c("Year","Canada","US","Canada","US","Canada","US") 
+
+table_1 %>% 
+  kable("latex",
+        booktabs = T,
+        caption = "Historic quota allocation suggested for Atlantic cod, haddock and yellowtail flounder in the Gulf of Maine "
+  ) %>% 
+  kable_styling(full_width = F,
+                position = "center") %>%
+  add_header_above(c(" ", "Atlantic cod" = 2, "Haddock" = 2, "Yellowtail flounder" = 2)
+  ) %>% 
+  footnote(general = c("* Average from 2006 to 2009, before the implementation of the weighted method",
+                       "' Since the implementation of the weighted method",
+                       "'' Standard deviation of the wiighted average",
+                       "^ TRAC (2015abc)",
+                       "† TRAC (2018abc)",
+                       "‡ Lake (2019)"
+  )
+  )
+
+```
 
 
 ### Projecting Future Species Distribution
