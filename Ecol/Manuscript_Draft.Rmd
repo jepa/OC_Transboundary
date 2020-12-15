@@ -30,7 +30,7 @@ packages <- c(
  "rgdal",
  "RColorBrewer",
  "knitr",
- # "kableExtra",
+ "kableExtra",
  "data.table",
  "ggrepel",
  "gridExtra",
@@ -88,7 +88,7 @@ It is expected that climate induced shifts in stocks’ distribution will affect
 
 ### Study area and fisheries
 
-The current study used the International Pacific Halibut Commission (IPHC) and the Gulf of Maine arrangement (hereafter referred as GoMa) as case studies to discuss the implications that climate change could have in the management of transboundary stocks. For the IPHC, I used the most updated spatial regulatory data along its 12 regulatory areas [@IPHCSecreatriat:2017uz; @IPHC:2019wt]. For this specific case, I considered Alaska as a separate entity, the US contiguous states as a second one (Washington, Oregon and California), and lastly British Columbia (Canada). For the GoMa I used the Northwest Atlantic Fisheries Organization's (NAFO) divisions 5Y, 5Ze, and 4X[^NAFO] within latitudes 46.2°N and 41.5°S, and longitudes -72°W and -64°E (Figure \@ref(fig:ocFigure1)). Is worth mention that, while NAFO's divisional zones were used in this study for domestic management, NAFO does not manage fisheries within the EEZs of Canada and the United States. Fisheries data for the projections was gathered from the Sea Around Us from 1951 to 2014 [@Zeller2016].
+The current study used the International Pacific Halibut Commission (IPHC) and the Gulf of Maine arrangement (hereafter referred as GoMa) as case studies to discuss the implications that climate change could have in the management of transboundary stocks. For the IPHC, I used the most updated spatial regulatory data along its 12 regulatory areas [@IPHCSecreatriat:2017uz; @IPHC:2019wt]. For this specific case, I considered Alaska as a separate entity, the US contiguous states as a second one (Washington, Oregon and California), and lastly British Columbia (Canada). For the GoMa I used the Northwest Atlantic Fisheries Organization's (NAFO)[^NAFO] divisions 5Y, 5Ze, and 4X within latitudes 46.2°N and 41.5°S, and longitudes -72°W and -64°E (Figure \@ref(fig:ocFigure1)). Is worth mention that, while NAFO's divisional zones were used in this study for domestic management, NAFO does not manage fisheries within the EEZs of Canada and the United States. Fisheries data for the projections was gathered from the Sea Around Us from 1951 to 2014 [@Zeller2016].
 
 [^NAFO]: Northwest Atlantic Fisheries Organization, Available at https://www.nafo.int/Science/
 
@@ -653,26 +653,27 @@ table_1 <- read_excel("./Tables/Tables.xlsx")
 colnames(table_1) <- c("Year","Canada","US","Canada","US","Canada","US") 
 
 table_1 %>% 
-  kable(caption = "Historic quota allocation suggested for Atlantic cod, haddock and yellowtail flounder in the Gulf of Maine")
-  # kable("latex",
-  #       booktabs = T,
-  #       caption = "Historic quota allocation suggested for Atlantic cod, haddock and yellowtail flounder in the Gulf of Maine "
-  # ) %>% 
-  # kable_styling(full_width = F,
-  #               position = "center") %>%
-  # add_header_above(c(" ", "Atlantic cod" = 2, "Haddock" = 2, "Yellowtail flounder" = 2)
-  # ) %>% 
-  # footnote(general = c("* Average from 2006 to 2009, before the implementation of the weighted method",
-  #                      "' Since the implementation of the weighted method",
-  #                      "'' Standard deviation of the wiighted average",
-  #                      "^ TRAC (2015abc)",
-  #                      "† TRAC (2018abc)",
-  #                      "‡ Lake (2019)"
-  # )
-  # )
+  # kable(caption = "Historic quota allocation suggested for Atlantic cod, haddock and yellowtail flounder in the Gulf of Maine")
+  kable("latex",
+        booktabs = T,
+        caption = "Historic quota allocation suggested for Atlantic cod, haddock and yellowtail flounder in the Gulf of Maine "
+  ) %>%
+  kable_styling(full_width = F,
+                position = "center") %>%
+  add_header_above(c(" ", "Atlantic cod" = 2, "Haddock" = 2, "Yellowtail flounder" = 2)
+  ) %>%
+  footnote(general = c("* Average from 2006 to 2009, before the implementation of the weighted method",
+                       "' Since the implementation of the weighted method",
+                       "'' Standard deviation of the wiighted average",
+                       "^ TRAC (2015abc)",
+                       "† TRAC (2018abc)",
+                       "‡ Lake (2019)"
+  )
+  )
 
 ```
 
+\clearpage
 
 ### Projecting future species distributions
 
@@ -1877,9 +1878,9 @@ Quota allocation ruled by historic distributions will most likely be outdated in
 
 Side payments have been previously used to address changes in stock's distribution, including cases caused by environmental forcing. In game theory, a side payment is received by a player as a compensation from the other player in a shared resource agreement, with the premise that cooperation will result in a better overall outcome [@Bjorndal:2012vd; @Sumaila:2013hv]. Side payments do not have to be in monetary form and are widely used in transboundary stocks around the world. For example, Norway and Russia have implemented a quota swap strategy for jointly managed stocks of cod, haddock and capelin (*Mallotus villosus*) in the Barents Sea [@FAO:2020vw]. Similarly, species' quota swaps are allowed, up to a degree, within regulatory areas of the European union [@Baudron:2020dj]. Specifically, for northern European spring spawning herring (*Clupea harengus*), Norway, Iceland, Faroe Islands, Russia and the EU reached an agreement to manage the stock after its collapsed, partially due to climate variations [@Miller:2013iv]. Among the implemented rules, the agreement established a dynamic quota allocation, allowing members to fish part of their quota within Norway's EEZ, and land the catch in Norwegian ports. In North America, Canada and the US have previous history with the utilization of side payments when in the 70's Pacific salmon shifted its distribution resulting in large interceptions of Canada's salmon by Alaskan fisheries [@Miller:2013iv; @Song:2017va]. The conflict was resolved by the implementation of a conservation fund that worked as a side payment for both Canada and the state of Alaska [@Miller:2013iv; @Song:2017va]. The potential adaptation of side payments in terms of quota swaps or allocating EEZ-fishing rights across the Gulf of Maine EEZs could be a potential solution as stocks shift due to climate change.
 
-Transboundary fisheries management have to be prepared for the uncertainty that comes with a changing world. Future climate change will depend on the path society as a whole will take, and thus I rely on scenario planning to account for the uncertainty build in future decision making [@vanVuuren:2011ef]. In our results, the "winners and losers" of climate change, and the intensity of the change, will be scenario dependent. For instance, stock-share of yellowtail flounder under a high emission scenario will be larger for the US while Canada's gain of cod stock-share will be larger under a low emission scenario (Figure \@ref(fig:ocFigure5)). Applying previously described strategies (e.g., quota swaps or EEZ-fishing rights) could increase the resilience of treaties by preventing members from leaving the agreement due to a shift in threat points, as happened in the Pacific salmon case [@Miller:2013iv].
+Transboundary fisheries management have to be prepared for the uncertainty that comes with a changing world. Future climate change will depend on the path society as a whole will take, and thus I rely on scenario planning to account for the uncertainty build in future decision making [@vanVuuren:2011ef]. In these results, the "winners and losers" of climate change, and the intensity of the change, will be scenario dependent. For instance, stock-share of yellowtail flounder under a high emission scenario will be larger for the US while Canada's gain of cod stock-share will be larger under a low emission scenario (Figure \@ref(fig:ocFigure5)). Applying previously described strategies (e.g., quota swaps or EEZ-fishing rights) could increase the resilience of treaties by preventing members from leaving the agreement due to a shift in threat points, as happened in the Pacific salmon case [@Miller:2013iv].
 
-Models are attempts to represent reality (in our case a future reality) based on observational data, previously established theory, and future scenarios, and are thus, subjected to different degrees of uncertainty [@Payne:2016gn]. An ensemble of models is a way to present a more robust result that accounts for differences in the structural composition of each model [@Cheung:2016gv]. In here, I used three ESMs to project future changes in species maximum catch potential. The levels of uncertainty related to the ESMs differ among case studies. Overall, results for the Gulf of Maine agree with a reduction in MCP of all three stocks. However, some discrete areas show a positive change for yellowtail flounder by mid $21^{st}$ century (Figure \@ref(fig:ocFigure3)), mainly driven by the GFDL model (Figure \@ref(fig:ocFigureS23)). Potential model artifacts could also be contributing to the results, especially in the northern part of the study area (Bay of Fundy) as most disagreeing grids are covered by land, which could be influencing the results. In contrast, considerable uncertainty exists in the change of MCP along the IPHC Convention area shown by a disagreement between ESMs (Figure \@ref(fig:ocFigureS24)). Off the coast of British Columbia, increasing temperature trends are consistent among ESMs, however, other processes such as acidification and deoxygenation are still not well understood from British Columbia to the Gulf of Alaska  [@TalloniAlvarez:2019gz]. Moreover, considerable uncertainty exists along the Bering Sea [@Douglas:2010Mb] and Antarctic Pacific regarding the extent and intensity of future sea-ice reduction under climate change [@Steiner:2015hc; @IPCC:2019tn]. Regarding the DBEM, its structural uncertainty has been previously tested for agreement against commonly used species distribution algorithms such as Maxent [@Phillips:2006ff] and AquaMaps [@Kaschner:2011hi; @Ready:2010wr] resulting in no qualitative differences in trends between algorithms [@Cheung:2016jd]. Finally, is worth mentioning that future changes to species distributions could be influenced by factors not captured by our model such as interactions between species [@Pecl:2017hu], adaptation of species to environmental changes, and anthropogenic factors [@Serpetti:2017he]. However, these factors are expected to increase the rate of range-shifting of the species making our results conservative [@Cheung:2010dt; @Serpetti:2017he].
+Models are attempts to represent reality (in this case a future reality) based on observational data, previously established theory, and future scenarios, and are thus, subjected to different degrees of uncertainty [@Payne:2016gn]. An ensemble of models is a way to present a more robust result that accounts for differences in the structural composition of each model [@Cheung:2016gv]. In here, I used three ESMs to project future changes in species maximum catch potential. The levels of uncertainty related to the ESMs differ among case studies. Overall, results for the Gulf of Maine agree with a reduction in MCP of all three stocks. However, some discrete areas show a positive change for yellowtail flounder by mid $21^{st}$ century (Figure \@ref(fig:ocFigure3)), mainly driven by the GFDL model (Figure \@ref(fig:ocFigureS23)). Potential model artifacts could also be contributing to the results, especially in the northern part of the study area (Bay of Fundy) as most disagreeing grids are covered by land, which could be influencing the results. In contrast, considerable uncertainty exists in the change of MCP along the IPHC Convention area shown by a disagreement between ESMs (Figure \@ref(fig:ocFigureS24)). Off the coast of British Columbia, increasing temperature trends are consistent among ESMs, however, other processes such as acidification and deoxygenation are still not well understood from British Columbia to the Gulf of Alaska  [@TalloniAlvarez:2019gz]. Moreover, considerable uncertainty exists along the Bering Sea [@Douglas:2010Mb] and Antarctic Pacific regarding the extent and intensity of future sea-ice reduction under climate change [@Steiner:2015hc; @IPCC:2019tn]. Regarding the DBEM, its structural uncertainty has been previously tested for agreement against commonly used species distribution algorithms such as Maxent [@Phillips:2006ff] and AquaMaps [@Kaschner:2011hi; @Ready:2010wr] resulting in no qualitative differences in trends between algorithms [@Cheung:2016jd]. Finally, is worth mentioning that future changes to species distributions could be influenced by factors not captured by my model such as interactions between species [@Pecl:2017hu], adaptation of species to environmental changes, and anthropogenic factors [@Serpetti:2017he]. However, these factors are expected to increase the rate of range-shifting of the species making my results conservative [@Cheung:2010dt; @Serpetti:2017he].
 
 ## Conclusions
 
@@ -2254,7 +2255,7 @@ ggsave("Environ_Sup.png",
 
 ```
 
-```{r FigureS21, eval = F, echo = F, fig.cap = "Projected environmental variables under climate change from 2010 to 2010 for Arctic regions of the IPHC (Top:4D, Bottom, 4E). The solid line represents the average of all three ESMs and the shaded area represents the model’s uncertainty (s.d.)."}
+```{r xFigureS21, eval = F, echo = F, fig.cap = "Projected environmental variables under climate change from 2010 to 2010 for Arctic regions of the IPHC (Top:4D, Bottom, 4E). The solid line represents the average of all three ESMs and the shaded area represents the model’s uncertainty (s.d.)."}
 
 FigS21 <- readPNG(paste(my_path("F"),"S21.png",sep=""))
 grid.raster(FigS21)

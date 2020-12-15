@@ -28,7 +28,7 @@ packages <- c(
 my_lib(packages)
 ```
 
-```{r ocFigureS11, eval = T, echo = F, fig.cap = "Percentage change of MCP for species managed by the IPHC for end-century (2081–2100) relative to 2005–2014 under a A) high emission scenario and B) low emission scenario. Labels marked with * represent regions where models do not agree in direction of change."}
+```{r ocFigureS11, eval = T, echo = F, fig.cap = "Percentage change of MCP for stocks managed by the IPHC for end-century (2081–2100) relative to 2005–2014 under a A) high emission scenario and B) low emission scenario. Labels marked with * represent regions where models do not agree in direction of change."}
 
 FigS11 <- readPNG(paste(my_path("F"),"S11.png",sep=""))
 grid.raster(FigS11)
