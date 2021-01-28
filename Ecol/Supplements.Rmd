@@ -28,7 +28,7 @@ packages <- c(
 my_lib(packages)
 ```
 
-```{r ocFigureS11, eval = T, echo = F, fig.cap = "Percentage change of MCP for stocks managed by the IPHC for end-century (2081–2100) relative to 2005–2014 under a A) high emission scenario and B) low emission scenario. Labels marked with * represent regions where models do not agree in direction of change."}
+```{r ocFigureS11, eval = T, echo = F, fig.cap = "Percentage change of MCP for stocks managed by the IPHC for end-century (2081–2100) relative to 2005–2014 under a A) high emission scenario and B) low emission scenario. Labels marked with * represent regions where models do not agree in direction of change.", fig.scap="Percentage change of MCP for stocks managed by the IPHC for end-century (2081–2100) relative to 2005–2014", out.extra=''}
 
 FigS11 <- readPNG(paste(my_path("F"),"S11.png",sep=""))
 grid.raster(FigS11)
@@ -36,7 +36,7 @@ grid.raster(FigS11)
 ```
 
 
-```{r ocFigureS12, eval = T, echo = F, fig.cap = "Percentage change of MCP in the Gulf of Maine under (RCP 8.5) high emission scenario and (RCP 2.6) low emission for end-century (2080–2100) referent to present (2005– 2014). Values represent the mean of 3 ESM. Points represent regions where ESMs do not agree in direction of change"}
+```{r ocFigureS12, eval = T, echo = F, fig.cap = "Percentage change of MCP in the Gulf of Maine under (RCP 8.5) high emission scenario and (RCP 2.6) low emission for the end of the 21stcentury (2080–2100) relative to present (2005– 2014). Values represent the mean of 3 ESM. Points represent regions where ESMs do not agree in direction of change", fig.scap="Percentage change of MCP in the Gulf of Maine for the end of the 21st century (2080–2100) relative to present (2005– 2014).", out.extra=''}
 
 FigS12 <- readPNG(paste(my_path("F"),"S12.png",sep=""))
 grid.raster(FigS12)
@@ -44,7 +44,7 @@ grid.raster(FigS12)
 ```
 
 
-```{r ocFigureS21, eval = T, echo = F, fig.cap = "Projected environmental variables under climate change from 2010 to 2010 for Arctic regions of the IPHC (Top:4D, Bottom, 4E). The solid line represents the average of all three ESMs and the shaded area represents the model’s uncertainty (s.d.)."}
+```{r ocFigureS21, eval = T, echo = F, fig.cap = "Projected environmental variables under climate change from 2010 to 2010 for Arctic regions of the IPHC (Top:4D, Bottom, 4E). The solid line represents the average of all three ESMs and the shaded area represents the model’s uncertainty (s.d.).", fig.scap="Projected environmental variables under climate change from 2010 to 2010 for Arctic regions of the IPHC", out.extra=''}
 
 FigS21 <- readPNG(paste(my_path("F"),"S21.png",sep=""))
 grid.raster(FigS21)
@@ -53,14 +53,14 @@ grid.raster(FigS21)
 
 <!-- Explore environental differences withing GOMA -->
 
-```{r ocFigureS22, eval = T, echo = F, fig.cap = "Depth profile (A) and bottom water warming of the Gulf of Maine. Everything deeper than 1000 meters is colored in green. B) Percentage change of bottom temperature relative to the present showing more intense warming in northern regions, especially under a high emission climate change scenario."}
+```{r ocFigureS22, eval = T, echo = F, fig.cap = "Depth profile (A) and bottom water warming of the Gulf of Maine. Everything deeper than 1000 meters is colored in green. B) Percentage change of bottom temperature relative to the present showing more intense warming in northern regions, especially under a high emission climate change scenario.", fig.scap="Depth profile of the Gulf of Maine", out.extra=''}
 
 FigS22 <- readPNG(paste(my_path("F"),"S22.png",sep=""))
 grid.raster(FigS22)
 
 ```
 
-```{r ocFigureS23, eval = T, echo = F, fig.cap = "Changes in maximum catch potential of yellowtail flounder (*Limanda ferruginea*) within the study area by mid-century relative to present time. Results for the three global circulation models (GFDL, IPSL, MPIS) used in the current study and two climate change scenarios (Top: High emission – RCP 8.5, Bottom: Low Emission – RCP 2.6). Grid-cells marked in yellow represent discrete areas where average MCP is projected to increase by mid-century."}
+```{r ocFigureS23, eval = T, echo = F, fig.cap = "Changes in maximum catch potential of yellowtail flounder (*Limanda ferruginea*) within the study area by mid-century relative to present time. Results for the three global circulation models (GFDL, IPSL, MPIS) used in the current study and two climate change scenarios (Top: High emission – RCP 8.5, Bottom: Low Emission – RCP 2.6). Grid-cells marked in yellow represent discrete areas where average MCP is projected to increase by mid-century.", fig.scap="Changes in maximum catch potential of yellowtail flounder (*Limanda ferruginea*) within the study area by mid-century relative to present time.", out.extra=''}
 
 FigS23 <- readPNG(paste(my_path("F"),"S23.png",sep=""))
 grid.raster(FigS23)
@@ -68,7 +68,7 @@ grid.raster(FigS23)
 ```
 
 
-```{r ocFigureS24, eval = T, echo = F, fig.cap = "Projected MCP change relative to present (2005-2014) for each IPHC regulatory area. Colors represents the different ESM used in the study. Solid line represents a high emission scenario (RCP 8.5) and dashed line represents a low emission scenario (RCP 2.6)"}
+```{r ocFigureS24, eval = T, echo = F, fig.cap = "Projected MCP change relative to present (2005-2014) for each IPHC regulatory area. Colors represents the different ESM used in the study. Solid line represents a high emission scenario (RCP 8.5) and dashed line represents a low emission scenario (RCP 2.6)", fig.scap="Projected MCP change relative to present (2005-2014) for each IPHC regulatory area.", out.extra=''}
 
 FigS24 <- readPNG(paste(my_path("F"),"S24.png",sep=""))
 grid.raster(FigS24)

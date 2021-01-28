@@ -76,7 +76,7 @@ In 1982, the United Nations Law of the Sea Convention (UNCLOS) formalized the co
 
 <!-- ##### Climate Change and Transboundary Fisheries -->
 
-The ocean is getting warmer [@Rheim:2013fv], less oxygenated [@Schmidtko:2017cl], and increasing in acidity [@Ross:2011kd; @IPCC:2019tn]. To cope with these changes in ocean biophysical properties, marine species, including shared fish stocks, have been shifting their distribution towards the poles and/or deeper waters [@Poloczanska:2016kk]. As climate change reshapes the ocean's environment worldwide [@Gattuso:2015jz], shared fisheries' governance is threatened as new migration patterns may arise [@Miller:2013iv; @Pinsky:2018cb], historic distribution and abundances might shift [@Cheung:2010dt], and species basic natural traits may modify [@Pauly:2017hpa]. Catches of shared stocks like tunas, have significantly increased in some regions such as the subtropical Atlantic and western Pacific Oceans and are projected to continue [@MonllorHurtado:2017cm; @ErauskinExtramiana:2019fw]. Multiple shared species in North America have been observed to shift in distribution following changes in optimal conditions such as sockeye salmon (*Oncorhynchus nerka*) [@McDaniels:2010vn], Atlantic cod [@Pershing:2015gq], and flounders [@Pinsky:2012kq]. Moreover, these shifts are projected to continue towards the end of the $21^{st}$ century [@Cheung:2018hz]. As a result, some countries or management jurisdictions may see more shared fisheries and their catches shifting into their waters while others will stand to lose [@Oremus:2020id; @Pinsky:2018cb, Chapter 3]. Nevertheless, management rules for shared stocks (e.g., quota or spatial delimitation) are often determined based on current and/or historic knowledge of the stock's distribution and do not consider future shifts in distributions [@FredstonHermann:2018kp]. 
+The ocean is getting warmer [@Rheim:2013fv], less oxygenated [@Schmidtko:2017cl], and increasing in acidity [@Ross:2011kd; @IPCC:2019tn]. To cope with these changes in ocean biophysical properties, marine species, including shared fish stocks, have been shifting their distribution towards the poles and/or deeper waters [@Poloczanska:2016kk]. As climate change reshapes the ocean's environment worldwide [@Gattuso:2015jz], shared fisheries' governance is threatened as new migration patterns may arise [@Miller:2013iv; @Pinsky:2018cb], historic distribution and abundances might shift [@Cheung:2010dt], and species basic natural traits may modify [@Pauly:2017hpa]. Catches of shared stocks like tunas, have significantly increased in some regions such as the subtropical Atlantic and western Pacific Oceans and are projected to continue [@MonllorHurtado:2017cm; @ErauskinExtramiana:2019fw]. Multiple shared species in North America have been observed to shift in distribution following changes in optimal conditions such as sockeye salmon (*Oncorhynchus nerka*) [@McDaniels:2010vn; @Miller:2013iv; @Song:2017va], Atlantic cod [@Pershing:2015gq], and flounders [@Pinsky:2012kq]. Moreover, these shifts are projected to continue towards the end of the $21^{st}$ century [@Cheung:2018hz]. As a result, some countries or management jurisdictions may see more shared fisheries and their catches shifting into their waters while others will stand to lose [@Oremus:2020id; @Pinsky:2018cb, Chapter 3]. Nevertheless, management rules for shared stocks (e.g., quota or spatial delimitation) are often determined based on current and/or historic knowledge of the stock's distribution and do not consider future shifts in distributions [@FredstonHermann:2018kp]. 
 
 <!-- ##### Past Conflicts of shifting stocks -->
 
@@ -84,7 +84,7 @@ The shifts in distribution of shared fish stocks will impact the economics of th
 
 It is expected that climate induced shifts in stocks’ distribution will affect the rules in place that keep international treaties alive. Therefore, the main objective of this article is to assess the level of exposure that bi-lateral transboundary fisheries treaties between Canada and the US have to climate change through shifts in stock distributions. Specifically, I rely on a species distribution model and scenario planning to project the changes in the distribution of selected fish stocks jointly managed by Canada and the United States focusing on two case studies (the International Pacific Halibut Commission and a fisheries arrangement for the Gulf of Maine) Finally, I explore similar situations around the world and identify opportunities to improve the adaptability of transboundary stocks management to climate change in North America. Despite an overall expectation of species following a poleward shift, important geographic constraints (e.g., Gulf of Alaska representing a latitudinal block) [@Kleisner:2016je], geo-political features (e.g., the localization of Alaska in reference to Canada and the contiguous states), and management rules (e.g., quota allocations, spatial management rules) may play an important role in the redistribution of benefits. Understanding these stocks shifts will shed a light on future conditions and inform decision-makers on the paths to follow under a changing climate.
 
-## Materials and Methods
+## Materials and methods
 
 ### Study area and fisheries
 
@@ -1275,7 +1275,8 @@ ggsave(Name,
 ```
 
 
-```{r ocFigure2, eval = T, echo = F, fig.cap= "Percentage change of MCP for stocks managed by the IPHC for mid 21st century (2041-2060) relative to present 2005-2014 under a A) high emission scenario and B) low emission scenario. Labels marked with * represent regions where models do not agree in direction of change."}
+```{r ocFigure2, eval = T, echo = F, fig.cap= "Percentage change of MCP for stocks managed by the IPHC for mid 21st century (2041-2060) relative to present 2005-2014 under a A) high emission scenario and B) low emission scenario. Labels marked with * represent regions where models do not agree in direction of change.", fig.scap="Percentage change of MCP for stocks managed by the IPHC", out.extra=''}
+
 
 Fig2 <- readPNG(paste(my_path("F"),"Figure 2.png",sep=""))
 grid.raster(Fig2)
@@ -1439,7 +1440,7 @@ ggplot(data = subset(Proportion_Change, Time_Step == "Mid_Century_Prop"),
 
 ```
 
-```{r ocFigure3, eval = T, echo = F, fig.cap="Percentage change of stock-share ratio for IPHC under A) high emission scenario and B) low emission scenario for mid 21st century (2041-2060) relative to present 2005-2014. Values represent the mean of 3 ESM; error bars represent \u00B1 sd."}
+```{r ocFigure3, eval = T, echo = F, fig.cap="Percentage change of stock-share ratio for IPHC under A) high emission scenario and B) low emission scenario for mid 21st century (2041-2060) relative to present 2005-2014. Values represent the mean of 3 ESM; error bars represent \u00B1 sd.", fig.scap="Percentage change of stock-share ratio for IPHC", out.extra=''}
 
 Fig3 <- readPNG(paste(my_path("F"),"Figure 3.png",sep=""))
 grid.raster(Fig3)
@@ -1633,7 +1634,7 @@ ggsave(Name,
  
 ```
 
-```{r ocFigure4, eval = T, echo = F, fig.cap= "Percentage change of MCP in the Gulf of Maine under, A) high emission scenario; and B) low emission for mid-century (2041-2060) relative to present (2005-2014). Points represent regions where models do not agree in direction of change."}
+```{r ocFigure4, eval = T, echo = F, fig.cap= "Percentage change of MCP in the Gulf of Maine under, A) high emission scenario; and B) low emission for the mid 21st century (2041-2060) relative to present (2005-2014). Points represent regions where models do not agree in direction of change.", fig.scap="Percentage change of MCP in the Gulf of Maine", out.extra=''}
 
 Fig4 <- readPNG(paste(my_path("F"),"Figure 4.png",sep=""))
 grid.raster(Fig4)
@@ -1823,7 +1824,7 @@ ggplot(data = subset(Proportion_Change_GoM, Time_Step == "Mid_Century_Prop"),
 ```
 
 
-```{r ocFigure5, eval = T, echo = F, fig.cap="Changes in MCP stock-share ratio for Gulf of Maine under (A) high emission; and (B) low emission scenarios for mid 21st century (2041-2060) relative to present (2005-2014). Values represent the mean of 3 ESM; error bars represent \u00B1 sd."}
+```{r ocFigure5, eval = T, echo = F, fig.cap="Changes in MCP stock-share ratio for Gulf of Maine under (A) high emission; and (B) low emission scenarios for mid 21st century (2041-2060) relative to present (2005-2014). Values represent the mean of 3 ESM; error bars represent \u00B1 sd.", fig.scap="Changes in MCP stock-share ratio for Gulf of Maine", out.extra=''}
 
 Fig5 <- readPNG(paste(my_path("F"),"Figure 5.png",sep=""))
 grid.raster(Fig5)
@@ -1897,7 +1898,7 @@ Shifts in stocks distribution due to climate change have the potential of creati
 
 <!-- End of the century change  -->
 
-```{r FigureS11, eval = F, echo = F, fig.cap = "Percentage change of MCP for stocks managed by the IPHC for end-century (2081–2100) relative to 2005–2014 under a A) high emission scenario and B) low emission scenario. Labels marked with * represent regions where models do not agree in direction of change."}
+```{r FigureS11, eval = F, echo = F, fig.cap = "Percentage change of MCP for stocks managed by the IPHC for for the end of the 21st century (2081–2100) relative to 2005–2014 under a A) high emission scenario and B) low emission scenario. Labels marked with * represent regions where models do not agree in direction of change.", fig.scap="Percentage change of MCP for stocks managed by the IPHC for the end of the 21st century (2081–2100) relative to 2005–2014", out.extra=''}
 
 FigS11 <- readPNG(paste(my_path("F"),"S11.png",sep=""))
 grid.raster(FigS11)
