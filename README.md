@@ -1,18 +1,21 @@
 # Management of Transboundary Fish Stocks in North America Under Climate Change
 
-This repository is intended to support the project *Management of Transboundary Fish Stocks in North America Under Climate Change* to be published in the journal *Ecology and Society* as part of a special issue. The repository supports two papers:
+This repository supports two papers published in the journal *Ecology and Society* as part of the special issue [Canada and Transboundary Fisheries Management in Changing Oceans: Taking Stock, Future Scenarios
+](https://www.ecologyandsociety.org/issues/view.php?sf=128). The two supported papers are:
 
 - Challenges to transboundary fisheries management in North America under climate change
 
 **Authors**: Juliano Palacios-Abrantes<sup>1</sup>, U. Rashid Sumaila<sup>1</sup> and William W. L. Cheung<sup>1</sup>
 
-*Corresponding author: Juliano Palacios-Abrantes, j.palacios@oceans.ubc.ca
+*Corresponding author: Juliano Palacios-Abrantes, j.palacios@oceans.ubc.ca  
+[link to paper](https://www.ecologyandsociety.org/vol25/iss4/art41/)
 
 - Climate change, shifting threat points and the management of transboundary fish stocks
 
 **Authors**: U. Rashid Sumaila<sup>1</sup>, Juliano Palacios-Abrantes<sup>1</sup> and William W. L. Cheung<sup>1</sup>
 
-\*Corresponding author: U. Rashid Sumaila, r.sumaila@oceans.ubc.ca
+*Corresponding author: U. Rashid Sumaila, r.sumaila@oceans.ubc.ca  
+[link to paper](https://www.ecologyandsociety.org/vol25/iss4/art40/)
 
 1. Institute for the Oceans and Fisheries, University of British Columbia, Vancouver, Canada.
 
@@ -43,3 +46,5 @@ The Repository is divided according to the two manuscripts, Challenges to transb
 - **Tables**: Manuscript tables in csv format
 
 - **Data**: Shortcut to the data folder where all data is stored (*External*)
+
+*Note: This repository has been archieved as the papers have been published*
