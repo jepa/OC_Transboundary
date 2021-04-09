@@ -1,6 +1,6 @@
 # Management of Transboundary Fish Stocks in North America Under Climate Change
 
-This repository supports two papers published in the journal *Ecology and Society* as part of the special issue [Canada and Transboundary Fisheries Management in Changing Oceans: Taking Stock, Future Scenarios
+This repository supports two papers from the [Ocean Canada Partnership](https://oceancanada.org/) published in the journal *Ecology and Society* as part of the special issue [Canada and Transboundary Fisheries Management in Changing Oceans: Taking Stock, Future Scenarios
 ](https://www.ecologyandsociety.org/issues/view.php?sf=128). The two supported papers are:
 
 - Challenges to transboundary fisheries management in North America under climate change
